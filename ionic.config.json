@@ -1,0 +1,7 @@
+{
+  "name": "wtglj-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,145 @@
+page-login {
+  @mixin haslines($gutter:20px, $color:#d8d8d8, $minWidth:20px, $height:1px) {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    &:before,
+    &:after {
+      content: '';
+      flex-grow: 1;
+      background-color: $color;
+      display: inline-block;
+      vertical-align: middle;
+      height: $height;
+      min-width: $minWidth;
+      transform: scaleY(.5);
+      transform-origin: 0 0;
+    }
+    &:before {
+      margin-right: $gutter;
+    }
+    &:after {
+      margin-left: $gutter;
+    }
+  }
+  %bottom-line{
+    &:before {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 2;
+      content: "";
+      width: 100%;
+      height: 1px;
+      border-top: 1px solid #d8d8d8;
+      transform: scaleY(.5);
+      transform-origin: 0 0;
+    }
+  }
+  .page-bg{
+    background:#f1f2f6 url("../../assets/imgs/login_bg.jpg") no-repeat left top;
+    background-size: cover;
+  }
+  .content .scroll-content{
+    padding-bottom: 0 !important;
+  }
+  .g-login-main {
+    padding: 3rem 2rem 4.6rem;
+    .login-title {
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      margin-bottom: 2.6rem;
+    }
+    .login-box {
+      min-height: 22rem;
+      padding: 3.4rem 0 5rem;
+      .list-md{
+        margin-bottom: 4rem;
+      }
+      .item-input{
+        margin-bottom: 2rem;
+      }
+    }
+    .login-qr-code {
+      width: 16rem;
+      height: 16rem;
+      padding: 1rem;
+      margin: 0 auto;
+      box-sizing: content-box;
+      border: 1px solid #d8d8d8;
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+    .login-form {
+      .item-input {
+        //padding-bottom: 1rem;
+      }
+      .button {
+        width: 80%;
+        display: block;
+        margin: 0 auto;
+      }
+      .item-ios,
+      .item-md {
+        padding-left: 0;
+        background: transparent;
+      }
+      .label-ios{
+        margin-right: 0;
+      }
+      ion-icon{
+        color: #aaa;
+      }
+    }
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child,
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child{
+      border-bottom-color:#dedede;
+      box-shadow: none;
+    }
+    .list-ios .item-block .item-inner {
+      position: relative;
+      border-bottom: 0;
+      @extend %bottom-line;
+    }
+    .list-ios > .item-block:first-child {
+      border-top: 0;
+    }
+    .list-ios > .item-block:last-child,
+    .list-ios > .item-wrapper:last-child .item-block {
+      border-bottom: 0;
+    }
+    .item-md.item-input.item-input-has-focus .item-inner,
+    .item-md.item-input.input-has-focus .item-inner {
+      border-bottom-color: #dedede;
+      box-shadow: none;
+    }
+    .list-md .item-input.item-input-has-focus:last-child,
+    .list-md .item-input.input-has-focus:last-child {
+      border-bottom-color: #dedede;
+      box-shadow: none;
+    }
+  }
+  .other-login {
+    .o-login-title {
+      color: #999;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      @include haslines();
+    }
+  }
+  .o-login-type{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    .button{
+      font-size: 1.3rem;
+    }
+  }
+}

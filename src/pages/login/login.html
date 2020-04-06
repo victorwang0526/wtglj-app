@@ -1,0 +1,27 @@
+<ion-content no-bounce class="page-bg">
+  <div class="g-login-main">
+    <h2 class="login-title">欢迎来到考试系统</h2>
+    <!--账号密码登录-->
+    <div class="login-box login-form">
+      <ion-list>
+        <ion-item>
+          <ion-label><ion-icon name="person"></ion-icon></ion-label>
+          <ion-input [color]="'danger'" type="text" placeholder="用户名" [(ngModel)]="username" autofocus="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+          <ion-input type="password" placeholder="密码" [(ngModel)]="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button (click)="login()">登录</button>
+    </div>
+
+    <div class="other-login">
+      <div class="o-login-title">其他登录方式</div>
+      <div class="o-login-type">
+        <!--        <button ion-button clear>账号密码登录</button>-->
+        <button ion-button clear (click)="openQr()">扫码登录</button>
+      </div>
+    </div>
+  </div>
+</ion-content>
