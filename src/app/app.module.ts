@@ -33,7 +33,10 @@ import {AdvicePage} from "../pages/advice/advice";
     InterceptorModule,
     BrowserModule,
     IonicModule.forRoot(MyApp, {
-      backButtonText: '返回',
+      backButtonText: '',
+      iconMode: 'ios',
+      mode: 'ios',
+      pageTransition: 'ios-transition'
     }),
     IonicStorageModule.forRoot()
   ],
