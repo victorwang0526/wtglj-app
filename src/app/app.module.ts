@@ -32,7 +32,9 @@ import {AdvicePage} from "../pages/advice/advice";
     HttpClientModule,
     InterceptorModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: '返回',
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
