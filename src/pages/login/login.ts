@@ -22,25 +22,26 @@ export class LoginPage {
   }
 
   async login() {
-    if(!this.username || !this.password) {
-      this.alertCtrl.create({title: '请输入用户名密码'}).present({});
-      return;
-    }
-    const loading = await this.loadingController.create({});
-    await loading.present();
-    this.userService.login(this.username, this.password)
-      .subscribe((res) => {
-        if(!res.success) {
-          this.alertCtrl.create({title: res.errorMessage}).present({});
-          return;
-        }
-        this.storage.set('user', res.data);
-        this.navCtrl.setRoot(HomePage);
-      }, error => {
-        this.alertCtrl.create({message: JSON.stringify(error)}).present({});
-      }, () => {
-        loading.dismiss();
-      })
+    this.navCtrl.popToRoot();
+    // if(!this.username || !this.password) {
+    //   this.alertCtrl.create({title: '请输入用户名密码'}).present({});
+    //   return;
+    // }
+    // const loading = await this.loadingController.create({});
+    // await loading.present();
+    // this.userService.login(this.username, this.password)
+    //   .subscribe((res) => {
+    //     if(!res.success) {
+    //       this.alertCtrl.create({title: res.errorMessage}).present({});
+    //       return;
+    //     }
+    //     this.storage.set('user', res.data);
+    //     this.navCtrl.setRoot(HomePage);
+    //   }, error => {
+    //     this.alertCtrl.create({message: JSON.stringify(error)}).present({});
+    //   }, () => {
+    //     loading.dismiss();
+    //   })
   }
 
   openQr() {
