@@ -13,12 +13,20 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
+import {InspectTaskCheckPage} from "../pages/inspect-task-check/inspect-task-check";
+import {InspectTaskCheckDetailPage} from "../pages/inspect-task-check-detail/inspect-task-check-detail";
+import {InspectTaskCheckGroupPage} from "../pages/inspect-task-check-group/inspect-task-check-group";
+import {AdvicePage} from "../pages/advice/advice";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
+    InspectTaskCheckPage,
+    InspectTaskCheckDetailPage,
+    InspectTaskCheckGroupPage,
+    AdvicePage,
   ],
   imports: [
     HttpClientModule,
@@ -32,6 +40,10 @@ import {BarcodeScanner} from "@ionic-native/barcode-scanner";
     MyApp,
     HomePage,
     LoginPage,
+    InspectTaskCheckPage,
+    InspectTaskCheckDetailPage,
+    InspectTaskCheckGroupPage,
+    AdvicePage,
   ],
   providers: [
     JPush,

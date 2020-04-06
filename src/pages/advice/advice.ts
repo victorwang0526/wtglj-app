@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-inspect-task-check',
-  templateUrl: 'inspect-task-check.html',
+  selector: 'page-advice',
+  templateUrl: 'advice.html',
 })
-export class InspectTaskCheckPage {
+export class AdvicePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InspectTaskCheckPage');
+    console.log('ionViewDidLoad AdvicePage');
   }
 
 }

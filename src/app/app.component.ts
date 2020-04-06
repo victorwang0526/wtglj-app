@@ -10,20 +10,20 @@ import {LoginPage} from "../pages/login/login";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = null;
+  rootPage:any = HomePage;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private storage: Storage) {
     // Or to get a key/value pair
-    storage.get('user').then((val) => {
-      if(!val) {
-        this.rootPage = LoginPage;
-      }else {
-        this.rootPage = HomePage;
-      }
-    });
+    // storage.get('user').then((val) => {
+    //   if(!val) {
+    //     this.rootPage = LoginPage;
+    //   }else {
+    //     this.rootPage = HomePage;
+    //   }
+    // });
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

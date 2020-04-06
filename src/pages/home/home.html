@@ -7,8 +7,11 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v3">docs</a> will be your guide.
-  </p>
+  <button ion-button color="primary" (click)="openLogin()">登录</button>
+  <button ion-button color="primary" (click)="openInspectCheckGroup()">检查任务</button>
+  <button ion-button color="primary" (click)="openInspectCheck()">一月检查任务</button>
+  <button ion-button color="primary" (click)="openInspectCheckDetail()">检查清单</button>
+  <button ion-button color="danger" (click)="openSelfCheckGroup()">企业自查</button>
+  <button ion-button color="danger" (click)="openExam()">考试</button>
+  <button ion-button color="primary" (click)="openAdvice()">意见反馈</button>
 </ion-content>
