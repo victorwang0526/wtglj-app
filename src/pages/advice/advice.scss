@@ -1,3 +1,66 @@
 page-advice {
+  .g-flex-advice{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+  .advice-box{
+    padding: 1rem;
+    flex: 1;
+    &-inner{
+      padding: 1.5rem;
+      background: #FFFEFF;
+      border-radius: .5rem;
+    }
+    textarea{
+      display: block;
+      width: 100%;
+      min-height: 12rem;
+      color: #333;
+      font-size: 1.2rem;
+      resize: none;
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  ::-webkit-input-placeholder{
+    color: #999;
+    font-size: 1.2rem;
+  }
 
+  :-moz-placeholder {
+    color: #999;
+    font-size: 1.2rem;
+  }
+
+  ::-moz-placeholder{
+    color: #999;
+    font-size: 1.2rem;
+  }
+
+  :-ms-input-placeholder {
+    color: #999;
+    font-size: 1.2rem;
+  }
+  .advice-title{
+    color: #333;
+    font-size: 1.6rem;
+    font-weight: normal;
+  }
+  .advice-button{
+    width: 100%;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    color: #fff;
+    font-size: 1.8rem;
+    text-align: center;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    display: block;
+    background: #137FFE;
+  }
 }

@@ -1,3 +1,40 @@
 page-inspect-task-check-group {
-
+  .check-group{
+    padding: 1rem;
+  }
+  .c-group-row{
+    width: 100%;
+    min-height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    border-radius: .5rem;
+  }
+  .c-group-tit{
+    font-size: 1.6rem;
+    font-weight: normal;
+  }
+  .c-group-count{
+    color: #666;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .u-arrow-right{
+    position: relative;
+    top: -.1rem;
+    width: .9rem;
+    height: .9rem;
+    color: #999;
+    margin-left: .5rem;
+    background: transparent;
+    display: inline-block;
+    vertical-align: middle;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    transform: rotate(-225deg);
+  }
 }
