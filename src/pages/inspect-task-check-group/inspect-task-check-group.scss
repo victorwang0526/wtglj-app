@@ -1,7 +1,7 @@
 page-inspect-task-check-group {
   .check-group{
-    padding: 1rem;
-  }
+     padding: 1rem;
+   }
   .c-group-row{
     width: 100%;
     min-height: 6rem;
@@ -26,6 +26,7 @@ page-inspect-task-check-group {
   .u-arrow-right{
     position: relative;
     top: -.1rem;
+    margin-right: .2rem;
     width: .9rem;
     height: .9rem;
     color: #999;

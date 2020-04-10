@@ -10,6 +10,226 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  APP-检查清单
+<ion-content class="bg-grey">
+  <div class="g-flex-main">
+    <div class="check-detail-hd">旅游景区安全生产隐患排查表</div>
+    <div class="check-form g-flex-box">
+      <div class="c-form-box">
+        <h4 class="c-form-title"><span>安全风险提示</span></h4>
+        <section class="c-form-inner">
+          <div class="c-form-tit">1.旅游安全信息提示</div>
+          <div class="c-form-inform">
+            <dl class="c-form-choose">
+              <dd class="choose-desc">
+                <div class="c-desc-txt">是</div>
+                <i class="is-radio-icon"></i>
+              </dd>
+              <dd class="choose-desc">
+                <div class="c-desc-txt">否</div>
+                <i class="is-radio-icon active"></i>
+              </dd>
+            </dl>
+            <div class="c-form-remark">
+              <div class="remark-info">
+                <span class="c-label">备注：</span>
+                <div class="remark-txt">没有张贴提示</div>
+              </div>
+              <button class="photo-btn" ion-button color="primary" outline>
+                <ion-icon slot="start" name="camera"></ion-icon>
+                拍照
+              </button>
+            </div>
+            <div class="upload-pic">
+              <div class="pic-col">
+                <i class="del-icon"></i>
+                <img src="../../assets/imgs/1.jpg" alt=""/>
+              </div>
+              <div class="pic-col">
+                <i class="del-icon"></i>
+                <img src="../../assets/imgs/1.jpg" alt=""/>
+              </div>
+              <button ion-button outline class="add-pic-btn">
+                <ion-icon slot="icon-only" name="add"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </section>
+        <section class="c-form-inner">
+          <div class="c-form-tit">2.文明旅游宣传提示</div>
+          <div class="c-form-inform">
+            <dl class="c-form-choose">
+              <dd class="choose-desc">
+                <div class="c-desc-txt">是</div>
+                <i class="is-radio-icon"></i>
+              </dd>
+              <dd class="choose-desc">
+                <div class="c-desc-txt">否</div>
+                <i class="is-radio-icon active"></i>
+              </dd>
+            </dl>
+            <div class="c-form-remark">
+              <div class="remark-info">
+                <span class="c-label">备注：</span>
+                <div class="remark-txt">
+                  <input type="text" placeholder="请填写备注信息"/>
+                </div>
+              </div>
+              <button class="photo-btn" ion-button color="primary" outline>
+                <ion-icon slot="start" name="camera"></ion-icon>
+                拍照
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="c-form-box">
+        <h4 class="c-form-title"><span>安全培训教育</span></h4>
+        <section class="c-form-inner">
+          <div class="c-form-tit">1.安全教育和培训计划</div>
+          <div class="c-form-inform">
+            <dl class="c-form-choose">
+              <dd class="choose-desc">
+                <div class="c-desc-txt">应急处理职责分工</div>
+                <ion-checkbox mode="md"></ion-checkbox>
+              </dd>
+              <dd class="choose-desc">
+                <div class="c-desc-txt">处置程序</div>
+                <ion-checkbox mode="md"></ion-checkbox>
+              </dd>
+              <dd class="choose-desc">
+                <div class="c-desc-txt">善后工作</div>
+                <ion-checkbox mode="md"></ion-checkbox>
+              </dd>
+            </dl>
+            <div class="c-form-remark">
+              <div class="remark-info">
+                <span class="c-label">备注：</span>
+                <div class="remark-txt">没有张贴提示</div>
+              </div>
+              <button class="photo-btn" ion-button color="primary" outline>
+                <ion-icon slot="start" name="camera"></ion-icon>
+                拍照
+              </button>
+            </div>
+            <div class="upload-pic">
+              <div class="pic-col">
+                <i class="del-icon"></i>
+                <img src="../../assets/imgs/1.jpg" alt=""/>
+              </div>
+              <div class="pic-col">
+                <i class="del-icon"></i>
+                <img src="../../assets/imgs/1.jpg" alt=""/>
+              </div>
+              <button ion-button outline class="add-pic-btn">
+                <ion-icon slot="icon-only" name="add"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="c-form-box">
+        <h4 class="c-form-title"><span>隐患等级</span></h4>
+        <section class="c-form-inner has-fold">
+<!--          展开 +active-->
+          <div class="c-form-list active">
+            <div class="list-item item-hd">
+              <span class="item-label">等级</span>
+              <div class="item-info">
+                <div class="item-txt c-grey-9">请选择</div>
+                <i class="u-arrow-right"></i>
+              </div>
+            </div>
+            <div class="list-item-box fold-box">
+              <div class="list-item">
+                <span class="item-label">隐患内容</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <input type="text" placeholder="请输入隐患内容"/>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">整改措施</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <input type="text" placeholder="请输入整改措施"/>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">整改时限</span>
+                <div class="item-info">
+                  <div class="item-txt c-grey-9">请选择时间</div>
+                  <i class="u-arrow-right"></i>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">备注</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <textarea class="item-textarea" placeholder="请填写备注信息"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="c-form-box">
+        <section class="c-form-inner has-fold">
+          <!--        展开 +active-->
+          <div class="c-form-list ">
+            <div class="list-item item-hd">
+              <span class="item-label">整治意见</span>
+              <div class="item-info">
+                <i class="u-arrow-down"></i>
+              </div>
+            </div>
+            <div class="list-item-box fold-box">
+              <div class="list-item">
+                <span class="item-label">意见</span>
+                <div class="item-info">
+                  <div class="item-txt c-grey-9">请选择</div>
+                  <i class="u-arrow-right"></i>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">实施部门</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <input type="text" placeholder="请输入实施部门"/>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">具体事由</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <input type="text" placeholder="请输入具体事由"/>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">时间</span>
+                <div class="item-info">
+                  <div class="item-txt c-grey-9">请选择时间</div>
+                  <i class="u-arrow-right"></i>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">备注</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <textarea class="item-textarea" placeholder="请填写备注信息"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <button class="submit-button">提交</button>
+  </div>
+
 </ion-content>
