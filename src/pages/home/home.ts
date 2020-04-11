@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {InspectTaskCheckGroupPage} from "../inspect-task-check-group/inspect-task-check-group";
 import {LoginPage} from "../login/login";
-import {InspectTaskCheckDetailPage} from "../inspect-task-check-detail/inspect-task-check-detail";
-import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 import {AdvicePage} from "../advice/advice";
 import {Storage} from "@ionic/storage";
 import {UserVo} from "../../models/user-vo";
+import {TaskProvider} from "../../providers/task-provider";
 
 @Component({
   selector: 'page-home',
@@ -16,11 +15,19 @@ export class HomePage {
 
   user: UserVo = null;
 
+  taskUnfinishedCnt1: number = 0; // 检查
+  taskUnfinishedCnt2: number = 0; // 自检
+
   constructor(public navCtrl: NavController,
-              private storage: Storage,) {
+              private storage: Storage,
+              public taskProvider: TaskProvider) {
     this.storage.get('user').then(u => {
       this.user = u;
     });
+  }
+
+  ionViewDidEnter() {
+    this.getTaskUnfinishedCnt();
   }
 
   logout() {
@@ -29,20 +36,21 @@ export class HomePage {
     this.navCtrl.setRoot(LoginPage, {});
   }
 
-  openLogin() {
-    this.navCtrl.push(LoginPage, {});
+  getTaskUnfinishedCnt() {
+    this.taskProvider.getTaskUnfinishCnt().subscribe((res: any) => {
+      const cnts = res.data;
+      for(let i = 0; i < cnts.length; i++) {
+        if(cnts[i].inspectType == 1) {
+          this.taskUnfinishedCnt1 = cnts[i].count;
+        }else if(cnts[i].inspectType == 2) {
+          this.taskUnfinishedCnt2 = cnts[i].count;
+        }
+      }
+    });
   }
 
   openInspectCheckGroup() {
     this.navCtrl.push(InspectTaskCheckGroupPage, {});
-  }
-
-  openInspectCheck() {
-    this.navCtrl.push(InspectTaskCheckPage, {});
-  }
-
-  openInspectCheckDetail() {
-    this.navCtrl.push(InspectTaskCheckDetailPage, {});
   }
 
   openSelfCheckGroup() {

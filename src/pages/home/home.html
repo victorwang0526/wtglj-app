@@ -31,7 +31,7 @@
         <dd class="enter-col">
           <button class="enter-btn" (click)="openInspectCheckGroup()">
             <i class="enter-icon task-icon">
-              <ion-badge color="danger">66</ion-badge>
+              <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>
             </i>
             <div class="enter-tit">检查任务</div>
           </button>
@@ -39,7 +39,7 @@
         <dd class="enter-col">
           <button class="enter-btn" (click)="openSelfCheckGroup()">
             <i class="enter-icon self-icon">
-              <ion-badge color="danger">6</ion-badge>
+              <ion-badge color="danger" *ngIf="taskUnfinishedCnt2 > 0">{{taskUnfinishedCnt2}}</ion-badge>
             </i>
             <div class="enter-tit">企业自检</div>
           </button>
