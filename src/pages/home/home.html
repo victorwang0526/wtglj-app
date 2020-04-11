@@ -11,19 +11,19 @@
     <div class="home-head">
       <div class="home-card">
         <div class="home-card-inner">
-          <button class="exit-btn">退出</button>
+          <button class="exit-btn" (click)="logout()">退出</button>
           <div class="user-name">
-            <b>卢静</b>
+            <b>{{ user?.realName}}</b>
             <span class="name-line">/</span>
-            <span class="name-english">lujing</span>
+            <span class="name-english">{{ user?.username}}</span>
           </div>
           <dl class="card-column">
-            <dd class="card-col">单位：法制安全科</dd>
-            <dd class="card-col">职务：科长</dd>
-            <dd class="card-col">管辖区域：开发区 </dd>
-            <dd class="card-col">管辖行业：网吧</dd>
-            <dd class="card-col">角色：领导督察</dd>
-            <dd class="card-col">手机：12307856084</dd>
+            <dd class="card-col">单位：{{ user?.dept}}</dd>
+            <dd class="card-col">职务：{{ user?.duty}}</dd>
+            <dd class="card-col">管辖区域：{{ user?.areas}} </dd>
+            <dd class="card-col">管辖行业：{{ user?.industries}}</dd>
+<!--            <dd class="card-col">角色：{{ user?.}}</dd>-->
+            <dd class="card-col">手机：{{ user?.mobile}}</dd>
           </dl>
         </div>
       </div>
@@ -63,7 +63,4 @@
       </dl>
     </div>
   </div>
-  <button ion-button color="primary" (click)="openLogin()">登录</button>
-  <button ion-button color="primary" (click)="openInspectCheck()">一月检查任务</button>
-  <button ion-button color="primary" (click)="openInspectCheckDetail()">检查清单</button>
 </ion-content>

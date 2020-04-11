@@ -34,13 +34,20 @@ export class LoginPage {
           this.alertCtrl.create({title: res.msg}).present({});
           return;
         }
-        this.storage.set('user', res.data);
-        this.navCtrl.setRoot(HomePage);
+        localStorage.setItem('token', res.data.token);
+        this.getUserInfo();
       }, error => {
-        this.alertCtrl.create({message: JSON.stringify(error)}).present({});
+        this.alertCtrl.create({message: '登录异常，请稍后再试.'}).present({});
       }, () => {
         loading.dismiss();
       })
+  }
+
+  getUserInfo() {
+    this.userService.getUserInfo().subscribe((res: any) => {
+      this.storage.set('user', res.data);
+      this.navCtrl.setRoot(HomePage);
+    });
   }
 
   openQr() {

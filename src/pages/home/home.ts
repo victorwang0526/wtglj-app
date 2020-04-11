@@ -5,6 +5,8 @@ import {LoginPage} from "../login/login";
 import {InspectTaskCheckDetailPage} from "../inspect-task-check-detail/inspect-task-check-detail";
 import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 import {AdvicePage} from "../advice/advice";
+import {Storage} from "@ionic/storage";
+import {UserVo} from "../../models/user-vo";
 
 @Component({
   selector: 'page-home',
@@ -12,8 +14,19 @@ import {AdvicePage} from "../advice/advice";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  user: UserVo = null;
 
+  constructor(public navCtrl: NavController,
+              private storage: Storage,) {
+    this.storage.get('user').then(u => {
+      this.user = u;
+    });
+  }
+
+  logout() {
+    this.storage.clear();
+    localStorage.clear();
+    this.navCtrl.setRoot(LoginPage, {});
   }
 
   openLogin() {

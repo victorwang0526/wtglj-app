@@ -1,13 +1,11 @@
 export class UserVo {
-  ID: number;
-  name: string;
-  loginName: string;
-  loginPsw: string;
-  sort: string;
-  isValid: number;
-  createdOn: Date;
-  updatedOn: Date;
-  deviceId: string;
-  company: string;
-  employeeId: number;
+  id: string;
+  realName: string;
+  username: string;
+  mobile: string;
+  dept: string;
+  duty: string;
+  industries: string;
+  areas: string;
+  status: number;
 }

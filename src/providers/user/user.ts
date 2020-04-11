@@ -14,4 +14,8 @@ export class UserProvider {
       username, password
     });
   }
+
+  getUserInfo() {
+    return this.http.get('/sys/user/info');
+  }
 }
