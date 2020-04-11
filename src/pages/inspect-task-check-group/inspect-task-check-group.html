@@ -10,7 +10,8 @@
   </div>
 
   <dl class="check-group">
-    <dd class="c-group-row" *ngFor="let group of groups">
+    <dd class="c-group-row" *ngFor="let group of groups"
+        (click)="openTaskChecks(group)">
       <h4 class="c-group-tit">{{ group.inspectTitle + ' ' + group.groupTitle }}</h4>
       <div class="c-group-count">
         ({{group.finished}}/{{group.total}})

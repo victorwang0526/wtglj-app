@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {TaskProvider} from "../../providers/task-provider";
 import {TaskGroupVo} from "../../models/task-group-vo";
+import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 
 @Component({
   selector: 'page-inspect-task-check-group',
@@ -28,6 +29,10 @@ export class InspectTaskCheckGroupPage {
       () => {
       this.loading = false;
       });
+  }
+
+  openTaskChecks(group) {
+    this.navCtrl.push(InspectTaskCheckPage, {group});
   }
 
   ionViewDidLoad() {

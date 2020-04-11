@@ -38,6 +38,9 @@ export class HomePage {
 
   getTaskUnfinishedCnt() {
     this.taskProvider.getTaskUnfinishCnt().subscribe((res: any) => {
+      if(res.code != 0) {
+        return;
+      }
       const cnts = res.data;
       for(let i = 0; i < cnts.length; i++) {
         if(cnts[i].inspectType == 1) {

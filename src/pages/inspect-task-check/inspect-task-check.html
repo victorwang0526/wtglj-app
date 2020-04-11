@@ -1,52 +1,23 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>一月检查任务(100/100)</ion-title>
+    <ion-title>{{ group.inspectTitle + ' ' + group.groupTitle }}({{group.finished}}/{{group.total}})</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="bg-grey">
+
+  <div  style="text-align: center">
+    <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
+  </div>
+
   <dl class="check-group">
-    <dd class="c-group-row">
+    <dd class="c-group-row" *ngFor="let task of tasks">
       <div class="c-group-info">
-        <h4 class="c-group-tit">昆山宾馆</h4>
-        <div class="check-time">检查日期：2020-02-02</div>
+        <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
+        <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate}}</div>
       </div>
       <div class="c-group-count">
-        <i class="is-check-icon checked"></i>
-      </div>
-    </dd>
-    <dd class="c-group-row">
-      <div class="c-group-info">
-        <h4 class="c-group-tit">昆山市卡西欧网鱼网咖</h4>
-      </div>
-      <div class="c-group-count">
-        <i class="is-check-icon"></i>
-      </div>
-    </dd>
-    <dd class="c-group-row">
-      <div class="c-group-info">
-        <h4 class="c-group-tit">昆山市卡西欧网鱼网咖</h4>
-      </div>
-      <div class="c-group-count">
-        <i class="is-check-icon"></i>
-      </div>
-    </dd>
-    <dd class="c-group-row">
-      <div class="c-group-info">
-        <h4 class="c-group-tit">昆山宾馆</h4>
-        <div class="check-time">检查日期：2020-02-02</div>
-      </div>
-      <div class="c-group-count">
-        <i class="is-check-icon checked"></i>
-      </div>
-    </dd>
-    <dd class="c-group-row">
-      <div class="c-group-info">
-        <h4 class="c-group-tit">昆山宾馆</h4>
-        <div class="check-time">检查日期：2020-02-02</div>
-      </div>
-      <div class="c-group-count">
-        <i class="is-check-icon checked"></i>
+        <i class="is-check-icon" [class.checked]="task.operateDate != null"></i>
       </div>
     </dd>
   </dl>
