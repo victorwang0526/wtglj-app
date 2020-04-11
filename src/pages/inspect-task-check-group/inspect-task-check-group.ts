@@ -11,16 +11,18 @@ export class InspectTaskCheckGroupPage {
 
   groups: Array<TaskGroupVo>;
   loading: boolean = false;
+  inspectType: number = 1;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public taskProvider: TaskProvider) {
+    this.inspectType = navParams.get('inspectType');
     this.getTaskGroups();
   }
 
   getTaskGroups() {
     this.loading = true;
-    this.taskProvider.getTaskGroup().subscribe((res: any) => {
+    this.taskProvider.getTaskGroup(this.inspectType).subscribe((res: any) => {
       this.groups = res.data;
     }, () => {},
       () => {

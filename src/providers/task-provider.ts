@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {TaskGroupVo} from "../models/task-group-vo";
 
 @Injectable()
 export class TaskProvider {
@@ -10,8 +9,8 @@ export class TaskProvider {
     console.log('Hello TaskProvider Provider');
   }
 
-  getTaskGroup(): Observable<any> {
-    return this.http.get('/sys/sysinspecttaskcheck/group');
+  getTaskGroup(inspectType: number): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/group?inspectType=${inspectType}`);
   }
 
   getTaskUnfinishCnt(): Observable<any> {
