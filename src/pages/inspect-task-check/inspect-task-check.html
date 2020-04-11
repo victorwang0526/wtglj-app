@@ -11,7 +11,8 @@
   </div>
 
   <dl class="check-group">
-    <dd class="c-group-row" *ngFor="let task of tasks">
+    <dd class="c-group-row"
+        *ngFor="let task of tasks" (click)="openInspectDetail(task)">
       <div class="c-group-info">
         <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
         <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate}}</div>

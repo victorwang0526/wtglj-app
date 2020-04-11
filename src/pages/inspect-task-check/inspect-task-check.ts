@@ -4,6 +4,7 @@ import {TaskGroupVo} from "../../models/task-group-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {Storage} from "@ionic/storage";
 import {TaskCheckVo} from "../../models/task-check-vo";
+import {InspectTaskCheckDetailPage} from "../inspect-task-check-detail/inspect-task-check-detail";
 
 @Component({
   selector: 'page-inspect-task-check',
@@ -32,6 +33,10 @@ export class InspectTaskCheckPage {
       () => {
       this.loading = false;
       });
+  }
+
+  openInspectDetail(task) {
+    this.navCtrl.push(InspectTaskCheckDetailPage, {task});
   }
 
   ionViewDidLoad() {
