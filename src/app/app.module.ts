@@ -7,7 +7,7 @@ import { JPush } from '@jiguang-ionic/jpush/ngx';
 import {IonicStorageModule} from "@ionic/storage";
 import {HttpClientModule} from "@angular/common/http";
 import {InterceptorModule} from "../providers/interceptor.module";
-import { UserProvider } from '../providers/user/user';
+import { UserProvider } from '../providers/user-provider';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -17,6 +17,7 @@ import {InspectTaskCheckPage} from "../pages/inspect-task-check/inspect-task-che
 import {InspectTaskCheckDetailPage} from "../pages/inspect-task-check-detail/inspect-task-check-detail";
 import {InspectTaskCheckGroupPage} from "../pages/inspect-task-check-group/inspect-task-check-group";
 import {AdvicePage} from "../pages/advice/advice";
+import {TaskProvider} from "../providers/task-provider";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {AdvicePage} from "../pages/advice/advice";
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
+    TaskProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

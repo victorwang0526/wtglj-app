@@ -15,7 +15,7 @@ export class UserProvider {
     });
   }
 
-  getUserInfo() {
+  getUserInfo(): Observable<any> {
     return this.http.get('/sys/user/info');
   }
 }
