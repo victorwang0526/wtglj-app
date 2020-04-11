@@ -6,12 +6,12 @@
     </div>
     <div class="login-form">
       <div class="login-row">
-        <input type="text" placeholder="输入用户名" />
+        <input type="text" placeholder="输入用户名" [(ngModel)]="username"/>
       </div>
       <div class="login-row">
-        <input type="text" placeholder="输入密码" />
+        <input type="password" placeholder="输入密码" [(ngModel)]="password"/>
       </div>
     </div>
-    <button class="login-button">登录</button>
+    <button class="login-button" (click)="login()">登录</button>
   </div>
 </ion-content>

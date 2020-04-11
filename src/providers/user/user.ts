@@ -10,7 +10,8 @@ export class UserProvider {
   }
 
   login(username, password): Observable<any> {
-    let data = `loginName=${username}&loginPsw=${password}`;
-    return this.http.post('http://116.62.120.169/api/login', data);
+    return this.http.post('/login', {
+      username, password
+    });
   }
 }
