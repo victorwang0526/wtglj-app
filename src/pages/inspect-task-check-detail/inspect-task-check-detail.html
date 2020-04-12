@@ -19,38 +19,70 @@
     <div class="check-form g-flex-box" *ngIf="inspect">
       <div class="c-form-box" *ngFor="let item of inspect.items">
         <h4 class="c-form-title"><span>{{item.title}}</span></h4>
-        <section class="c-form-inner" *ngFor="let subItem of item.subItems; let i = index">
-          <div class="c-form-tit">{{i+1}}.{{subItem.title}}</div>
-          <div class="c-form-inform">
-            <!-- 是，否 -->
-            <dl class="c-form-choose" *ngIf="subItem.items == '是，否'">
-              <dd class="choose-desc" *ngFor="let c of subItem.items.split('，')">
-                <div class="c-desc-txt">{{c}}</div>
-                <ion-checkbox mode="md" [checked]="subItem.checked == c"
-                              (click)="checkItem(subItem, c)"></ion-checkbox>
-              </dd>
-            </dl>
-            <!-- 【xxx（1，2，3）】【yyy（1，2，3）】-->
-            <ng-container *ngIf="subItem.items && subItem.items != '' && subItem.items != '是，否'">
-              <dl class="c-form-choose">
-                <ng-container *ngFor="let c of getItems(subItem.items)">
-                  <dd class="choose-desc" >
-                    <div class="c-desc-txt" style="font-weight: bold;">{{c.title}}</div>
-                  </dd>
-                  <dd class="choose-desc" *ngFor="let d of c.items">
-                    <div class="c-desc-txt">{{d}}</div>
-                    <ion-checkbox mode="md"
-                                  [checked]="isChecked(subItem, c.title + '-' + d)"
-                                  (click)="checkItemM(subItem, c.title + '-' + d)"></ion-checkbox>
-                  </dd>
-                </ng-container>
+        <!-- 选项 -->
+        <ng-container *ngIf="item.title != '其他内容'">
+          <section class="c-form-inner" *ngFor="let subItem of item.subItems; let i = index">
+            <div class="c-form-tit">{{i+1}}.{{subItem.title}}</div>
+            <div class="c-form-inform">
+              <!-- 是，否 -->
+              <dl class="c-form-choose" *ngIf="subItem.items == '是，否'">
+                <dd class="choose-desc" *ngFor="let c of subItem.items.split('，')">
+                  <div class="c-desc-txt">{{c}}</div>
+                  <ion-checkbox mode="md" [checked]="subItem.checked == c"
+                                (click)="checkItem(subItem, c)"></ion-checkbox>
+                </dd>
               </dl>
-            </ng-container>
-            <!-- 其他 -->
+              <!-- 【xxx（1，2，3）】【yyy（1，2，3）】-->
+              <ng-container *ngIf="subItem.items && subItem.items != '' && subItem.items != '是，否'">
+                <dl class="c-form-choose">
+                  <ng-container *ngFor="let c of getItems(subItem.items)">
+                    <dd class="choose-desc" >
+                      <div class="c-desc-txt" style="font-weight: bold;">{{c.title}}</div>
+                    </dd>
+                    <dd class="choose-desc" *ngFor="let d of c.items">
+                      <div class="c-desc-txt">{{d}}</div>
+                      <ion-checkbox mode="md"
+                                    [checked]="isChecked(subItem, c.title + '-' + d)"
+                                    (click)="checkItemM(subItem, c.title + '-' + d)"></ion-checkbox>
+                    </dd>
+                  </ng-container>
+                </dl>
+              </ng-container>
+              <!-- 其他 -->
+
+              <div class="c-form-remark">
+                <div class="remark-info">
+                  <span class="c-label">备注：</span>
+                  <div class="remark-txt">没有张贴提示</div>
+                </div>
+                <button class="photo-btn" ion-button color="primary" outline>
+                  <ion-icon slot="start" name="camera"></ion-icon>
+                  拍照
+                </button>
+              </div>
+              <div class="upload-pic">
+                <div class="pic-col">
+                  <i class="del-icon"></i>
+                  <img src="../../assets/imgs/1.jpg" alt=""/>
+                </div>
+                <div class="pic-col">
+                  <i class="del-icon"></i>
+                  <img src="../../assets/imgs/1.jpg" alt=""/>
+                </div>
+                <button ion-button outline class="add-pic-btn">
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </button>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+        <section class="c-form-inner" *ngIf="item.title == '其他内容'">
+          <div class="c-form-tit">请填写其他内容</div>
+          <div class="c-form-inform">
             <div class="c-form-remark">
               <div class="remark-info">
                 <span class="c-label">备注：</span>
-                <div class="remark-txt">没有张贴提示</div>
+                <div class="remark-txt"><input type="text" placeholder="请输入其他内容"/></div>
               </div>
               <button class="photo-btn" ion-button color="primary" outline>
                 <ion-icon slot="start" name="camera"></ion-icon>
