@@ -32,7 +32,7 @@ export class InspectTaskCheckDetailPage {
   getItems(items: string) {
     let titems = [];
     // [xxxx(1,2,3)][yyyy(1,3,5)]
-    let x = items.split('】')
+    let x = items.split('】');
     // [xxxx(1,2,3)
     // [yyyy(1,3,5)
     for(let i = 0; i < x.length; i++) {
@@ -52,6 +52,7 @@ export class InspectTaskCheckDetailPage {
 
   checkItem(subItem: InspectSubItemVo, checkedValue: any) {
     subItem.checked = checkedValue;
+    console.log(JSON.stringify(subItem));
   }
 
   checkItemM(subItem: InspectSubItemVo, checkedValue: any) {
@@ -63,6 +64,7 @@ export class InspectTaskCheckDetailPage {
     }else {
       subItem.checked = subItem.checked + checkedValue + ',';
     }
+    console.log(JSON.stringify(subItem));
   }
 
   isChecked(subItem: InspectSubItemVo, currentValue: any): boolean {

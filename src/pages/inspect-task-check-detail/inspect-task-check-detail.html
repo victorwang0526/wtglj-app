@@ -53,14 +53,16 @@
               <div class="c-form-remark">
                 <div class="remark-info">
                   <span class="c-label">备注：</span>
-                  <div class="remark-txt">没有张贴提示</div>
+                  <div class="remark-txt">
+                    <input type="text" placeholder="请输入备注" [(ngModel)]="subItem.remark"/>
+                  </div>
                 </div>
                 <button class="photo-btn" ion-button color="primary" outline>
                   <ion-icon slot="start" name="camera"></ion-icon>
                   拍照
                 </button>
               </div>
-              <div class="upload-pic">
+              <div class="upload-pic" *ngIf="subItem.imageUrls">
                 <div class="pic-col">
                   <i class="del-icon"></i>
                   <img src="../../assets/imgs/1.jpg" alt=""/>
@@ -82,14 +84,16 @@
             <div class="c-form-remark">
               <div class="remark-info">
                 <span class="c-label">备注：</span>
-                <div class="remark-txt"><input type="text" placeholder="请输入其他内容"/></div>
+                <div class="remark-txt">
+                  <input type="text" placeholder="请输入其他内容" [(ngModel)]="item.subItems[0].remark"/>
+                </div>
               </div>
               <button class="photo-btn" ion-button color="primary" outline>
                 <ion-icon slot="start" name="camera"></ion-icon>
                 拍照
               </button>
             </div>
-            <div class="upload-pic">
+            <div class="upload-pic" *ngIf="item.subItems[0].imageUrls">
               <div class="pic-col">
                 <i class="del-icon"></i>
                 <img src="../../assets/imgs/1.jpg" alt=""/>
