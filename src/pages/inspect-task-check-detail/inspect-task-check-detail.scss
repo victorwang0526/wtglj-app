@@ -115,12 +115,10 @@ page-inspect-task-check-detail {
     font-size: 1.6rem;
   }
   .c-form-remark{
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-bottom: .7rem;
-    @extend %bottom-line;
     .remark-info{
       flex: 1;
       min-width: 0;
@@ -173,9 +171,11 @@ page-inspect-task-check-detail {
   }
 
   .upload-pic{
+    position: relative;
     display: flex;
     flex-flow: row wrap;
     padding-top: 1rem;
+    @extend  %top-line;
   }
   .pic-col{
     position: relative;

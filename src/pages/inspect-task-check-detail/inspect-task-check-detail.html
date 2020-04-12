@@ -23,6 +23,7 @@
                 <dd class="choose-desc" *ngFor="let c of subItem.items.split('，')">
                   <div class="c-desc-txt">{{c}}</div>
                   <ion-checkbox mode="md" [checked]="subItem.checked == c"
+                                [disabled]="taskCheck.operateDate != null"
                                 (click)="checkItem(subItem, c)"></ion-checkbox>
                 </dd>
               </dl>
@@ -37,6 +38,7 @@
                       <div class="c-desc-txt">{{d}}</div>
                       <ion-checkbox mode="md"
                                     [checked]="isChecked(subItem, c.title + '-' + d)"
+                                    [disabled]="taskCheck.operateDate != null"
                                     (click)="checkItemM(subItem, c.title + '-' + d)"></ion-checkbox>
                     </dd>
                   </ng-container>
@@ -206,7 +208,7 @@
         </section>
       </div>
     </div>
-    <button class="submit-button" (click)="submit()">提交</button>
+    <button class="submit-button" *ngIf="taskCheck.operateDate == null" (click)="submit()">提交</button>
   </div>
 
 </ion-content>
