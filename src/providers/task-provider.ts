@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import 'rxjs/add/operator/map';
 import {InspectVo} from "../models/inspect-vo";
+import {TaskCheckVo} from "../models/task-check-vo";
 
 @Injectable()
 export class TaskProvider {
@@ -25,5 +26,9 @@ export class TaskProvider {
 
   getInspectDetail(inspectId: number): Observable<InspectVo> {
     return this.http.get(`/sys/sysinspect/${inspectId}`).map((res: any) => res.data);
+  }
+
+  submitTaskCheck(taskCheck: TaskCheckVo): Observable<any> {
+    return this.http.put('/sys/sysinspecttaskcheck', taskCheck);
   }
 }

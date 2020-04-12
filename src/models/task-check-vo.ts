@@ -1,3 +1,5 @@
+import {InspectVo} from "./inspect-vo";
+
 export class TaskCheckVo {
 
   /**
@@ -68,4 +70,6 @@ export class TaskCheckVo {
    * 更新时间
    */
   operateDate: Date;
+
+  inspect: InspectVo;
 }

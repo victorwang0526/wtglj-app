@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Events, NavController, NavParams} from 'ionic-angular';
 import {TaskCheckVo} from "../../models/task-check-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {InspectVo} from "../../models/inspect-vo";
 import {InspectSubItemVo} from "../../models/inspect-sub-item-vo";
+import {MessageEvent} from "../../events/message-event";
+import {Storage} from "@ionic/storage";
+import {UserVo} from "../../models/user-vo";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -11,22 +14,42 @@ import {InspectSubItemVo} from "../../models/inspect-sub-item-vo";
 })
 export class InspectTaskCheckDetailPage {
 
-  task: TaskCheckVo;
+  taskCheck: TaskCheckVo;
   inspect: InspectVo;
   loading: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              public event: Events,
+              private storage: Storage,
               public taskProvider: TaskProvider) {
-    this.task = navParams.get('task');
+    this.taskCheck = navParams.get('task');
 
     this.loading = true;
-    taskProvider.getInspectDetail(this.task.inspectId)
+    taskProvider.getInspectDetail(this.taskCheck.inspectId)
       .subscribe((inspectVo: InspectVo) => {
         this.inspect = inspectVo;
       }, ()=> {}, () => {
         this.loading = false;
       });
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad InspectTaskCheckDetailPage');
+  }
+
+
+  async submit() {
+    let user: UserVo = await this.storage.get('user');
+    this.taskCheck.operator = user.realName;
+    this.taskCheck.operatorId = user.id;
+    this.taskCheck.operateDate = new Date();
+    this.taskCheck.inspect = this.inspect;
+    this.taskProvider.submitTaskCheck(this.taskCheck).subscribe((res: any) => {
+      if(res.code == 0) {
+        this.event.publish(MessageEvent.MESSAGE_EVENT, new MessageEvent('提交成功！', 'success', true));
+      }
+    });
   }
 
   getItems(items: string) {
@@ -72,10 +95,6 @@ export class InspectTaskCheckDetailPage {
       return false;
     }
     return subItem.checked.indexOf(currentValue) > -1;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InspectTaskCheckDetailPage');
   }
 
 }
