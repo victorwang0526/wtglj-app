@@ -8,4 +8,6 @@ export class InspectSubItemVo {
   sort: number;
   status: number;
 
+  // 选中值，逗号隔开
+  checked: string;
 }

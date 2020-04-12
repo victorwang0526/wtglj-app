@@ -10,7 +10,7 @@ import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 })
 export class InspectTaskCheckGroupPage {
 
-  groups: Array<TaskGroupVo>;
+  groups: Array<TaskGroupVo> = [];
   loading: boolean = false;
   inspectType: number = 1;
 

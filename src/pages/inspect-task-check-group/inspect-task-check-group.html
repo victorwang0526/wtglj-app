@@ -9,7 +9,13 @@
     <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
   </div>
 
-  <dl class="check-group">
+  <dl class="check-group" *ngIf="!loading && groups && groups.length == 0">
+    <dd class="c-group-row">
+      <h4 class="c-group-tit">暂无任务</h4>
+    </dd>
+  </dl>
+
+  <dl class="check-group" *ngIf="!loading && groups && groups.length > 0">
     <dd class="c-group-row" *ngFor="let group of groups"
         (click)="openTaskChecks(group)">
       <h4 class="c-group-tit">{{ group.inspectTitle + ' ' + group.groupTitle }}</h4>

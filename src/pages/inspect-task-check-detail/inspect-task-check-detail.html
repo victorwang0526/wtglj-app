@@ -13,18 +13,40 @@
 <ion-content class="bg-grey">
   <div class="g-flex-main">
     <div class="check-detail-hd">{{task.inspectTitle + ' ' + task.groupTitle}}</div>
+    <div style="text-align: center">
+      <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
+    </div>
     <div class="check-form g-flex-box" *ngIf="inspect">
       <div class="c-form-box" *ngFor="let item of inspect.items">
         <h4 class="c-form-title"><span>{{item.title}}</span></h4>
         <section class="c-form-inner" *ngFor="let subItem of item.subItems; let i = index">
           <div class="c-form-tit">{{i+1}}.{{subItem.title}}</div>
           <div class="c-form-inform">
-            <dl class="c-form-choose">
+            <!-- 是，否 -->
+            <dl class="c-form-choose" *ngIf="subItem.items == '是，否'">
               <dd class="choose-desc" *ngFor="let c of subItem.items.split('，')">
                 <div class="c-desc-txt">{{c}}</div>
-                <ion-checkbox mode="md"></ion-checkbox>
+                <ion-checkbox mode="md" [checked]="subItem.checked == c"
+                              (click)="checkItem(subItem, c)"></ion-checkbox>
               </dd>
             </dl>
+            <!-- 【xxx（1，2，3）】【yyy（1，2，3）】-->
+            <ng-container *ngIf="subItem.items && subItem.items != '' && subItem.items != '是，否'">
+              <dl class="c-form-choose">
+                <ng-container *ngFor="let c of getItems(subItem.items)">
+                  <dd class="choose-desc" >
+                    <div class="c-desc-txt" style="font-weight: bold;">{{c.title}}</div>
+                  </dd>
+                  <dd class="choose-desc" *ngFor="let d of c.items">
+                    <div class="c-desc-txt">{{d}}</div>
+                    <ion-checkbox mode="md"
+                                  [checked]="isChecked(subItem, c.title + '-' + d)"
+                                  (click)="checkItemM(subItem, c.title + '-' + d)"></ion-checkbox>
+                  </dd>
+                </ng-container>
+              </dl>
+            </ng-container>
+            <!-- 其他 -->
             <div class="c-form-remark">
               <div class="remark-info">
                 <span class="c-label">备注：</span>
