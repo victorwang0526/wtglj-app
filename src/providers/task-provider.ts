@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import 'rxjs/add/operator/map';
 import {InspectVo} from "../models/inspect-vo";
 import {TaskCheckVo} from "../models/task-check-vo";
+import {TaskCheckItemVo} from "../models/task-check-item-vo";
 
 @Injectable()
 export class TaskProvider {
@@ -30,5 +31,10 @@ export class TaskProvider {
 
   submitTaskCheck(taskCheck: TaskCheckVo): Observable<any> {
     return this.http.put('/sys/sysinspecttaskcheck', taskCheck);
+  }
+
+  getTaskCheckItems(taskCheckId: number): Observable<Array<TaskCheckItemVo>> {
+    return this.http.get(`/sys/sysinspecttaskcheckitem/page?taskCheckId=${taskCheckId}&page=1&size=999`)
+      .map((res: any) => res.data.list);
   }
 }

@@ -2,6 +2,7 @@ import {InspectVo} from "./inspect-vo";
 
 export class TaskCheckVo {
 
+  id: number;
   /**
    * 检查清单项目表id
    */

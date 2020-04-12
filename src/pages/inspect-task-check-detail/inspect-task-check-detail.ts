@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Events, NavController, NavParams} from 'ionic-angular';
+import {ActionSheetController, Events, NavController, NavParams} from 'ionic-angular';
 import {TaskCheckVo} from "../../models/task-check-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {InspectVo} from "../../models/inspect-vo";
@@ -7,6 +7,8 @@ import {InspectSubItemVo} from "../../models/inspect-sub-item-vo";
 import {MessageEvent} from "../../events/message-event";
 import {Storage} from "@ionic/storage";
 import {UserVo} from "../../models/user-vo";
+import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera';
+import {TaskCheckItemVo} from "../../models/task-check-item-vo";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -17,12 +19,16 @@ export class InspectTaskCheckDetailPage {
   taskCheck: TaskCheckVo;
   inspect: InspectVo;
   loading: boolean = false;
+  taskCheckItems: Array<TaskCheckItemVo> = [];
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public event: Events,
               private storage: Storage,
-              public taskProvider: TaskProvider) {
+              public taskProvider: TaskProvider,
+              private camera: Camera,
+              public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('task');
 
     this.loading = true;
@@ -30,12 +36,76 @@ export class InspectTaskCheckDetailPage {
       .subscribe((inspectVo: InspectVo) => {
         this.inspect = inspectVo;
       }, ()=> {}, () => {
-        this.loading = false;
+        taskProvider.getTaskCheckItems(this.taskCheck.id)
+          .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
+            this.taskCheckItems = taskCheckItems;
+
+            //init data
+            if(this.taskCheckItems && this.taskCheckItems.length > 0) {
+              for(let checkItem of this.taskCheckItems) {
+                for(let item of this.inspect.items) {
+                  for(let subItem of item.subItems) {
+                    if(checkItem.subItemId == subItem.id) {
+                      subItem.remark = checkItem.remark;
+                      subItem.checked = checkItem.subItemsChecked;
+                      subItem.imageUrls = checkItem.subItemsImageUrls;
+                    }
+                  }
+                }
+              }
+            }
+          }, () => {}, () => {
+            this.loading = false;
+          })
       });
   }
 
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad InspectTaskCheckDetailPage');
+  }
+  async cameraChoose() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [{
+        text: '拍照',
+        icon: 'camera',
+        handler: () => {
+          this.cameraOpen(PictureSourceType.CAMERA);
+        }
+      }, {
+        text: '相册',
+        icon: 'albums',
+        handler: () => {
+          this.cameraOpen(PictureSourceType.SAVEDPHOTOALBUM);
+        }
+      }, {
+        text: '取消',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  cameraOpen(sourceType: number) {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: sourceType,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      this.event.publish(MessageEvent.MESSAGE_EVENT, new MessageEvent(imageData));
+    }, (err) => {
+      // Handle error
+    });
   }
 
 

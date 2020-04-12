@@ -51,7 +51,8 @@
                     <input type="text" placeholder="请输入备注" [(ngModel)]="subItem.remark"/>
                   </div>
                 </div>
-                <button class="photo-btn" ion-button color="primary" outline>
+                <button class="photo-btn" ion-button color="primary" outline
+                        (click)="cameraChoose()">
                   <ion-icon slot="start" name="camera"></ion-icon>
                   拍照
                 </button>

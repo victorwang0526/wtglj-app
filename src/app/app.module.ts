@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
+import {Camera} from '@ionic-native/camera';
 import {IonicStorageModule} from "@ionic/storage";
 import {HttpClientModule} from "@angular/common/http";
 import {InterceptorModule} from "../providers/interceptor.module";
@@ -53,6 +54,7 @@ import {TaskProvider} from "../providers/task-provider";
   ],
   providers: [
     JPush,
+    Camera,
     StatusBar,
     SplashScreen,
     BarcodeScanner,

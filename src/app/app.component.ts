@@ -20,14 +20,7 @@ export class MyApp {
               private storage: Storage,
               public event: Events,
               public alertController: AlertController) {
-    // Or to get a key/value pair
-    storage.get('user').then((val) => {
-      if(!val) {
-        this.rootPage = LoginPage;
-      }else {
-        this.rootPage = HomePage;
-      }
-    });
+    this.initRoot();
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -35,6 +28,17 @@ export class MyApp {
       splashScreen.hide();
 
       this.subEvent();
+    });
+  }
+
+  initRoot() {
+    // Or to get a key/value pair
+    this.storage.get('user').then((val) => {
+      if(!val) {
+        this.rootPage = LoginPage;
+      }else {
+        this.rootPage = HomePage;
+      }
     });
   }
 
