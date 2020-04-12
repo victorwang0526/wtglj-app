@@ -15,7 +15,7 @@
         *ngFor="let task of tasks" (click)="openInspectDetail(task)">
       <div class="c-group-info">
         <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
-        <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate}}</div>
+        <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate | date : 'yyyy-MM-dd'}}</div>
       </div>
       <div class="c-group-count">
         <i class="is-check-icon" [class.checked]="task.operateDate != null"></i>
