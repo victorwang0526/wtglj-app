@@ -94,7 +94,7 @@ export class InspectTaskCheckDetailPage {
   cameraOpen(sourceType: number) {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: sourceType,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -102,6 +102,7 @@ export class InspectTaskCheckDetailPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.event.publish(MessageEvent.MESSAGE_EVENT, new MessageEvent(imageData));
     }, (err) => {
       // Handle error
@@ -167,4 +168,34 @@ export class InspectTaskCheckDetailPage {
     return subItem.checked.indexOf(currentValue) > -1;
   }
 
+  /**
+   * Turn base 64 image into a blob, so we can send it using multipart/form-data posts
+   * @param b64Data
+   * @param contentType
+   * @param sliceSize
+   * @return {Blob}
+   */
+  private getBlob(b64Data:string, contentType:string, sliceSize:number= 512) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    let byteCharacters = atob(b64Data);
+    let byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      let slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      let byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      let byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    let blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+  }
 }

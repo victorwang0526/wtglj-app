@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.victorwang.app.wtglj" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>wtglj-app</name>
+    <name>文体广旅安全</name>
     <description>安全平台.</description>
     <author email="fengxuanwang@qq.com" href="http://victorwang.cn/">Victor Wang</author>
     <content src="index.html" />
@@ -126,5 +126,4 @@
     </plugin>
     <plugin name="cordova-plugin-camera" spec="^4.1.0" />
     <engine name="android" spec="^7.1.4" />
-    <engine name="ios" spec="^4.5.5" />
 </widget>
