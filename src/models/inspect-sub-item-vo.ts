@@ -10,4 +10,5 @@ export class InspectSubItemVo {
 
   // 选中值，逗号隔开
   checked: string;
+  imgLoading: boolean = false;
 }

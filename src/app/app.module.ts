@@ -20,6 +20,7 @@ import {InspectTaskCheckGroupPage} from "../pages/inspect-task-check-group/inspe
 import {AdvicePage} from "../pages/advice/advice";
 import {TaskProvider} from "../providers/task-provider";
 import {UploadProvider} from "../providers/upload-provider";
+import {ImagePreviewPage} from "../pages/image-preview/image-preview";
 
 // @ts-ignore
 @NgModule({
@@ -31,6 +32,7 @@ import {UploadProvider} from "../providers/upload-provider";
     InspectTaskCheckDetailPage,
     InspectTaskCheckGroupPage,
     AdvicePage,
+    ImagePreviewPage,
   ],
   imports: [
     HttpClientModule,
@@ -53,6 +55,7 @@ import {UploadProvider} from "../providers/upload-provider";
     InspectTaskCheckDetailPage,
     InspectTaskCheckGroupPage,
     AdvicePage,
+    ImagePreviewPage,
   ],
   providers: [
     JPush,

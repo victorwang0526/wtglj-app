@@ -64,7 +64,10 @@
               <div class="upload-pic" *ngIf="subItem.imageUrls">
                 <div class="pic-col" *ngFor="let imgUrl of subItem.imageUrls.split(',')">
                   <i class="del-icon" *ngIf="taskCheck.operateDate == null" (click)="removeImg(subItem, imgUrl)"></i>
-                  <img src="{{imgUrl}}" alt=""/>
+                  <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)"/>
+                </div>
+                <div class="pic-col">
+                  <ion-spinner color="primary"></ion-spinner>
                 </div>
               </div>
             </div>
@@ -80,24 +83,21 @@
                   <input type="text" placeholder="请输入其他内容" [(ngModel)]="item.subItems[0].remark"/>
                 </div>
               </div>
-              <button class="photo-btn" ion-button color="primary" outline>
+              <button class="photo-btn" ion-button color="primary" outline
+                      (click)="cameraChoose(item.subItems[0])"
+                      *ngIf="taskCheck.operateDate == null">
                 <ion-icon slot="start" name="camera"></ion-icon>
                 拍照
               </button>
             </div>
             <div class="upload-pic" *ngIf="item.subItems[0].imageUrls">
-              <div class="pic-col">
-                <i class="del-icon" *ngIf="taskCheck.operateDate == null"></i>
-                <img src="../../assets/imgs/1.jpg" alt=""/>
+              <div class="pic-col" *ngFor="let imgUrl of item.subItems[0].imageUrls.split(',')">
+                <i class="del-icon" *ngIf="taskCheck.operateDate == null" (click)="removeImg(item.subItems[0], imgUrl)"></i>
+                <img src="{{imgUrl}}" alt=""/>
               </div>
               <div class="pic-col">
-                <i class="del-icon" *ngIf="taskCheck.operateDate == null"></i>
-                <img src="../../assets/imgs/1.jpg" alt=""/>
+                <ion-spinner color="primary"></ion-spinner>
               </div>
-              <button ion-button outline class="add-pic-btn"
-                      *ngIf="taskCheck.operateDate == null">
-                <ion-icon slot="icon-only" name="add"></ion-icon>
-              </button>
             </div>
           </div>
         </section>
