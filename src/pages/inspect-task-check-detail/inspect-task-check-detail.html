@@ -61,12 +61,14 @@
                   拍照
                 </button>
               </div>
-              <div class="upload-pic" *ngIf="subItem.imageUrls">
-                <v-image *ngFor="let imgUrl of subItem.imageUrls.split(',')"
-                         [imgUrl]="imgUrl"
-                         (remove)="removeImg(subItem, imgUrl)"
-                         [showRemove]="taskCheck.operateDate == null"></v-image>
-                <v-image *ngIf="subItem.imgLoading" [loading]="subItem.imgLoading"></v-image>
+              <div class="upload-pic" *ngIf="subItem.imageUrls || subItem.imgLoading">
+                <ng-container *ngIf="subItem.imageUrls">
+                  <v-image *ngFor="let imgUrl of subItem.imageUrls.split(',')"
+                           [imgUrl]="imgUrl"
+                           (remove)="removeImg(subItem, imgUrl)"
+                           [showRemove]="taskCheck.operateDate == null"></v-image>
+                </ng-container>
+                <v-image *ngIf="subItem.imgLoading" [loading]="true"></v-image>
               </div>
             </div>
           </section>
@@ -88,11 +90,13 @@
                 拍照
               </button>
             </div>
-            <div class="upload-pic" *ngIf="item.subItems[0].imageUrls">
-              <v-image *ngFor="let imgUrl of item.subItems[0].imageUrls.split(',')"
-                       [imgUrl]="imgUrl"
-                       (remove)="removeImg(item.subItems[0], imgUrl)"
-                       [showRemove]="taskCheck.operateDate == null"></v-image>
+            <div class="upload-pic" *ngIf="item.subItems[0].imageUrls || item.subItems[0].imgLoading">
+              <ng-container *ngIf="item.subItems[0].imageUrls">
+                <v-image *ngFor="let imgUrl of item.subItems[0].imageUrls.split(',')"
+                         [imgUrl]="imgUrl"
+                         (remove)="removeImg(item.subItems[0], imgUrl)"
+                         [showRemove]="taskCheck.operateDate == null"></v-image>
+              </ng-container>
               <v-image *ngIf="item.subItems[0].imgLoading" [loading]="true"></v-image>
             </div>
           </div>
