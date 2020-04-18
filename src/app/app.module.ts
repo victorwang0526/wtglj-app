@@ -21,6 +21,7 @@ import {AdvicePage} from "../pages/advice/advice";
 import {TaskProvider} from "../providers/task-provider";
 import {UploadProvider} from "../providers/upload-provider";
 import {ImagePreviewPage} from "../pages/image-preview/image-preview";
+import {ComponentsModule} from "../components/components.module";
 
 // @ts-ignore
 @NgModule({
@@ -38,6 +39,7 @@ import {ImagePreviewPage} from "../pages/image-preview/image-preview";
     HttpClientModule,
     InterceptorModule,
     BrowserModule,
+    ComponentsModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       iconMode: 'ios',

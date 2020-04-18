@@ -1,0 +1,7 @@
+<div class="pic-col">
+  <ng-container *ngIf="!loading">
+    <i class="del-icon" *ngIf="showRemove" (click)="removeImg()"></i>
+    <img src="{{imgUrl}}" alt="" (click)="openPreview()"/>
+  </ng-container>
+  <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
+</div>

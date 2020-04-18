@@ -62,13 +62,11 @@
                 </button>
               </div>
               <div class="upload-pic" *ngIf="subItem.imageUrls">
-                <div class="pic-col" *ngFor="let imgUrl of subItem.imageUrls.split(',')">
-                  <i class="del-icon" *ngIf="taskCheck.operateDate == null" (click)="removeImg(subItem, imgUrl)"></i>
-                  <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)"/>
-                </div>
-                <div class="pic-col">
-                  <ion-spinner color="primary"></ion-spinner>
-                </div>
+                <v-image *ngFor="let imgUrl of subItem.imageUrls.split(',')"
+                         [imgUrl]="imgUrl"
+                         (remove)="removeImg(subItem, imgUrl)"
+                         [showRemove]="taskCheck.operateDate == null"></v-image>
+                <v-image *ngIf="subItem.imgLoading" [loading]="subItem.imgLoading"></v-image>
               </div>
             </div>
           </section>
@@ -91,13 +89,11 @@
               </button>
             </div>
             <div class="upload-pic" *ngIf="item.subItems[0].imageUrls">
-              <div class="pic-col" *ngFor="let imgUrl of item.subItems[0].imageUrls.split(',')">
-                <i class="del-icon" *ngIf="taskCheck.operateDate == null" (click)="removeImg(item.subItems[0], imgUrl)"></i>
-                <img src="{{imgUrl}}" alt=""/>
-              </div>
-              <div class="pic-col">
-                <ion-spinner color="primary"></ion-spinner>
-              </div>
+              <v-image *ngFor="let imgUrl of item.subItems[0].imageUrls.split(',')"
+                       [imgUrl]="imgUrl"
+                       (remove)="removeImg(item.subItems[0], imgUrl)"
+                       [showRemove]="taskCheck.operateDate == null"></v-image>
+              <v-image *ngIf="item.subItems[0].imgLoading" [loading]="true"></v-image>
             </div>
           </div>
         </section>
