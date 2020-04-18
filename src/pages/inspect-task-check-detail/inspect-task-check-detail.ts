@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActionSheetController, Events, NavController, NavParams} from 'ionic-angular';
+import {ActionSheetController, AlertController, Events, NavController, NavParams} from 'ionic-angular';
 import {TaskCheckVo} from "../../models/task-check-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {InspectVo} from "../../models/inspect-vo";
@@ -9,6 +9,7 @@ import {Storage} from "@ionic/storage";
 import {UserVo} from "../../models/user-vo";
 import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera';
 import {TaskCheckItemVo} from "../../models/task-check-item-vo";
+import {UploadProvider} from "../../providers/upload-provider";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -21,12 +22,13 @@ export class InspectTaskCheckDetailPage {
   loading: boolean = false;
   taskCheckItems: Array<TaskCheckItemVo> = [];
 
-
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public event: Events,
               private storage: Storage,
               public taskProvider: TaskProvider,
+              public alertCtrl: AlertController,
+              public uploadProvider: UploadProvider,
               private camera: Camera,
               public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('task');
@@ -60,25 +62,29 @@ export class InspectTaskCheckDetailPage {
       });
   }
 
-
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad InspectTaskCheckDetailPage');
   }
-  async cameraChoose() {
+  async cameraChoose(subItem: InspectSubItemVo) {
     const actionSheet = await this.actionSheetController.create({
       buttons: [{
         text: '拍照',
         icon: 'camera',
         handler: () => {
-          this.cameraOpen(PictureSourceType.CAMERA);
+          this.cameraOpen(PictureSourceType.CAMERA, subItem);
         }
       }, {
         text: '相册',
-        icon: 'albums',
+        icon: 'folder',
         handler: () => {
-          this.cameraOpen(PictureSourceType.SAVEDPHOTOALBUM);
+          this.cameraOpen(PictureSourceType.SAVEDPHOTOALBUM, subItem);
         }
+      // }, {
+      //   text: 'test',
+      //   handler: () => {
+      //     const imageData = 'iVBORw0KGgoAAAANSUhEUgAAADUAAAA0CAYAAAAqunDVAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAzCDPIMRgycCRmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsgsEY19jWyvZ9bp5ZtP558v8QBTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwCETV0AEc4kCwAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAANaADAAQAAAABAAAANAAAAAD50QR6AAABA0lEQVRoBe2YMQ6EQAhFR2Np9gaWWtjZ7f0PsY23MPa7cRMbowkDOCD5NsYMDMN/CMaqG8ZvCnbVwfL5p4OknkIVpEDKUAGUn6H4WaFBKksuQ+Pmrtivtk1j319uv6xr+szz5bpkAeUnUa+kbyX5Sj8rsdyy0tjjKFjI8lNvFJvy72k6ilf0OSQpJFW0hgTBQEogXlFX1e6XO6P2TM9m1b7GuYcsP1VSHmbURjYkKSTFeWktfEDKQnVOTNXuhznFQUD0USWFOUVUnWOG7sdRzcInJCnRLzILCpSYIUkhKQp6DzYg5YEC5QwgRVHJgw1IeaBAOQNIUVTyYANSHihQzhCS1A9sAiT2ApsH7wAAAABJRU5ErkJggg==';
+      //     this.uploadImg(imageData, subItem);
+      //   }
       }, {
         text: '取消',
         icon: 'close',
@@ -91,24 +97,40 @@ export class InspectTaskCheckDetailPage {
     await actionSheet.present();
   }
 
-  cameraOpen(sourceType: number) {
+  uploadImg(imageData: any, subItem: InspectSubItemVo) {
+    fetch(`data:application/octet-stream;base64,${imageData}`)
+      .then(res => res.blob())
+      .then(blob => {
+        this.uploadProvider.upload(blob).subscribe((src)=> {
+          if(!subItem.imageUrls) {
+            subItem.imageUrls = src;
+          }else {
+            subItem.imageUrls = subItem.imageUrls + ',' + src;
+          }
+        })
+      });
+  }
+
+  removeImg(subItem: InspectSubItemVo, imgUrl: string) {
+    subItem.imageUrls = subItem.imageUrls.replace(imgUrl + ',', '');
+    subItem.imageUrls = subItem.imageUrls.replace(imgUrl, '');
+    console.log(subItem.imageUrls);
+  }
+
+  cameraOpen(sourceType: number, subItem: InspectSubItemVo) {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: sourceType,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType
     };
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.event.publish(MessageEvent.MESSAGE_EVENT, new MessageEvent(imageData));
+      this.uploadImg(imageData, subItem);
     }, (err) => {
       // Handle error
     });
   }
-
 
   async submit() {
     let user: UserVo = await this.storage.get('user');

@@ -55,25 +55,17 @@
                   </div>
                 </div>
                 <button class="photo-btn" ion-button color="primary" outline
-                        (click)="cameraChoose()"
+                        (click)="cameraChoose(subItem)"
                         *ngIf="taskCheck.operateDate == null">
                   <ion-icon slot="start" name="camera"></ion-icon>
                   拍照
                 </button>
               </div>
-              <div class="upload-pic" >
-                <div class="pic-col">
-                  <i class="del-icon" *ngIf="taskCheck.operateDate == null"></i>
-                  <img src="../../assets/imgs/1.jpg" alt=""/>
+              <div class="upload-pic" *ngIf="subItem.imageUrls">
+                <div class="pic-col" *ngFor="let imgUrl of subItem.imageUrls.split(',')">
+                  <i class="del-icon" *ngIf="taskCheck.operateDate == null" (click)="removeImg(subItem, imgUrl)"></i>
+                  <img src="{{imgUrl}}" alt=""/>
                 </div>
-                <div class="pic-col">
-                  <i class="del-icon"></i>
-                  <img src="../../assets/imgs/1.jpg" alt=""/>
-                </div>
-                <button ion-button outline class="add-pic-btn"
-                        *ngIf="taskCheck.operateDate == null">
-                  <ion-icon slot="icon-only" name="add"></ion-icon>
-                </button>
               </div>
             </div>
           </section>

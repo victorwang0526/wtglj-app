@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { JPush } from '@jiguang-ionic/jpush/ngx';
-import {Camera} from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import {IonicStorageModule} from "@ionic/storage";
 import {HttpClientModule} from "@angular/common/http";
 import {InterceptorModule} from "../providers/interceptor.module";
@@ -19,7 +19,9 @@ import {InspectTaskCheckDetailPage} from "../pages/inspect-task-check-detail/ins
 import {InspectTaskCheckGroupPage} from "../pages/inspect-task-check-group/inspect-task-check-group";
 import {AdvicePage} from "../pages/advice/advice";
 import {TaskProvider} from "../providers/task-provider";
+import {UploadProvider} from "../providers/upload-provider";
 
+// @ts-ignore
 @NgModule({
   declarations: [
     MyApp,
@@ -61,6 +63,7 @@ import {TaskProvider} from "../providers/task-provider";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     TaskProvider,
+    UploadProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
