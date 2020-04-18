@@ -44,6 +44,7 @@ export class MyApp {
 
   subEvent() {
     this.event.subscribe('401', () => {
+      console.log('401');
       this.alertGoLogin();
     });
     this.event.subscribe(MessageEvent.MESSAGE_EVENT, (messageEvent: MessageEvent) => {

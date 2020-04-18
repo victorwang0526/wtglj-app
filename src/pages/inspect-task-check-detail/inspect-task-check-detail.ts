@@ -11,6 +11,7 @@ import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera';
 import {TaskCheckItemVo} from "../../models/task-check-item-vo";
 import {UploadProvider} from "../../providers/upload-provider";
 import {ImagePreviewPage} from "../image-preview/image-preview";
+import {DictDataVo} from "../../models/dict-data-vo";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -23,6 +24,11 @@ export class InspectTaskCheckDetailPage {
   loading: boolean = false;
   taskCheckItems: Array<TaskCheckItemVo> = [];
 
+  dangerTypes: Array<DictDataVo> = [];
+  punishTypes: Array<DictDataVo> = [];
+
+  editable: boolean = false;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public event: Events,
@@ -33,6 +39,10 @@ export class InspectTaskCheckDetailPage {
               private camera: Camera,
               public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('task');
+    this.editable = this.taskCheck.inspectType == 1 && !this.taskCheck.operateDate;
+
+    this.getDangerTypes();
+    this.getPunishTypes();
 
     this.loading = true;
     taskProvider.getInspectDetail(this.taskCheck.inspectId)
@@ -60,6 +70,20 @@ export class InspectTaskCheckDetailPage {
           }, () => {}, () => {
             this.loading = false;
           })
+      });
+  }
+
+  getDangerTypes() {
+    this.taskProvider.getDangerTypes()
+      .subscribe((datas: Array<DictDataVo>) => {
+        this.dangerTypes = datas;
+      });
+  }
+
+  getPunishTypes() {
+    this.taskProvider.getPunishTypes()
+      .subscribe((datas: Array<DictDataVo>) => {
+        this.punishTypes = datas;
       });
   }
 
@@ -95,6 +119,74 @@ export class InspectTaskCheckDetailPage {
         }
       }]
     });
+    await actionSheet.present();
+  }
+
+  async chooseDangerType() {
+    if(this.taskCheck.operateDate) {
+      return;
+    }
+    let buttons = [];
+    buttons.push({
+      text: '无隐患',
+      handler: () => {
+        this.taskCheck.dangerType = '';
+        this.taskCheck.dangerTypeLabel = '';
+      }
+    });
+    this.dangerTypes.forEach(dangerType => {
+      buttons.push({
+        text: dangerType.dictLabel,
+        handler: () => {
+          this.taskCheck.dangerType = dangerType.dictValue;
+          this.taskCheck.dangerTypeLabel = dangerType.dictLabel;
+        }
+      })
+    });
+    buttons.push({
+      text: '取消',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    });
+    const actionSheet = await this.actionSheetController.create({buttons});
+    await actionSheet.present();
+  }
+
+  async choosePunishType() {
+    if(this.taskCheck.operateDate) {
+      return;
+    }
+    let buttons = [];
+    buttons.push({
+      text: '无',
+      handler: () => {
+        this.taskCheck.punishType = '';
+        this.taskCheck.punishTypeLabel = '';
+        console.log(this.taskCheck.punishType + ', ' + this.taskCheck.punishTypeLabel);
+      }
+    });
+    this.punishTypes.forEach(punishType => {
+      buttons.push({
+        text: punishType.dictLabel,
+        handler: () => {
+          this.taskCheck.punishType = punishType.dictValue;
+          this.taskCheck.punishTypeLabel = punishType.dictLabel;
+          console.log(this.taskCheck.punishType + ', ' + this.taskCheck.punishTypeLabel);
+        }
+      })
+    });
+    buttons.push({
+      text: '取消',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    });
+    const actionSheet = await this.actionSheetController.create({buttons});
     await actionSheet.present();
   }
 

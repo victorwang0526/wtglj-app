@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import {InspectVo} from "../models/inspect-vo";
 import {TaskCheckVo} from "../models/task-check-vo";
 import {TaskCheckItemVo} from "../models/task-check-item-vo";
+import {DictDataVo} from "../models/dict-data-vo";
 
 @Injectable()
 export class TaskProvider {
@@ -37,4 +38,16 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheckitem/page?taskCheckId=${taskCheckId}&page=1&size=999`)
       .map((res: any) => res.data.list);
   }
+
+  getDangerTypes(): Observable<Array<DictDataVo>> {
+    return this.http.get(`/sys/dict/data/page?page=1&limit=20&dictTypeId=1006000`)
+      .map((res: any) => res.data.list);
+  }
+
+  getPunishTypes(): Observable<Array<DictDataVo>> {
+    return this.http.get(`/sys/dict/data/page?page=1&limit=20&dictTypeId=1005000`)
+      .map((res: any) => res.data.list);
+  }
+
+
 }

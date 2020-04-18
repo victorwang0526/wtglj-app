@@ -308,4 +308,11 @@ page-inspect-task-check-detail {
   .u-hidden{
     display: none;
   }
+  ion-datetime{
+    position: relative;
+    padding: 0 !important;
+    .item-cover{
+      padding: 0 !important;
+    }
+  }
 }

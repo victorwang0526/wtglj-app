@@ -72,5 +72,21 @@ export class TaskCheckVo {
    */
   operateDate: Date;
 
+  dangerChange: string;
+  dangerDate: Date;
+  dangerDesc: string;
+  dangerRemark: string;
+  dangerType: string;
+  dangerTypeLabel: string; // local
+
+  punishAmount: string;
+  punishDate: string;
+  punishDept: Date;
+  punishReason: string;
+  punishRemark: string;
+  punishResult: string;
+  punishType: string;
+  punishTypeLabel: string; //local
+
   inspect: InspectVo;
 }
