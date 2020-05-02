@@ -18,6 +18,9 @@ export class InspectTaskCheckGroupPage {
               public navParams: NavParams,
               public taskProvider: TaskProvider) {
     this.inspectType = navParams.get('inspectType');
+  }
+
+  ionViewDidEnter() {
     this.getTaskGroups();
   }
 

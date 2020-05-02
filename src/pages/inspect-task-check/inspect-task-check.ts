@@ -22,6 +22,9 @@ export class InspectTaskCheckPage {
               public alertController: AlertController,
               public storage: Storage) {
     this.group = navParams.get('group');
+  }
+
+  ionViewDidEnter() {
     this.getTaskChecks();
   }
 
