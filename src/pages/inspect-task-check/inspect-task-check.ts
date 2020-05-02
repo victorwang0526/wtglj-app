@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {TaskGroupVo} from "../../models/task-group-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {Storage} from "@ionic/storage";
@@ -19,6 +19,7 @@ export class InspectTaskCheckPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public taskProvider: TaskProvider,
+              public alertController: AlertController,
               public storage: Storage) {
     this.group = navParams.get('group');
     this.getTaskChecks();
@@ -35,7 +36,16 @@ export class InspectTaskCheckPage {
       });
   }
 
-  openInspectDetail(task) {
+  async openInspectDetail(task: TaskCheckVo) {
+    if(task.inspectType == 2 && !task.operateDate) {
+      const alert = await this.alertController.create({
+        message: '未自检.',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+      return;
+    }
     this.navCtrl.push(InspectTaskCheckDetailPage, {task});
   }
 
