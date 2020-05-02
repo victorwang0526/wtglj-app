@@ -36,9 +36,7 @@ $ npm install --save @jiguang-ionic/jpush@1.0.2
 
 $ ionic cordova platform add android
 
-$ ionic cordova build android --prod --release
-
-$ jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA1 -keystore ./wtglj.keystore -storepass wtgljaq -signedjar ./release/android/app-release-signed.apk ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk wtglj.keystore
+$ ionic cordova build android --prod --release && jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA1 -keystore ./wtglj.keystore -storepass wtgljaq -signedjar ./release/android/app-release-signed.apk ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk wtglj.keystore
 ```
 
 ```shell script
