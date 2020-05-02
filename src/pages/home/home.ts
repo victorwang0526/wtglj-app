@@ -6,6 +6,7 @@ import {AdvicePage} from "../advice/advice";
 import {Storage} from "@ionic/storage";
 import {UserVo} from "../../models/user-vo";
 import {TaskProvider} from "../../providers/task-provider";
+import {ExamListPage} from "../exam-list/exam-list";
 
 @Component({
   selector: 'page-home',
@@ -61,7 +62,7 @@ export class HomePage {
   }
 
   openExam() {
-    this.navCtrl.push(InspectTaskCheckGroupPage, {});
+    this.navCtrl.push(ExamListPage, {});
   }
 
   openAdvice() {

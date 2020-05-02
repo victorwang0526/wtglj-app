@@ -23,6 +23,10 @@ import {UploadProvider} from "../providers/upload-provider";
 import {ImagePreviewPage} from "../pages/image-preview/image-preview";
 import {ComponentsModule} from "../components/components.module";
 import {SuggestionProvider} from "../providers/suggestion-provider";
+import {ExamStartPage} from "../pages/exam-start/exam-start";
+import {ExamListPage} from "../pages/exam-list/exam-list";
+import {ExamFinishPage} from "../pages/exam-finish/exam-finish";
+import {ExamDetailPage} from "../pages/exam-detail/exam-detail";
 
 // @ts-ignore
 @NgModule({
@@ -35,6 +39,11 @@ import {SuggestionProvider} from "../providers/suggestion-provider";
     InspectTaskCheckGroupPage,
     AdvicePage,
     ImagePreviewPage,
+
+    ExamStartPage,
+    ExamListPage,
+    ExamFinishPage,
+    ExamDetailPage,
   ],
   imports: [
     HttpClientModule,
@@ -59,6 +68,11 @@ import {SuggestionProvider} from "../providers/suggestion-provider";
     InspectTaskCheckGroupPage,
     AdvicePage,
     ImagePreviewPage,
+
+    ExamStartPage,
+    ExamListPage,
+    ExamFinishPage,
+    ExamDetailPage,
   ],
   providers: [
     JPush,
