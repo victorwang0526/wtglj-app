@@ -11,11 +11,11 @@ $ ionic cordova plugin add phonegap-plugin-barcodescanner
 
 $ npm install --save @ionic-native/barcode-scanner@4
 
-$ keytool -genkey -alias ionic.keystore -keyalg RSA -validity 20000 -keystore ionic.keystore
+$ keytool -genkey -alias wtglj.keystore -keyalg RSA -validity 20000 -keystore wtglj.keystore
 
-$ ionic cordova plugin add jpush-phonegap-plugin --variable APP_KEY=319abc788b17eb20adcc7263
+$ ionic cordova plugin add jpush-phonegap-plugin@3.4.2 --variable APP_KEY=f82b13237c26a0c4ccc38e86
 
-$ npm install --save @jiguang-ionic/jpush@2.0.0
+$ npm install --save @jiguang-ionic/jpush@1.0.2
 
 
 > ionicionic
@@ -38,7 +38,7 @@ $ ionic cordova platform add android
 
 $ ionic cordova build android --prod --release
 
-$ jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA1 -keystore ./ionic.keystore -storepass ionicionic -signedjar ./release/android/app-release-signed.apk ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ionic.keystore
+$ jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA1 -keystore ./wtglj.keystore -storepass wtgljaq -signedjar ./release/android/app-release-signed.apk ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk wtglj.keystore
 ```
 
 ```shell script

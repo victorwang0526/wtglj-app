@@ -9,9 +9,9 @@ export class UserProvider {
     console.log('Hello UserProvider Provider');
   }
 
-  login(username, password): Observable<any> {
+  login(username, password, deviceId): Observable<any> {
     return this.http.post('/login', {
-      username, password
+      username, password, deviceId
     });
   }
 

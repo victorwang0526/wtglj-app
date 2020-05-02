@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
 import {MessageEvent} from "../events/message-event";
+import {JPush} from "@jiguang-ionic/jpush";
 @Component({
   templateUrl: 'app.html'
 })
@@ -14,11 +15,12 @@ export class MyApp {
   rootPage:any = null;
   @ViewChild(Nav) nav: Nav;
 
-  constructor(platform: Platform,
+  constructor(public platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private storage: Storage,
               public event: Events,
+              public jpush: JPush,
               public alertController: AlertController) {
     this.initRoot();
     platform.ready().then(() => {
@@ -28,8 +30,19 @@ export class MyApp {
       splashScreen.hide();
 
       this.subEvent();
+
+      if(this.platform.is('mobile')) {
+        this.alertController.create({message: '======JPUSH1: '}).present({});
+        jpush.setDebugMode(true);
+        jpush.init().then(() => {
+          alertController.create({message: '=====JPUSH: INIT SUCCESS....'}).present({});
+        }).catch(e => {
+          alertController.create({message: '=====JPUSH: INIT ERROR....' + JSON.stringify(e)}).present({});
+        });
+      }
     });
   }
+
 
   initRoot() {
     // Or to get a key/value pair

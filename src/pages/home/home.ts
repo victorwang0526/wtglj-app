@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import {InspectTaskCheckGroupPage} from "../inspect-task-check-group/inspect-task-check-group";
 import {LoginPage} from "../login/login";
 import {AdvicePage} from "../advice/advice";
@@ -7,6 +7,7 @@ import {Storage} from "@ionic/storage";
 import {UserVo} from "../../models/user-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {ExamListPage} from "../exam-list/exam-list";
+import {JPush} from "@jiguang-ionic/jpush";
 
 @Component({
   selector: 'page-home',
@@ -21,10 +22,20 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               private storage: Storage,
+              public alertCtrl: AlertController,
+              public jpush: JPush,
               public taskProvider: TaskProvider) {
     this.storage.get('user').then(u => {
       this.user = u;
+      setTimeout(this.initJPush(), 1000);
     });
+  }
+
+
+  alert(msg) {
+    this.alertCtrl.create({
+      title: msg
+    }).present({});
   }
 
   ionViewDidEnter() {
@@ -68,4 +79,52 @@ export class HomePage {
   openAdvice() {
     this.navCtrl.push(AdvicePage, {});
   }
+
+
+
+  //****************************************************
+  //******************   JPUSH   ***********************
+  //****************************************************
+
+  initJPush(){
+    this.jpush.getRegistrationID().then((res) => {
+      this.alert('======JPUSH4: ' + res);
+    });
+    this.jpush.setBadge(1);
+    this.jpush.setApplicationIconBadgeNumber(1);
+  }
+
+  setAlias(alias) {
+    this.jpush.setAlias({ sequence: (new Date()).getMilliseconds(), alias: alias })
+      .then(this.aliasResultHandler)
+      .catch(this.errorHandler);
+  }
+
+  tagResultHandler = function(result) {
+    console.log(JSON.stringify(result))
+    // var sequence: number = result.sequence;
+    // var tags: Array<string> = result.tags == null ? [] : result.tags;
+    // alert('Success!' + '\nSequence: ' + sequence + '\nTags: ' + tags.toString());
+  };
+
+  aliasResultHandler = function(result) {
+    console.log(JSON.stringify(result))
+    // var sequence: number = result.sequence;
+    // var alias: string = result.alias;
+    // alert('Success!'setAlias(alias) {
+    //     this.jpush.setAlias({ sequence: (new Date()).getMilliseconds(), alias: alias })
+    //       .then(this.aliasResultHandler)
+    //       .catch(this.errorHandler);
+    //   } + '\nSequence: ' + sequence + '\nAlias: ' + alias);
+  };
+
+  errorHandler = function(err) {
+    console.log(JSON.stringify(err))
+    // var sequence: number = err.sequence;
+    // var code = err.code;
+    // alert('Error!' + '\nSequence: ' + sequence + '\nCode: ' + code);
+  };
+  //****************************************************
+  //******************   JPUSH   ***********************
+  //****************************************************
 }

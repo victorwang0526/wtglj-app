@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {UserProvider} from "../../providers/user-provider";
 import {HomePage} from "../home/home";
+import {JPush} from "@jiguang-ionic/jpush";
 
 @Component({
   selector: 'page-login',
@@ -12,13 +13,19 @@ import {HomePage} from "../home/home";
 export class LoginPage {
   username: string = '';
   password: string = '';
+  deviceId: string = '';
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               public userService: UserProvider,
+              public jpush: JPush,
               public loadingController: LoadingController,
               private storage: Storage,
               private barcodeScanner: BarcodeScanner) {
+
+    this.jpush.getRegistrationID().then((deviceId) => {
+      this.deviceId = deviceId;
+    });
   }
 
   async login() {
@@ -28,7 +35,7 @@ export class LoginPage {
     }
     const loading = await this.loadingController.create({});
     await loading.present();
-    this.userService.login(this.username, this.password)
+    this.userService.login(this.username, this.password, this.deviceId)
       .subscribe((res) => {
         if(res.code != 0) {
           this.alertCtrl.create({title: res.msg}).present({});
