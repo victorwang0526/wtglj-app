@@ -22,6 +22,7 @@ import {TaskProvider} from "../providers/task-provider";
 import {UploadProvider} from "../providers/upload-provider";
 import {ImagePreviewPage} from "../pages/image-preview/image-preview";
 import {ComponentsModule} from "../components/components.module";
+import {SuggestionProvider} from "../providers/suggestion-provider";
 
 // @ts-ignore
 @NgModule({
@@ -69,6 +70,7 @@ import {ComponentsModule} from "../components/components.module";
     UserProvider,
     TaskProvider,
     UploadProvider,
+    SuggestionProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
