@@ -27,6 +27,7 @@ import {ExamStartPage} from "../pages/exam-start/exam-start";
 import {ExamListPage} from "../pages/exam-list/exam-list";
 import {ExamFinishPage} from "../pages/exam-finish/exam-finish";
 import {ExamDetailPage} from "../pages/exam-detail/exam-detail";
+import {DictProvider} from "../providers/dict-provider";
 
 // @ts-ignore
 @NgModule({
@@ -83,6 +84,7 @@ import {ExamDetailPage} from "../pages/exam-detail/exam-detail";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     TaskProvider,
+    DictProvider,
     UploadProvider,
     SuggestionProvider,
   ],

@@ -62,7 +62,7 @@ export class TaskCheckVo {
   /**
    * 填表人id，检查为系统user id， 自检为微信udid
    */
-  operatorId: string;
+  operatorId: number;
   /**
    * 填表人名称，检查为系统username， 自检为微信名称
    */

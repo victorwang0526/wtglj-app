@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import {ActionSheetController, AlertController, Events, NavController, NavParams} from 'ionic-angular';
+import {
+  ActionSheetController,
+  AlertController,
+  Events,
+  LoadingController,
+  NavController,
+  NavParams
+} from 'ionic-angular';
 import {TaskCheckVo} from "../../models/task-check-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {InspectVo} from "../../models/inspect-vo";
@@ -36,6 +43,7 @@ export class InspectTaskCheckDetailPage {
               public taskProvider: TaskProvider,
               public alertCtrl: AlertController,
               public uploadProvider: UploadProvider,
+              public loadingController: LoadingController,
               private camera: Camera,
               public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('task');
@@ -233,16 +241,35 @@ export class InspectTaskCheckDetailPage {
   }
 
   async submit() {
+    for(let item of this.inspect.items) {
+      for(let subItem of item.subItems) {
+        if(!subItem.checked && item.title != '其他内容') {
+          this.alertCtrl.create({
+            title: '请填写完整'
+          }).present({});
+          return;
+        }
+      }
+    }
     let user: UserVo = await this.storage.get('user');
     this.taskCheck.operator = user.realName;
     this.taskCheck.operatorId = user.id;
     this.taskCheck.operateDate = new Date();
     this.taskCheck.inspect = this.inspect;
+    const loading = this.loadingController.create({
+      spinner: 'circles',
+      content: '提交中...',
+      enableBackdropDismiss: false
+    });
+    loading.present({});
     this.taskProvider.submitTaskCheck(this.taskCheck).subscribe((res: any) => {
       if(res.code == 0) {
         this.event.publish(MessageEvent.MESSAGE_EVENT, new MessageEvent('提交成功！', 'success', true));
       }
-    });
+    }, error => {},
+      () => {
+        loading.dismissAll();
+      });
   }
 
   getItems(items: string) {

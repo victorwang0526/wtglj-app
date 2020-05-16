@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="bg-grey">
-  <div  style="text-align: center">
+  <div style="text-align: center">
     <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
   </div>
 
@@ -18,7 +18,7 @@
   <dl class="check-group" *ngIf="!loading && groups && groups.length > 0">
     <dd class="c-group-row" *ngFor="let group of groups"
         (click)="openTaskChecks(group)">
-      <h4 class="c-group-tit">{{ group.inspectTitle + ' ' + group.groupTitle }}</h4>
+      <h4 class="c-group-tit">{{ group.taskTitle }}</h4>
       <div class="c-group-count">
         ({{group.finished}}/{{group.total}})
         <i class="u-arrow-right"></i>

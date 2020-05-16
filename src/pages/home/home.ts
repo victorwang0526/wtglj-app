@@ -28,6 +28,7 @@ export class HomePage {
     this.storage.get('user').then(u => {
       this.user = u;
       setTimeout(this.initJPush(), 1000);
+      this.getTaskUnfinishedCnt();
     });
   }
 
@@ -49,6 +50,9 @@ export class HomePage {
   }
 
   getTaskUnfinishedCnt() {
+    if(!this.user) {
+      return;
+    }
     this.taskProvider.getTaskUnfinishCnt(this.user.id).subscribe((res: any) => {
       if(res.code != 0) {
         return;
