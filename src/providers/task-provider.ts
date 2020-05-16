@@ -14,8 +14,8 @@ export class TaskProvider {
     console.log('Hello TaskProvider Provider');
   }
 
-  getTaskGroup(inspectType: number): Observable<any> {
-    return this.http.get(`/sys/sysinspecttaskcheck/group?inspectType=${inspectType}`);
+  getTaskGroup(userId: number, inspectType: number): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/group?userId=${userId}&inspectType=${inspectType}`);
   }
 
   getTaskUnfinishCnt(userId: number): Observable<any> {
