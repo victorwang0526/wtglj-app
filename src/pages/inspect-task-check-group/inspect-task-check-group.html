@@ -1,7 +1,17 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>检查任务</ion-title>
+    <ion-title>{{inspectType == 2 ? '企业自查' : '检查任务'}}</ion-title>
   </ion-navbar>
+  <ion-toolbar class="task-select-bar">
+    <ion-buttons class="select-btn" slot="start">
+      <ion-select placeholder="周期"
+                  (ionChange)="getTaskGroups()"
+                  [(ngModel)]="selectedDate"
+                  [cancelText]="'取消'" [okText]="'确定'">
+        <ion-option *ngFor="let item of dateRanges" [value]="item.value">{{item.label}}</ion-option>
+      </ion-select>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg-grey">

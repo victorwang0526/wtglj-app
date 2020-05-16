@@ -16,6 +16,14 @@ export class InspectTaskCheckGroupPage {
   loading: boolean = false;
   inspectType: number = 1;
   user: UserVo = null;
+  dateRanges: Array<any> = [
+    {label: '全部', value: 0},
+    {label: '近一月', value: 1},
+    {label: '近三月', value: 3},
+    {label: '近半年', value: 6},
+    {label: '近一年', value: 12},
+  ];
+  selectedDate: number = 1;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -33,7 +41,7 @@ export class InspectTaskCheckGroupPage {
 
   getTaskGroups() {
     this.loading = true;
-    this.taskProvider.getTaskGroup(this.user.id, this.inspectType).subscribe((res: any) => {
+    this.taskProvider.getTaskGroup(this.user.id, this.inspectType, this.selectedDate).subscribe((res: any) => {
       this.groups = res.data;
     }, () => {},
       () => {

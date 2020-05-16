@@ -38,4 +38,25 @@ page-inspect-task-check-group {
     border-width: 1px 0 0 1px;
     transform: rotate(-225deg);
   }
+  .task-select-bar{
+    .toolbar-content{
+      display: flex;
+      flex-flow: row wrap;
+    }
+    .select-btn{
+      width: 50%;
+      margin: 0;
+    }
+    .select-ios .select-placeholder,
+    .select-ios .select-icon .select-icon-inner,
+    .select-text{
+      color: #fff;
+    }
+    .select-ios{
+      width: 100%;
+      max-width: 100%;
+      padding: 11px 14px 11px 16px;
+      box-sizing: border-box;
+    }
+  }
 }
