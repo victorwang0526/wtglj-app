@@ -49,7 +49,7 @@ export class HomePage {
   }
 
   getTaskUnfinishedCnt() {
-    this.taskProvider.getTaskUnfinishCnt().subscribe((res: any) => {
+    this.taskProvider.getTaskUnfinishCnt(this.user.id).subscribe((res: any) => {
       if(res.code != 0) {
         return;
       }
@@ -88,10 +88,11 @@ export class HomePage {
 
   initJPush(){
     this.jpush.getRegistrationID().then((res) => {
-      this.alert('======JPUSH4: ' + res);
+      console.log('=====JPUSH: ' + res);
+      this.setAlias(res);
     });
-    this.jpush.setBadge(1);
-    this.jpush.setApplicationIconBadgeNumber(1);
+    this.jpush.setBadge(0);
+    this.jpush.setApplicationIconBadgeNumber(0);
   }
 
   setAlias(alias) {

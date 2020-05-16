@@ -18,8 +18,8 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheck/group?inspectType=${inspectType}`);
   }
 
-  getTaskUnfinishCnt(): Observable<any> {
-    return this.http.get('/sys/sysinspecttaskcheck/taskUnfinishCnt');
+  getTaskUnfinishCnt(userId: number): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/${userId}/taskUnfinishCnt`);
   }
 
   getTaskChecks(inspectId: number, taskId: number, areas: string, industries: string): Observable<any> {

@@ -46,3 +46,72 @@ $ ionic cordova build ios --prod --release
 
 
 ```
+
+
+### code push 
+
+https://github.com/Dellos7/example-cordova-code-push-plugin
+
+```shell script
+ionic cordova plugin add cordova-plugin-code-push
+
+npm install --save @ionic-native/code-push
+npm uninstall --save @ionic-native/code-push
+
+ionic cordova platform add ios
+
+ionic cordova platform add android
+
+npm install -g code-push-cli
+
+code-push login
+
+code-push app add wtgljaq-ios ios cordova
+
+    Successfully added the "wtgljaq-ios" app, along with the following default deployments:
+    ┌────────────┬────────────────────────────────────────┐
+    │ Name       │ Deployment Key                         │
+    ├────────────┼────────────────────────────────────────┤
+    │ Production │ RrBiAojRni3DHVH_OmcGiYV_bd3rfT7N7JpBkM │
+    ├────────────┼────────────────────────────────────────┤
+    │ Staging    │ XCsxCyGY4_JIrIp6OodogATs_gLHz9WjTavuY  │
+    └────────────┴────────────────────────────────────────┘
+
+code-push app add wtgljaq-android android cordova
+
+
+code-push deployment ls wtgljaq-ios -k
+    
+    ┌────────────┬────────────────────────────────────────┬─────────────────────┬──────────────────────┐
+    │ Name       │ Deployment Key                         │ Update Metadata     │ Install Metrics      │
+    ├────────────┼────────────────────────────────────────┼─────────────────────┼──────────────────────┤
+    │ Production │ RrBiAojRni3DHVH_OmcGiYV_bd3rfT7N7JpBkM │ No updates released │ No installs recorded │
+    ├────────────┼────────────────────────────────────────┼─────────────────────┼──────────────────────┤
+    │ Staging    │ XCsxCyGY4_JIrIp6OodogATs_gLHz9WjTavuY  │ No updates released │ No installs recorded │
+    └────────────┴────────────────────────────────────────┴─────────────────────┴──────────────────────┘
+
+
+code-push deployment ls wtgljaq-android -k
+
+```
+
+add theses keys in your config.xml
+
+```xml
+<platform name="android">
+    <preference name="CodePushDeploymentKey" value="YOUR-ANDROID-DEPLOYMENT-KEY" />
+</platform>
+<platform name="ios">
+    <preference name="CodePushDeploymentKey" value="YOUR-IOS-DEPLOYMENT-KEY" />
+</platform>
+```
+
+
+### release and updates
+
+```shell script
+
+ionic cordova prepare ios
+
+code-push release wtgljaq-ios ./platforms/ios/www/ 0.0.5 --description "integration app center" -d "Production"
+```

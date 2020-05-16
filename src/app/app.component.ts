@@ -32,13 +32,8 @@ export class MyApp {
       this.subEvent();
 
       if(this.platform.is('mobile')) {
-        this.alertController.create({message: '======JPUSH1: '}).present({});
         jpush.setDebugMode(true);
-        jpush.init().then(() => {
-          alertController.create({message: '=====JPUSH: INIT SUCCESS....'}).present({});
-        }).catch(e => {
-          alertController.create({message: '=====JPUSH: INIT ERROR....' + JSON.stringify(e)}).present({});
-        });
+        jpush.init();
       }
     });
   }

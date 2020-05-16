@@ -1,5 +1,5 @@
 export class UserVo {
-  id: string;
+  id: number;
   realName: string;
   username: string;
   mobile: string;
