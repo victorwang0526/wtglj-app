@@ -98,88 +98,12 @@ page-home {
     .c-red{
       color: #E05D63;
     }
-  }
-  .u-center-hd{
-    .uc-face{
-      width: 8.8rem;
-      height: 8.8rem;
-      border-radius: 50%;
-      img{
-        width: 100%;
-        height: 100%;
-        display: block;
-
-      }
-    }
-  }
-  .card-column{
-  }
-  .card-col{
-    width: 50%;
-    flex-shrink: 0;
-    color: #585858;
-    font-size: 1.2rem;
-    word-break: break-all;
-    word-wrap: break-word;
-    padding: .7rem 0;
-  }
-
-
-  .home-head{
-    position: relative;
-    min-height: 9.6rem;
-    &:before{
-      position: absolute;
-      left: 0;
-      top: 0;
-      content: "";
-      width: 100%;
-      height: 9.6rem;
-      background: #137FFE url("../../assets/imgs/hd.png") no-repeat top center;
-      background-size: 100% 100%;
-    }
-  }
-  .home-card{
-    position: relative;
-    z-index: 2;
-    padding: 0 1rem 1.5rem;
-    &-inner{
-      position: relative;
-      width: 100%;
-      min-height: 17.9rem;
-      margin: 0 auto;
-      padding: 2.5rem 2rem 1.5rem;
-      box-sizing: border-box;
-      background: url("../../assets/imgs/card.png") no-repeat center center;
-      background-size: 100% 100%;
-      box-shadow: 0 0 1rem rgba(17,17,17,.2);
-    }
-    .exit-btn{
-      position: absolute;
-      right: 0;
-      top: 2.5rem;
-      color: #e99120;
-      font-size: 1.4rem;
-      line-height: 2rem;
-      padding: 0 .9rem 0 1.3rem;
-      background: #ffdf86;
-      border-radius: 2rem 0 0 2rem;
-    }
-    .user-name{
-      display: flex;
-      align-items: center;
-      color: #999;
-      line-height: 1;
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-      b{
-        color: #333;
-        font-size: 2.4rem;
-      }
-      .name-line{
-        color: #e6e6e6;
-        padding: 0 .5rem;
-      }
+    .task-status-ok{
+      width: 4.4rem;
+      height: 4.4rem;
+      display: block;
+      background: url("../../assets/imgs/ok.png") no-repeat center center;
+      background-size: contain;
     }
   }
   .home-entrance{

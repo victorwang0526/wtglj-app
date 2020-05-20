@@ -1,3 +1,26 @@
 page-user-center {
+  .u-center-hd{
+    .uc-face{
+      width: 8.8rem;
+      height: 8.8rem;
+      border-radius: 50%;
+      img{
+        width: 100%;
+        height: 100%;
+        display: block;
 
+      }
+    }
+  }
+  .card-column{
+  }
+  .card-col{
+    width: 50%;
+    flex-shrink: 0;
+    color: #585858;
+    font-size: 1.2rem;
+    word-break: break-all;
+    word-wrap: break-word;
+    padding: .7rem 0;
+  }
 }

@@ -1,17 +1,26 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {UserVo} from "../../models/user-vo";
+import {LoginPage} from "../login/login";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-user-center',
   templateUrl: 'user-center.html',
 })
 export class UserCenterPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user: UserVo = null;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private storage: Storage,) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserCenterPage');
+  }
+  logout() {
+    this.storage.clear();
+    localStorage.clear();
+    this.navCtrl.setRoot(LoginPage, {});
   }
 
 }

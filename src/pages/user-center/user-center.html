@@ -4,6 +4,39 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <div class="u-center-hd">
+    <div class="uc-face">
+      <img src="../../assets/imgs/face.png" alt="" />
+    </div>
+    <div class="uc-msg">
+      <div class="uc-name">姓名：{{ user?.realName}}</div>
+      <div class="uc-area">管辖区域：{{ user?.areas}}</div>
+    </div>
+  </div>
+  <div class="u-center-card">
+    <dl class="card-column">
+      <dd class="card-col">
+        <i class="uc-icon circle-yellow"></i>
+        <div class="card-col-info">单位：{{ user?.dept}}</div>
+      </dd>
+      <dd class="card-col">
+        <i class="uc-icon circle-yellow"></i>
+        <div class="card-col-info">职务：{{ user?.duty}}</div>
+      </dd>
+      <dd class="card-col">
+        <i class="uc-icon circle-yellow"></i>
+        <div class="card-col-info">管辖区域：{{ user?.areas}} </div>
+      </dd>
+      <dd class="card-col">
+        <i class="uc-icon circle-yellow"></i>
+        <div class="card-col-info">管辖行业：{{ user?.industries}}</div>
+      </dd>
+      <dd class="card-col">
+        <i class="uc-icon circle-yellow"></i>
+        <div class="card-col-info">手机：{{ user?.mobile}}</div>
+      </dd>
+    </dl>
+  </div>
+  <button class="exit-btn" (click)="logout()">退出</button>
 </ion-content>
