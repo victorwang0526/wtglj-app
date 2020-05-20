@@ -28,6 +28,7 @@ import {ExamListPage} from "../pages/exam-list/exam-list";
 import {ExamFinishPage} from "../pages/exam-finish/exam-finish";
 import {ExamDetailPage} from "../pages/exam-detail/exam-detail";
 import {DictProvider} from "../providers/dict-provider";
+import {UserCenterPage} from "../pages/user-center/user-center";
 
 // @ts-ignore
 @NgModule({
@@ -45,6 +46,8 @@ import {DictProvider} from "../providers/dict-provider";
     ExamListPage,
     ExamFinishPage,
     ExamDetailPage,
+
+    UserCenterPage,
   ],
   imports: [
     HttpClientModule,
@@ -74,6 +77,8 @@ import {DictProvider} from "../providers/dict-provider";
     ExamListPage,
     ExamFinishPage,
     ExamDetailPage,
+
+    UserCenterPage,
   ],
   providers: [
     JPush,

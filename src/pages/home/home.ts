@@ -8,6 +8,7 @@ import {UserVo} from "../../models/user-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {ExamListPage} from "../exam-list/exam-list";
 import {JPush} from "@jiguang-ionic/jpush";
+import {UserCenterPage} from "../user-center/user-center";
 
 @Component({
   selector: 'page-home',
@@ -82,6 +83,10 @@ export class HomePage {
 
   openAdvice() {
     this.navCtrl.push(AdvicePage, {});
+  }
+
+  openUserCenter() {
+    this.navCtrl.push(UserCenterPage, {});
   }
 
 

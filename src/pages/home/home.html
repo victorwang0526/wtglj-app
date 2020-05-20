@@ -8,6 +8,127 @@
 
 <ion-content class="app-home">
   <div class="home-wrap">
+    <div class="h-home-hd">
+      <div class="h-home-user" (click)="openUserCenter()">
+        <div class="h-user-face">
+          <img src="../../assets/imgs/face.png" alt="" />
+        </div>
+        <div class="h-user-msg">
+          <div class="h-user-name">姓名：{{ user?.realName}}</div>
+          <div class="h-user-area">管辖区域：{{ user?.areas}}</div>
+        </div>
+      </div>
+      <div class="h-home-enter">
+        <dl class="home-entrance">
+          <dd class="enter-col">
+            <button class="enter-btn" (click)="openInspectCheckGroup()">
+              <i class="enter-icon task-icon">
+                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>
+              </i>
+              <div class="enter-tit">检查任务</div>
+            </button>
+          </dd>
+          <dd class="enter-col">
+            <button class="enter-btn" (click)="openSelfCheckGroup()">
+              <i class="enter-icon self-icon">
+                <ion-badge color="danger" *ngIf="taskUnfinishedCnt2 > 0">{{taskUnfinishedCnt2}}</ion-badge>
+              </i>
+              <div class="enter-tit">企业自检</div>
+            </button>
+          </dd>
+          <dd class="enter-col">
+            <button class="enter-btn" (click)="openExam()">
+              <i class="enter-icon exam-icon">
+                <!--              <ion-badge color="danger">6</ion-badge>-->
+              </i>
+              <div class="enter-tit">安全考试</div>
+            </button>
+          </dd>
+          <dd class="enter-col">
+            <button class="enter-btn" (click)="openAdvice()">
+              <i class="enter-icon advice-icon">
+                <!--              <ion-badge color="danger">6</ion-badge>-->
+              </i>
+              <div class="enter-tit">意见反馈</div>
+            </button>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="h-finished-task">
+      <div class="d-finished-tit">待完成任务</div>
+      <dl class="h-task-list">
+        <dd class="h-task-item">
+          <div class="h-task-status">
+            <i class="task-status-ok"></i>
+          </div>
+          <div class="task-inform">
+            <div class="task-tit">旅游景区安全生产排查表</div>
+            <div class="task-count">
+              <div class="t-count-col">
+                任务总数：
+                <span class="c-blue">5</span>
+              </div>
+              <div class="t-count-col">
+                任务剩余：
+                <span class="c-azure">0</span>
+              </div>
+            </div>
+          </div>
+        </dd>
+        <dd class="h-task-item">
+          <div class="h-task-status">
+            <i class="task-status-ok"></i>
+          </div>
+          <div class="task-inform">
+            <div class="task-tit">旅游景区安全生产排查表</div>
+            <div class="task-count">
+              <div class="t-count-col">
+                任务总数：
+                <span class="c-blue">221</span>
+              </div>
+              <div class="t-count-col">
+                任务剩余：
+                <span class="c-red">220</span>
+              </div>
+            </div>
+          </div>
+        </dd>
+      </dl>
+    </div>
+    <div class="u-center-hd">
+      <div class="uc-face">
+        <img src="../../assets/imgs/face.png" alt="" />
+      </div>
+      <div class="uc-msg">
+        <div class="uc-name">姓名：{{ user?.realName}}</div>
+        <div class="uc-area">管辖区域：{{ user?.areas}}</div>
+      </div>
+    </div>
+    <div class="u-center-card">
+      <dl class="card-column">
+        <dd class="card-col">
+          <i class="uc-icon circle-yellow"></i>
+          <div class="card-col-info">单位：{{ user?.dept}}</div>
+        </dd>
+        <dd class="card-col">
+          <i class="uc-icon circle-yellow"></i>
+          <div class="card-col-info">职务：{{ user?.duty}}</div>
+        </dd>
+        <dd class="card-col">
+          <i class="uc-icon circle-yellow"></i>
+          <div class="card-col-info">管辖区域：{{ user?.areas}} </div>
+        </dd>
+        <dd class="card-col">
+          <i class="uc-icon circle-yellow"></i>
+          <div class="card-col-info">管辖行业：{{ user?.industries}}</div>
+        </dd>
+        <dd class="card-col">
+          <i class="uc-icon circle-yellow"></i>
+          <div class="card-col-info">手机：{{ user?.mobile}}</div>
+        </dd>
+      </dl>
+    </div>
     <div class="home-head">
       <div class="home-card">
         <div class="home-card-inner">
@@ -27,40 +148,6 @@
           </dl>
         </div>
       </div>
-      <dl class="home-entrance">
-        <dd class="enter-col">
-          <button class="enter-btn" (click)="openInspectCheckGroup()">
-            <i class="enter-icon task-icon">
-              <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>
-            </i>
-            <div class="enter-tit">检查任务</div>
-          </button>
-        </dd>
-        <dd class="enter-col">
-          <button class="enter-btn" (click)="openSelfCheckGroup()">
-            <i class="enter-icon self-icon">
-              <ion-badge color="danger" *ngIf="taskUnfinishedCnt2 > 0">{{taskUnfinishedCnt2}}</ion-badge>
-            </i>
-            <div class="enter-tit">企业自检</div>
-          </button>
-        </dd>
-        <dd class="enter-col">
-          <button class="enter-btn" (click)="openExam()">
-            <i class="enter-icon exam-icon">
-<!--              <ion-badge color="danger">6</ion-badge>-->
-            </i>
-            <div class="enter-tit">考试</div>
-          </button>
-        </dd>
-        <dd class="enter-col">
-          <button class="enter-btn" (click)="openAdvice()">
-            <i class="enter-icon advice-icon">
-<!--              <ion-badge color="danger">6</ion-badge>-->
-            </i>
-            <div class="enter-tit">意见反馈</div>
-          </button>
-        </dd>
-      </dl>
     </div>
   </div>
 </ion-content>
