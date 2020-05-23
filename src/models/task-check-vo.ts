@@ -1,4 +1,5 @@
 import {InspectVo} from "./inspect-vo";
+import {DangerVo} from "./danger-vo";
 
 export class TaskCheckVo {
 
@@ -89,4 +90,6 @@ export class TaskCheckVo {
   punishTypeLabel: string; //local
 
   inspect: InspectVo;
+
+  dangers: Array<DangerVo>;
 }

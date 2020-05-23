@@ -14,13 +14,12 @@
       <div class="c-form-box" *ngFor="let item of inspect.items">
         <h4 class="c-form-title"><span>{{item.title}}</span></h4>
         <!-- 选项 -->
-        <ng-container *ngIf="item.title != '其他内容'">
+        <ng-container>
           <section class="c-form-inner" *ngFor="let subItem of item.subItems; let i = index">
             <div class="c-form-tit">{{i+1}}.{{subItem.title}}</div>
             <div class="c-form-inform">
-              <!-- 是，否 -->
-              <dl class="c-form-choose" *ngIf="subItem.items == '是，否'">
-                <dd class="choose-desc" *ngFor="let c of subItem.items.split('，')">
+              <dl class="c-form-choose">
+                <dd class="choose-desc" *ngFor="let c of subItem.items.split(',')">
                   <div class="c-desc-txt">{{c}}</div>
                   <ion-checkbox mode="md" [checked]="subItem.checked == c"
                                 [disabled]="!editable"

@@ -261,6 +261,7 @@ export class InspectTaskCheckDetailPage {
     this.taskCheck.operatorId = user.id;
     this.taskCheck.operateDate = new Date();
     this.taskCheck.inspect = this.inspect;
+    this.taskCheck.dangers = [];
     const loading = this.loadingController.create({
       spinner: 'circles',
       content: '提交中...',
