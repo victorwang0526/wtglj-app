@@ -19,6 +19,7 @@ import {TaskCheckItemVo} from "../../models/task-check-item-vo";
 import {UploadProvider} from "../../providers/upload-provider";
 import {ImagePreviewPage} from "../image-preview/image-preview";
 import {DictDataVo} from "../../models/dict-data-vo";
+import {DangerListPage} from "../danger-list/danger-list";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -79,6 +80,10 @@ export class InspectTaskCheckDetailPage {
             this.loading = false;
           })
       });
+  }
+
+  openDangerList() {
+    this.navCtrl.push(DangerListPage, {});
   }
 
   getDangerTypes() {

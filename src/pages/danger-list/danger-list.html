@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>隐患清单</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-grey">
+  <div class="danger-list">
+    <div class="danger-box">
+
+    </div>
+  </div>
+
+  <div class="c-form-box">
+    <h4 class="c-form-title"><span>隐患等级</span></h4>
+    <section class="c-form-inner has-fold">
+      <!--          展开 +active-->
+      <div class="c-form-list active">
+        <div class="list-item item-hd">
+          <span class="item-label">等级</span>
+          <div class="item-info">
+            <div class="item-txt c-grey-9">重大隐患</div>
+            <i class="u-arrow-right"></i>
+          </div>
+        </div>
+        <div class="list-item-box fold-box">
+          <div class="list-item">
+            <span class="item-label">隐患内容</span>
+            <div class="item-info">
+              <div class="item-txt">
+                <input type="text" placeholder="请输入隐患内容"/>
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="item-label">整改措施</span>
+            <div class="item-info">
+              <div class="item-txt">
+                <input type="text" placeholder="请输入整改措施"/>
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="item-label">整改时限</span>
+            <div class="item-info">
+              <div class="item-txt c-grey-9">
+                <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+              </div>
+              <i class="u-arrow-right"></i>
+            </div>
+          </div>
+          <div class="list-item">
+            <span class="item-label">备注</span>
+            <div class="item-info">
+              <div class="item-txt">
+                    <textarea class="item-textarea" placeholder="请填写备注信息"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <v-danger></v-danger>
+  <span (click)="openPunishPage()">处罚列表</span>
+</ion-content>

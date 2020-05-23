@@ -315,4 +315,17 @@ page-inspect-task-check-detail {
       padding: 0 !important;
     }
   }
+  .danger-enter{
+    display: flex;
+    align-items: center;
+  }
+  .link-txt{
+    color: #137FFE;
+    padding: .2rem 0;
+    font-size: 1.4rem;
+    text-decoration: underline;
+  }
+  .danger-count-txt{
+    color: #f84848;
+  }
 }

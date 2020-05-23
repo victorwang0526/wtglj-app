@@ -12,6 +12,9 @@ export class UserCenterPage {
   user: UserVo = null;
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private storage: Storage,) {
+    this.storage.get('user').then(u => {
+      this.user = u;
+    });
   }
 
   ionViewDidLoad() {

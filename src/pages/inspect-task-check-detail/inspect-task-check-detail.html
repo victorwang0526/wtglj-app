@@ -27,26 +27,13 @@
                                 (click)="checkItem(subItem, c)"></ion-checkbox>
                 </dd>
               </dl>
-              <!-- 【xxx（1，2，3）】【yyy（1，2，3）】-->
-              <ng-container *ngIf="subItem.items && subItem.items != '' && subItem.items != '是，否'">
-                <dl class="c-form-choose">
-                  <ng-container *ngFor="let c of getItems(subItem.items)">
-                    <dd class="choose-desc" >
-                      <div class="c-desc-txt" style="font-weight: bold;">{{c.title}}</div>
-                    </dd>
-                    <dd class="choose-desc" *ngFor="let d of c.items">
-                      <div class="c-desc-txt">{{d}}</div>
-                      <ion-checkbox mode="md"
-                                    [checked]="isChecked(subItem, c.title + '-' + d)"
-                                    [disabled]="!editable"
-                                    (click)="checkItemM(subItem, c.title + '-' + d)"></ion-checkbox>
-                    </dd>
-                  </ng-container>
-                </dl>
-              </ng-container>
               <!-- 其他 -->
+              <div class="danger-enter" (click)="openDangerList()">
+                <div class="link-txt">隐患列表</div>
+                <span class="danger-count-txt">(2)</span>
+              </div>
 
-              <div class="c-form-remark">
+              <div class="c-form-remark" style="display: none;">
                 <div class="remark-info">
                   <span class="c-label">备注：</span>
                   <div class="remark-txt">

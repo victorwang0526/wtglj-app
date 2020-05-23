@@ -29,6 +29,8 @@ import {ExamFinishPage} from "../pages/exam-finish/exam-finish";
 import {ExamDetailPage} from "../pages/exam-detail/exam-detail";
 import {DictProvider} from "../providers/dict-provider";
 import {UserCenterPage} from "../pages/user-center/user-center";
+import {DangerListPage} from "../pages/danger-list/danger-list";
+import {PunishListPage} from "../pages/punish-list/punish-list";
 
 // @ts-ignore
 @NgModule({
@@ -48,6 +50,8 @@ import {UserCenterPage} from "../pages/user-center/user-center";
     ExamDetailPage,
 
     UserCenterPage,
+    DangerListPage,
+    PunishListPage,
   ],
   imports: [
     HttpClientModule,
@@ -79,6 +83,8 @@ import {UserCenterPage} from "../pages/user-center/user-center";
     ExamDetailPage,
 
     UserCenterPage,
+    DangerListPage,
+    PunishListPage,
   ],
   providers: [
     JPush,

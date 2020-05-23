@@ -1,26 +1,93 @@
 page-user-center {
   .u-center-hd{
+    padding: 3.8rem 3rem 2.8rem;
     .uc-face{
       width: 8.8rem;
       height: 8.8rem;
+      margin:  0 auto;
       border-radius: 50%;
+      border:1rem solid #4d80fe;
+      box-shadow: 0 0 0 1rem #fff;
+      box-sizing: content-box;
       img{
         width: 100%;
         height: 100%;
         display: block;
-
+        object-fit: cover;
       }
     }
+    .uc-msg{
+      text-align: center;
+      padding-top: 2.8rem;
+    }
+    .uc-name{
+      font-size: 1.8rem;
+      padding-bottom: .4rem;
+    }
+    .uc-area{
+      font-size: 1.4rem;
+    }
+  }
+  .u-center-card{
+    padding: 0 3rem;
   }
   .card-column{
+    margin-bottom: 3rem;
+    padding: 2rem 1.6rem 2rem 0;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem rgba(17,17,17,.1);
   }
   .card-col{
-    width: 50%;
-    flex-shrink: 0;
-    color: #585858;
-    font-size: 1.2rem;
+    position: relative;
+    color: #334355;
+    font-size: 1.6rem;
     word-break: break-all;
     word-wrap: break-word;
-    padding: .7rem 0;
+    display: flex;
+    align-items: center;
+    padding-left: 8.6rem;
+    min-height: 6.2rem;
+  }
+  .card-col-info{
+    min-width: 0;
+    flex: 1;
+  }
+  .uc-icon{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -4.3rem;
+    width: 8.8rem;
+    height: 8.6rem;
+    display: block;
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    &.yellow-icon{
+      background-image: url("../../assets/imgs/yellow.png");
+    }
+    &.green-icon{
+      background-image: url("../../assets/imgs/green.png");
+    }
+    &.blue-icon{
+      background-image: url("../../assets/imgs/blue.png");
+    }
+    &.red-icon{
+      background-image: url("../../assets/imgs/red.png");
+    }
+  }
+  .uc-exit-btn{
+    width: 100%;
+    height: 4.6rem;
+    line-height: 4.6rem;
+    color: #fff;
+    font-size: 1.8rem;
+    padding: 0;
+    margin: 0 auto 2.5rem;
+    display: block;
+    background: #F26868;
+    border-radius: .4rem;
   }
 }
