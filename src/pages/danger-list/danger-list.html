@@ -12,12 +12,13 @@
 <ion-content>
   <div class="g-flex-main">
     <div class="g-flex-box">
-      <div class="c-form-box">
-        <h4 class="c-form-title"><span>隐患清单</span></h4>
-        <div *ngIf="!subItem.dangers || subItem.dangers.length === 0">
-          暂无隐患，请点击右上角"新增隐患"
-        </div>
-        <section class="c-form-inner has-fold" *ngFor="let danger of subItem.dangers">
+      <div class="danger-tipper" *ngIf="!subItem.dangers || subItem.dangers.length === 0">
+        <i class="lead-none-icon"></i>
+        暂无隐患，请点击右上角"新增隐患"
+      </div>
+      <div class="c-form-box" *ngFor="let danger of subItem.dangers; let di = index;">
+        <h4 class="c-form-title"><span>隐患 {{di+1}}</span></h4>
+        <section class="c-form-inner has-fold">
           <!--          展开 +active-->
           <div class="c-form-list active">
             <div class="list-item  item-hd">
@@ -26,6 +27,7 @@
                 <div class="item-txt">
                   <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc"/>
                 </div>
+                <button class="danger-del-btn" (click)="removeDanger(danger)">删除</button>
               </div>
             </div>
             <div class="list-item" (click)="chooseLevel(danger)">
@@ -47,8 +49,7 @@
               </div>
             </div>
             <div class="list-item">
-              <button class="add-danger-btn" (click)="addPunish(danger)">+增加处罚</button>
-              <button class="add-danger-btn" (click)="removeDanger(danger)">-删除该隐患</button>
+              <button class="danger-add-btn" (click)="addPunish(danger)">+增加处罚</button>
             </div>
 
             <!-- 处罚清单 -->
