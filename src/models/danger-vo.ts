@@ -13,11 +13,12 @@ export class DangerVo {
    * 隐患等级
    */
   problemLevel: string;
+  problemLevelLabel: string;
 
   /**
    * 问题图片
    */
   problemImageUrls: string;
 
-  punishesList: Array<PunishVo>;
+  punishesList: Array<PunishVo> = [];
 }

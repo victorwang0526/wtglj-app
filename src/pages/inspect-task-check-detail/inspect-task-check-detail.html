@@ -27,7 +27,7 @@
                 </dd>
               </dl>
               <!-- 其他 -->
-              <div class="danger-enter" (click)="openDangerList()">
+              <div class="danger-enter" (click)="openDangerList(subItem)" *ngIf="subItem.checked === '有隐患'">
                 <div class="link-txt">隐患列表</div>
                 <span class="danger-count-txt">(2)</span>
               </div>

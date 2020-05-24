@@ -82,8 +82,8 @@ export class InspectTaskCheckDetailPage {
       });
   }
 
-  openDangerList() {
-    this.navCtrl.push(DangerListPage, {});
+  openDangerList(subItem) {
+    this.navCtrl.push(DangerListPage, {subItem, taskCheck: this.taskCheck});
   }
 
   getDangerTypes() {

@@ -1,66 +1,102 @@
 <ion-header>
   <ion-navbar>
     <ion-title>隐患清单</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="addDanger()">
+        新增隐患
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="bg-grey">
-  <div class="danger-list">
-    <div class="danger-box">
-
-    </div>
-  </div>
-
-  <div class="c-form-box">
-    <h4 class="c-form-title"><span>隐患等级</span></h4>
-    <section class="c-form-inner has-fold">
-      <!--          展开 +active-->
-      <div class="c-form-list active">
-        <div class="list-item item-hd">
-          <span class="item-label">等级</span>
-          <div class="item-info">
-            <div class="item-txt c-grey-9">重大隐患</div>
-            <i class="u-arrow-right"></i>
-          </div>
+<ion-content>
+  <div class="g-flex-main">
+    <div class="g-flex-box">
+      <div class="c-form-box">
+        <h4 class="c-form-title"><span>隐患清单</span></h4>
+        <div *ngIf="!subItem.dangers || subItem.dangers.length === 0">
+          暂无隐患，请点击右上角"新增隐患"
         </div>
-        <div class="list-item-box fold-box">
-          <div class="list-item">
-            <span class="item-label">隐患内容</span>
-            <div class="item-info">
-              <div class="item-txt">
-                <input type="text" placeholder="请输入隐患内容"/>
+        <section class="c-form-inner has-fold" *ngFor="let danger of subItem.dangers">
+          <!--          展开 +active-->
+          <div class="c-form-list active">
+            <div class="list-item  item-hd">
+              <span class="item-label">问题表现</span>
+              <div class="item-info">
+                <div class="item-txt">
+                  <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc"/>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="list-item">
-            <span class="item-label">整改措施</span>
-            <div class="item-info">
-              <div class="item-txt">
-                <input type="text" placeholder="请输入整改措施"/>
+            <div class="list-item" (click)="chooseLevel(danger)">
+              <span class="item-label">隐患等级</span>
+              <div class="item-info">
+                <div class="item-txt c-grey-9">{{danger.problemLevelLabel}}</div>
+                <i class="u-arrow-right"></i>
               </div>
             </div>
-          </div>
-          <div class="list-item">
-            <span class="item-label">整改时限</span>
-            <div class="item-info">
-              <div class="item-txt c-grey-9">
-                <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
-              </div>
-              <i class="u-arrow-right"></i>
-            </div>
-          </div>
-          <div class="list-item">
-            <span class="item-label">备注</span>
-            <div class="item-info">
-              <div class="item-txt">
-                    <textarea class="item-textarea" placeholder="请填写备注信息"></textarea>
+            <div class="list-item">
+              <div class="upload-pic">
+                <div class="pic-col">
+                  <i class="del-icon"></i>
+                  <img src="../../assets/imgs/1.jpg" alt="">
+                </div>
+                <div class="pic-col">
+                  <button class="add-pic-btn"></button>
+                </div>
               </div>
             </div>
+            <div class="list-item">
+              <button class="add-danger-btn" (click)="addPunish(danger)">+增加处罚</button>
+              <button class="add-danger-btn" (click)="removeDanger(danger)">-删除该隐患</button>
+            </div>
+
+            <!-- 处罚清单 -->
+            <ion-list>
+              <ion-item-sliding *ngFor="let p of danger.punishesList">
+                <ion-item>
+                  <section class="c-form-inner has-fold danger-inner-box">
+                    <!--          展开 +active-->
+                    <div class="c-form-list active">
+                    <div class="list-item item-hd"  (click)="choosePunishLevel(p)">
+                      <span class="item-label">处罚类型</span>
+                      <div class="item-info">
+                        <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
+                        <i class="u-arrow-right"></i>
+                      </div>
+                    </div>
+                    <div class="list-item">
+                      <span class="item-label">问题表现</span>
+                      <div class="item-info">
+                        <div class="item-txt">
+                          <input type="text" placeholder="请输入问题表现"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-item">
+                      <div class="upload-pic">
+                        <div class="pic-col">
+                          <i class="del-icon"></i>
+                          <img src="../../assets/imgs/1.jpg" alt="">
+                        </div>
+                        <div class="pic-col">
+                          <button class="add-pic-btn"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </section>
+                </ion-item>
+
+                <ion-item-options side="right">
+                  <button ion-button color="danger" (click)="removePunish(danger, p)">删除</button>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+    </div>
+    <button class="submit-button">确定</button>
   </div>
-  <v-danger></v-danger>
-  <span (click)="openPunishPage()">处罚列表</span>
 </ion-content>

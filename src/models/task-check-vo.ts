@@ -91,5 +91,5 @@ export class TaskCheckVo {
 
   inspect: InspectVo;
 
-  dangers: Array<DangerVo>;
+  dangers: Array<DangerVo> = [];
 }

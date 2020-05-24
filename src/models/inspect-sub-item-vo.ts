@@ -1,3 +1,5 @@
+import {DangerVo} from "./danger-vo";
+
 export class InspectSubItemVo {
   id: string;
   pid: string;
@@ -11,4 +13,6 @@ export class InspectSubItemVo {
   // 选中值，逗号隔开
   checked: string;
   imgLoading: boolean = false;
+
+  dangers: Array<DangerVo> = [];
 }
