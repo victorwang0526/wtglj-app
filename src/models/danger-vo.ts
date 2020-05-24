@@ -2,7 +2,7 @@ import {PunishVo} from "./punish-vo";
 
 export class DangerVo {
 
-  taskSubItemId: number;
+  taskSubItemId: string;
 
   /**
    * 问题表现

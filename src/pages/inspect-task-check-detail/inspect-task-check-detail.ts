@@ -262,6 +262,14 @@ export class InspectTaskCheckDetailPage {
     this.taskCheck.operateDate = new Date();
     this.taskCheck.inspect = this.inspect;
     this.taskCheck.dangers = [];
+    for(let item of this.inspect.items) {
+      for(let subItem of item.subItems) {
+        if(!subItem.dangers || subItem.dangers.length == 0) {
+          continue;
+        }
+        this.taskCheck.dangers.push(...subItem.dangers);
+      }
+    }
     const loading = this.loadingController.create({
       spinner: 'circles',
       content: '提交中...',

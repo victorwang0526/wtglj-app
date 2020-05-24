@@ -123,6 +123,7 @@ export class DangerListPage {
 
   addDanger() {
     let d = new DangerVo();
+    d.taskSubItemId = this.subItem.id;
     // this.addPunish(d);
     this.subItem.dangers.push(d);
   }
