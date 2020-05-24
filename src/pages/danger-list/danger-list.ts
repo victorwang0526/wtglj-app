@@ -5,10 +5,11 @@ import {DangerVo} from "../../models/danger-vo";
 import {DictDataVo} from "../../models/dict-data-vo";
 import {TaskProvider} from "../../providers/task-provider";
 import {UploadProvider} from "../../providers/upload-provider";
-import {Camera} from "@ionic-native/camera";
+import {Camera, CameraOptions, PictureSourceType} from "@ionic-native/camera";
 import {PunishVo} from "../../models/punish-vo";
 import {InspectSubItemVo} from "../../models/inspect-sub-item-vo";
 import {TaskCheckVo} from "../../models/task-check-vo";
+import {ImagePreviewPage} from "../image-preview/image-preview";
 @Component({
   selector: 'page-danger-list',
   templateUrl: 'danger-list.html',
@@ -19,6 +20,8 @@ export class DangerListPage {
   subItem: InspectSubItemVo;
   dangerTypes: Array<DictDataVo> = [];
   punishTypes: Array<DictDataVo> = [];
+
+  zlzg: DictDataVo = new DictDataVo();
 
   constructor(public navCtrl: NavController,
               public taskProvider: TaskProvider,
@@ -46,6 +49,78 @@ export class DangerListPage {
     this.navCtrl.push(PunishListPage, {});
   }
 
+  async cameraChoose(danger: DangerVo) {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [{
+        text: '拍照',
+        icon: 'camera',
+        handler: () => {
+          this.cameraOpen(PictureSourceType.CAMERA, danger);
+        }
+      }, {
+        text: '相册',
+        icon: 'folder',
+        handler: () => {
+          this.cameraOpen(PictureSourceType.SAVEDPHOTOALBUM, danger);
+        }
+        // }, {
+        //   text: 'test',
+        //   handler: () => {
+        //     const imageData = 'iVBORw0KGgoAAAANSUhEUgAAADUAAAA0CAYAAAAqunDVAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAzCDPIMRgycCRmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsgsEY19jWyvZ9bp5ZtP558v8QBTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwCETV0AEc4kCwAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAANaADAAQAAAABAAAANAAAAAD50QR6AAABA0lEQVRoBe2YMQ6EQAhFR2Np9gaWWtjZ7f0PsY23MPa7cRMbowkDOCD5NsYMDMN/CMaqG8ZvCnbVwfL5p4OknkIVpEDKUAGUn6H4WaFBKksuQ+Pmrtivtk1j319uv6xr+szz5bpkAeUnUa+kbyX5Sj8rsdyy0tjjKFjI8lNvFJvy72k6ilf0OSQpJFW0hgTBQEogXlFX1e6XO6P2TM9m1b7GuYcsP1VSHmbURjYkKSTFeWktfEDKQnVOTNXuhznFQUD0USWFOUVUnWOG7sdRzcInJCnRLzILCpSYIUkhKQp6DzYg5YEC5QwgRVHJgw1IeaBAOQNIUVTyYANSHihQzhCS1A9sAiT2ApsH7wAAAABJRU5ErkJggg==';
+        //     this.uploadImg(imageData, subItem);
+        //   }
+      }, {
+        text: '取消',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  uploadImg(imageData: any, danger: DangerVo) {
+    fetch(`data:application/octet-stream;base64,${imageData}`)
+      .then(res => res.blob())
+      .then(blob => {
+        danger.imgLoading = true;
+        this.uploadProvider.upload(blob).subscribe((src)=> {
+          if(!danger.problemImageUrls) {
+            danger.problemImageUrls = src;
+          }else {
+            danger.problemImageUrls = danger.problemImageUrls + ',' + src;
+          }
+        }, () => {}, () => {
+          danger.imgLoading = false;
+        })
+      });
+  }
+
+  openPreview(imgUrl: string) {
+    this.navCtrl.push(ImagePreviewPage, {imgUrl});
+  }
+  removeImg(danger: DangerVo, imgUrl: string) {
+    danger.problemImageUrls = danger.problemImageUrls.replace(imgUrl + ',', '');
+    danger.problemImageUrls = danger.problemImageUrls.replace(imgUrl, '');
+  }
+
+  cameraOpen(sourceType: number, danger: DangerVo) {
+    const options: CameraOptions = {
+      quality: 80,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.uploadImg(imageData, danger);
+    }, (err) => {
+      // Handle error
+    });
+  }
+
   addDanger() {
     let d = new DangerVo();
     // this.addPunish(d);
@@ -58,6 +133,8 @@ export class DangerListPage {
 
   addPunish(d) {
     let p = new PunishVo();
+    p.punishType = Number.parseInt(this.zlzg.dictValue);
+    p.punishTypeLabel = this.zlzg.dictLabel;
     d.punishesList.push(p);
   }
 
@@ -75,6 +152,11 @@ export class DangerListPage {
     this.taskProvider.getPunishTypes()
       .subscribe((datas: Array<DictDataVo>) => {
         this.punishTypes = datas;
+        for(let p of datas) {
+          if(p.dictLabel.indexOf('整改') > -1) {
+            this.zlzg = p;
+          }
+        }
       });
   }
 

@@ -26,10 +26,9 @@
                                 (click)="checkItem(subItem, c)"></ion-checkbox>
                 </dd>
               </dl>
-              <!-- 其他 -->
               <div class="danger-enter" (click)="openDangerList(subItem)" *ngIf="subItem.checked === '有隐患'">
                 <div class="link-txt">隐患列表</div>
-                <span class="danger-count-txt">(2)</span>
+                <span class="danger-count-txt">({{!subItem.dangers || subItem.dangers.length === 0 ? 0 : subItem.dangers.length}})</span>
               </div>
 
               <div class="c-form-remark" style="display: none;">
@@ -89,118 +88,7 @@
           </div>
         </section>
       </div>
-      <div class="c-form-box" *ngIf="taskCheck.inspectType == 1">
-        <h4 class="c-form-title"><span>隐患等级</span></h4>
-        <section class="c-form-inner has-fold">
-<!--          展开 +active-->
-          <div class="c-form-list active">
-            <div class="list-item item-hd">
-              <span class="item-label">等级</span>
-              <div class="item-info" (click)="chooseDangerType()">
-                <div class="item-txt c-grey-9">{{taskCheck.dangerType ? taskCheck.dangerTypeLabel : '无隐患'}}</div>
-                <i [class.u-arrow-right]="!taskCheck.dangerType" [class.u-arrow-down]="taskCheck.dangerType"></i>
-              </div>
-            </div>
-            <div class="list-item-box fold-box" *ngIf="taskCheck.dangerType">
-              <div class="list-item">
-                <span class="item-label">隐患内容</span>
-                <div class="item-info">
-                  <div class="item-txt">
-                    <input type="text" placeholder="请输入隐患内容"
-                           [(ngModel)]="taskCheck.dangerDesc"
-                           [disabled]="!editable"/>
-                  </div>
-                </div>
-              </div>
-              <div class="list-item">
-                <span class="item-label">整改措施</span>
-                <div class="item-info">
-                  <div class="item-txt">
-                    <input type="text" placeholder="请输入整改措施" [(ngModel)]="taskCheck.dangerChange"
-                           [disabled]="!editable"/>
-                  </div>
-                </div>
-              </div>
-              <div class="list-item">
-                <span class="item-label">整改时限</span>
-                <div class="item-info">
-                  <div class="item-txt c-grey-9">
-                    <ion-datetime displayFormat="YYYY-MM-DD"
-                                  [(ngModel)]="taskCheck.dangerDate"
-                                  [disabled]="!editable"></ion-datetime>
-                  </div>
-                  <i class="u-arrow-right" *ngIf="editable"></i>
-                </div>
-              </div>
-              <div class="list-item">
-                <span class="item-label">备注</span>
-                <div class="item-info">
-                  <div class="item-txt">
-                    <textarea class="item-textarea" placeholder="请填写备注信息" [(ngModel)]="taskCheck.dangerRemark"
-                              [disabled]="!editable"></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div class="c-form-box" *ngIf="taskCheck.inspectType == 1">
-        <section class="c-form-inner has-fold">
-          <!--        展开 +active-->
-          <div class="c-form-list active">
-            <div class="list-item item-hd" (click)="choosePunishType()">
-              <span class="item-label">整治意见</span>
-              <div class="item-info">
-                <div class="item-txt c-grey-9">{{taskCheck.punishType ? taskCheck.punishTypeLabel : '无'}}</div>
-                <i [class.u-arrow-right]="!taskCheck.punishType" [class.u-arrow-down]="taskCheck.punishType"></i>
-              </div>
-            </div>
-            <div class="list-item-box fold-box" *ngIf="taskCheck.punishType">
-              <div class="list-item">
-                <span class="item-label">实施部门</span>
-                <div class="item-info">
-                  <div class="item-txt">
-                    <input type="text" placeholder="请输入实施部门" [(ngModel)]="taskCheck.punishDept"
-                           [disabled]="!editable"/>
-                  </div>
-                </div>
-              </div>
-              <div class="list-item">
-                <span class="item-label">具体事由</span>
-                <div class="item-info">
-                  <div class="item-txt">
-                    <input type="text" placeholder="请输入具体事由" [(ngModel)]="taskCheck.punishReason"
-                           [disabled]="!editable"/>
-                  </div>
-                </div>
-              </div>
-              <div class="list-item">
-                <span class="item-label">时间</span>
-                <div class="item-info">
-                  <div class="item-txt c-grey-9">
-                    <ion-datetime displayFormat="YYYY-MM-DD"
-                                  [(ngModel)]="taskCheck.punishDate"
-                                  [disabled]="!editable"></ion-datetime>
-                  </div>
-                  <i class="u-arrow-right" *ngIf="editable"></i>
-                </div>
-              </div>
-              <div class="list-item">
-                <span class="item-label">备注</span>
-                <div class="item-info">
-                  <div class="item-txt">
-                    <textarea class="item-textarea" placeholder="请填写备注信息" [(ngModel)]="taskCheck.punishRemark"
-                              [disabled]="!editable"></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
     </div>
     <button class="submit-button" *ngIf="taskCheck.operateDate == null" (click)="submit()">提交</button>
   </div>
-
 </ion-content>

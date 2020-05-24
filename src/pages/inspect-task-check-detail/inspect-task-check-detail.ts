@@ -301,7 +301,6 @@ export class InspectTaskCheckDetailPage {
 
   checkItem(subItem: InspectSubItemVo, checkedValue: any) {
     subItem.checked = checkedValue;
-    console.log(JSON.stringify(subItem));
   }
 
   checkItemM(subItem: InspectSubItemVo, checkedValue: any) {

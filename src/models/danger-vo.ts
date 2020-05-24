@@ -19,6 +19,12 @@ export class DangerVo {
    * 问题图片
    */
   problemImageUrls: string;
+  imgLoading: boolean = false;
+
+  /**
+   * 隐患描述
+   */
+  remark: string;
 
   punishesList: Array<PunishVo> = [];
 }

@@ -17,7 +17,7 @@
         暂无隐患，请点击右上角"新增隐患"
       </div>
       <div class="c-form-box" *ngFor="let danger of subItem.dangers; let di = index;">
-        <h4 class="c-form-title"><span>隐患 {{di+1}}</span></h4>
+        <h4 class="c-form-title"><span>问题 {{di+1}}</span></h4>
         <section class="c-form-inner has-fold">
           <!--          展开 +active-->
           <div class="c-form-list active">
@@ -30,6 +30,14 @@
                 <button class="danger-del-btn" (click)="removeDanger(danger)">删除</button>
               </div>
             </div>
+            <div class="list-item">
+              <span class="item-label">隐患内容</span>
+              <div class="item-info">
+                <div class="item-txt">
+                  <input type="text" placeholder="请输入隐患内容" [(ngModel)]="danger.remark"/>
+                </div>
+              </div>
+            </div>
             <div class="list-item" (click)="chooseLevel(danger)">
               <span class="item-label">隐患等级</span>
               <div class="item-info">
@@ -39,12 +47,14 @@
             </div>
             <div class="list-item">
               <div class="upload-pic">
+                <ng-container *ngIf="danger.problemImageUrls">
+                  <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
+                    <i class="del-icon" (click)="removeImg(danger, imgUrl)"></i>
+                    <img src="{{imgUrl}}" alt="">
+                  </div>
+                </ng-container>
                 <div class="pic-col">
-                  <i class="del-icon"></i>
-                  <img src="../../assets/imgs/1.jpg" alt="">
-                </div>
-                <div class="pic-col">
-                  <button class="add-pic-btn"></button>
+                  <button class="add-pic-btn" (click)="cameraChoose(danger)"></button>
                 </div>
               </div>
             </div>
@@ -54,45 +64,42 @@
 
             <!-- 处罚清单 -->
             <ion-list>
-              <ion-item-sliding *ngFor="let p of danger.punishesList">
-                <ion-item>
-                  <section class="c-form-inner has-fold danger-inner-box">
+<!--              <ion-item-sliding>-->
+<!--                <ion-item>-->
+                  <section class="c-form-inner has-fold danger-inner-box" *ngFor="let p of danger.punishesList">
                     <!--          展开 +active-->
                     <div class="c-form-list active">
-                    <div class="list-item item-hd"  (click)="choosePunishLevel(p)">
-                      <span class="item-label">处罚类型</span>
-                      <div class="item-info">
-                        <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
-                        <i class="u-arrow-right"></i>
+                      <div class="list-item item-hd" > <!--  (click)="choosePunishLevel(p)" -->
+                        <span class="item-label">处罚类型</span>
+                        <div class="item-info">
+                          <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
+                          <i class="u-arrow-right"></i>
+                        </div>
                       </div>
-                    </div>
-                    <div class="list-item">
-                      <span class="item-label">问题表现</span>
-                      <div class="item-info">
-                        <div class="item-txt">
-                          <input type="text" placeholder="请输入问题表现"/>
+                      <div class="list-item">
+                        <span class="item-label">整改标准</span>
+                        <div class="item-info">
+                          <div class="item-txt">
+                            <input type="text" placeholder="请输入整改标准" [(ngModel)]="p.rectifyStandard"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="list-item">
+                        <span class="item-label">整改时限</span>
+                        <div class="item-info">
+                          <div class="item-txt">
+                            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="p.rectifyPlanFinishDate"></ion-datetime>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="list-item">
-                      <div class="upload-pic">
-                        <div class="pic-col">
-                          <i class="del-icon"></i>
-                          <img src="../../assets/imgs/1.jpg" alt="">
-                        </div>
-                        <div class="pic-col">
-                          <button class="add-pic-btn"></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   </section>
-                </ion-item>
+<!--                </ion-item>-->
 
-                <ion-item-options side="right">
-                  <button ion-button color="danger" (click)="removePunish(danger, p)">删除</button>
-                </ion-item-options>
-              </ion-item-sliding>
+<!--                <ion-item-options side="right">-->
+<!--                  <button ion-button color="danger" (click)="removePunish(danger, p)">删除</button>-->
+<!--                </ion-item-options>-->
+<!--              </ion-item-sliding>-->
             </ion-list>
           </div>
         </section>
