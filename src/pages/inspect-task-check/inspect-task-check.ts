@@ -99,6 +99,10 @@ export class InspectTaskCheckPage {
       await alert.present();
       return;
     }
+    if(!task.inspectId) {
+      console.log('日常检查')
+      return;
+    }
     this.navCtrl.push(InspectTaskCheckDetailPage, {task});
   }
 
