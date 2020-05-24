@@ -28,6 +28,7 @@ export class TaskCheckVo {
    * 检查类型，1：检查，2：自检
    */
   inspectType: number;
+  inspectTypeLabel: string;
   /**
    * 企业id
    */

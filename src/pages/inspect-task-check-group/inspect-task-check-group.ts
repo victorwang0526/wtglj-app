@@ -5,6 +5,7 @@ import {TaskGroupVo} from "../../models/task-group-vo";
 import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 import {UserVo} from "../../models/user-vo";
 import {Storage} from "@ionic/storage";
+import {DailyTaskPage} from "../daily-task/daily-task";
 
 @Component({
   selector: 'page-inspect-task-check-group',
@@ -14,7 +15,7 @@ export class InspectTaskCheckGroupPage {
 
   groups: Array<TaskGroupVo> = [];
   loading: boolean = false;
-  inspectType: number = 1;
+  inspectType: string = '1';
   user: UserVo = null;
   dateRanges: Array<any> = [
     {label: '全部', value: 0},
@@ -37,6 +38,10 @@ export class InspectTaskCheckGroupPage {
 
   ionViewDidEnter() {
     this.getTaskGroups();
+  }
+
+  addTaskCheck() {
+    this.navCtrl.push(DailyTaskPage, {});
   }
 
   getTaskGroups() {

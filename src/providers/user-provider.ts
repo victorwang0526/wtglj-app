@@ -18,4 +18,8 @@ export class UserProvider {
   getUserInfo(): Observable<any> {
     return this.http.get('/sys/user/info');
   }
+
+  getEnterprise(key: string): Observable<any> {
+    return this.http.get('/sys/sysenterprise/page?key=' + key);
+  }
 }

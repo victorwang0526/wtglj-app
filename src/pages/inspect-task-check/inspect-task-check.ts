@@ -81,7 +81,7 @@ export class InspectTaskCheckPage {
   async getTaskChecks() {
     this.loading = true;
     const user = await this.storage.get('user');
-    this.taskProvider.getTaskChecks(this.group.inspectId, this.group.taskId, this.selectedArea, this.selectedIndustry).subscribe((res: any) => {
+    this.taskProvider.getTaskChecks(this.group.inspectId, this.group.taskId, this.group.taskTitle, this.selectedArea, this.selectedIndustry).subscribe((res: any) => {
       this.tasks = res.data.list;
     }, () => {},
       () => {

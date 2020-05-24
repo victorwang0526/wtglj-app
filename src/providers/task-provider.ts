@@ -14,7 +14,7 @@ export class TaskProvider {
     console.log('Hello TaskProvider Provider');
   }
 
-  getTaskGroup(userId: number, inspectType: number, dateRange: number): Observable<any> {
+  getTaskGroup(userId: number, inspectType: string, dateRange: number): Observable<any> {
     let dr = dateRange > 0 ? dateRange : '';
     return this.http.get(`/sys/sysinspecttaskcheck/group?userId=${userId}&inspectType=${inspectType}&dateRange=${dr}`);
   }
@@ -23,8 +23,8 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheck/${userId}/taskUnfinishCnt`);
   }
 
-  getTaskChecks(inspectId: number, taskId: number, areas: string, industries: string): Observable<any> {
-    return this.http.get(`/sys/sysinspecttaskcheck/page?page=1&limit=999&inspectId=${inspectId}&taskId=${taskId}&areas=${areas}&industries=${industries}`);
+  getTaskChecks(inspectId: number, taskId: number, taskTitle: string, areas: string, industries: string): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/page?page=1&limit=999&inspectId=${inspectId}&taskId=${taskId}&taskTitle=${taskTitle}&areas=${areas}&industries=${industries}`);
   }
 
   getInspectDetail(inspectId: number): Observable<InspectVo> {

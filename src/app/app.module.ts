@@ -31,6 +31,8 @@ import {DictProvider} from "../providers/dict-provider";
 import {UserCenterPage} from "../pages/user-center/user-center";
 import {DangerListPage} from "../pages/danger-list/danger-list";
 import {PunishListPage} from "../pages/punish-list/punish-list";
+import {DailyTaskPage} from "../pages/daily-task/daily-task";
+import {EnterpriseSearchPage} from "../pages/enterprise-search/enterprise-search";
 
 // @ts-ignore
 @NgModule({
@@ -52,6 +54,8 @@ import {PunishListPage} from "../pages/punish-list/punish-list";
     UserCenterPage,
     DangerListPage,
     PunishListPage,
+    DailyTaskPage,
+    EnterpriseSearchPage,
   ],
   imports: [
     HttpClientModule,
@@ -85,6 +89,8 @@ import {PunishListPage} from "../pages/punish-list/punish-list";
     UserCenterPage,
     DangerListPage,
     PunishListPage,
+    DailyTaskPage,
+    EnterpriseSearchPage,
   ],
   providers: [
     JPush,

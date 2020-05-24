@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ group.inspectTitle + ' ' + group.groupTitle }}({{group.finished}}/{{group.total}})</ion-title>
+    <ion-title>{{ (group.inspectTitle ? group.inspectTitle : '') + ' ' + group.groupTitle }}({{group.finished}}/{{group.total}})</ion-title>
   </ion-navbar>
   <ion-toolbar class="task-select-bar">
     <ion-buttons class="select-btn" slot="start">

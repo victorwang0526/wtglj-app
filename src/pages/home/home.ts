@@ -70,11 +70,11 @@ export class HomePage {
   }
 
   openInspectCheckGroup() {
-    this.navCtrl.push(InspectTaskCheckGroupPage, {inspectType: 1});
+    this.navCtrl.push(InspectTaskCheckGroupPage, {inspectType: '1,3,4'});
   }
 
   openSelfCheckGroup() {
-    this.navCtrl.push(InspectTaskCheckGroupPage, {inspectType: 2});
+    this.navCtrl.push(InspectTaskCheckGroupPage, {inspectType: '2'});
   }
 
   openExam() {

@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{inspectType == 2 ? '企业自查' : '检查任务'}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="addTaskCheck()">
+        日常检查
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-toolbar class="task-select-bar">
     <ion-buttons class="select-btn" slot="start">
