@@ -161,6 +161,10 @@ export class DangerListPage {
       });
   }
 
+  submit() {
+    this.navCtrl.pop({});
+  }
+
   async choosePunishLevel(p: PunishVo) {
     if(this.taskCheck.operateDate) {
       return;
