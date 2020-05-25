@@ -30,9 +30,18 @@ export class HomePage {
       this.user = u;
       setTimeout(this.initJPush(), 1000);
       this.getTaskUnfinishedCnt();
+      this.getApproveDangers();
     });
   }
 
+  getApproveDangers() {
+    if(!this.user) {
+      return;
+    }
+    this.taskProvider.getApproveDanger(this.user.id).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
 
   alert(msg) {
     this.alertCtrl.create({

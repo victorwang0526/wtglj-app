@@ -35,6 +35,10 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspect/${inspectId}`).map((res: any) => res.data);
   }
 
+  getApproveDanger(userId: number): Observable<InspectVo> {
+    return this.http.get(`/sys/sysinspecttaskcheck/getEnterpriseAuditTaskList/${userId}`).map((res: any) => res.data);
+  }
+
   submitTaskCheck(taskCheck: TaskCheckVo): Observable<any> {
     return this.http.put('/sys/sysinspecttaskcheck', taskCheck);
   }
