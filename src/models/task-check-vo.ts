@@ -48,11 +48,11 @@ export class TaskCheckVo {
   /**
    * 任务开始时间
    */
-  startDate: Date;
+  startDate: string;
   /**
    * 任务结束时间
    */
-  startEnd: Date;
+  startEnd: string;
   /**
    * 备注
    */

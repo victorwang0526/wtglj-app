@@ -101,8 +101,8 @@ export class DailyTaskPage {
     this.taskCheck.taskTitle = '日常检查 - '
       + this.datepipe.transform(currentDate, 'yyyy-MM-dd');
 
-    this.taskCheck.startDate = currentDate;
-    this.taskCheck.startEnd = currentDate;
+    this.taskCheck.startDate = this.datepipe.transform(currentDate, 'yyyy-MM-dd hh:mm:ss');
+    this.taskCheck.startEnd = this.datepipe.transform(currentDate, 'yyyy-MM-dd hh:mm:ss');
 
     const loading = this.loadingController.create({
       spinner: 'circles',
