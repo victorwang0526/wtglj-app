@@ -12,4 +12,5 @@ export class TaskCheckItemVo {
   subItemsChecked: string;
   subItemsImageUrls: string;
   remark: string;
+  dangers: Array<any>;
 }

@@ -147,12 +147,29 @@ export class DangerListPage {
     this.taskProvider.getDangerTypes()
       .subscribe((datas: Array<DictDataVo>) => {
         this.dangerTypes = datas;
+        for(let dt of datas) {
+          for(let d of this.subItem.dangers) {
+            if(d.problemLevel == dt.dictValue) {
+              d.problemLevelLabel = dt.dictLabel;
+            }
+          }
+        }
       });
   }
   getPunishTypes() {
     this.taskProvider.getPunishTypes()
       .subscribe((datas: Array<DictDataVo>) => {
         this.punishTypes = datas;
+        for(let d of this.subItem.dangers) {
+          for(let p of d.punishesList) {
+            for(let pt of datas) {
+              if(pt.dictValue == p.punishType+'') {
+                p.punishTypeLabel = pt.dictLabel;
+                break;
+              }
+            }
+          }
+        }
         for(let p of datas) {
           if(p.dictLabel.indexOf('整改') > -1) {
             this.zlzg = p;

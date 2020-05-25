@@ -48,7 +48,7 @@ export class TaskProvider {
   }
 
   getTaskCheckItems(taskCheckId: number): Observable<Array<TaskCheckItemVo>> {
-    return this.http.get(`/sys/sysinspecttaskcheckitem/page?taskCheckId=${taskCheckId}&page=1&size=999`)
+    return this.http.get(`/sys/sysinspecttaskcheckitem/page?taskCheckId=${taskCheckId}&page=1&limit=999`)
       .map((res: any) => res.data.list);
   }
 

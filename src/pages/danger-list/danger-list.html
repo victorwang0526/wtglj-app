@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>隐患清单</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addDanger()">
+      <button ion-button (click)="addDanger()" *ngIf="!taskCheck.operateDate">
         新增隐患
       </button>
     </ion-buttons>
@@ -25,16 +25,16 @@
               <span class="item-label">问题表现</span>
               <div class="item-info">
                 <div class="item-txt">
-                  <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc"/>
+                  <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc" disabled="{{taskCheck.operateDate}}"/>
                 </div>
-                <button class="danger-del-btn" (click)="removeDanger(danger)">删除</button>
+                <button class="danger-del-btn" (click)="removeDanger(danger)" *ngIf="!taskCheck.operateDate">删除</button>
               </div>
             </div>
             <div class="list-item">
               <span class="item-label">隐患内容</span>
               <div class="item-info">
                 <div class="item-txt">
-                  <input type="text" placeholder="请输入隐患内容" [(ngModel)]="danger.remark"/>
+                  <input type="text" placeholder="请输入隐患内容" [(ngModel)]="danger.remark" disabled="{{taskCheck.operateDate}}"/>
                 </div>
               </div>
             </div>
@@ -42,22 +42,22 @@
               <span class="item-label">隐患等级</span>
               <div class="item-info">
                 <div class="item-txt c-grey-9">{{danger.problemLevelLabel}}</div>
-                <i class="u-arrow-right"></i>
+                <i class="u-arrow-right" *ngIf="!taskCheck.operateDate"></i>
               </div>
             </div>
             <div class="list-item upload-pic">
               <ng-container *ngIf="danger.problemImageUrls">
                 <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
-                  <i class="del-icon" (click)="removeImg(danger, imgUrl)"></i>
+                  <i class="del-icon" (click)="removeImg(danger, imgUrl)" *ngIf="!taskCheck.operateDate"></i>
                   <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)">
                 </div>
               </ng-container>
-              <div class="pic-col">
+              <div class="pic-col" *ngIf="!taskCheck.operateDate">
                 <button class="add-pic-btn" (click)="cameraChoose(danger)"></button>
               </div>
             </div>
             <div class="list-item item-danger-btn">
-              <button class="danger-add-btn" (click)="addPunish(danger)">+增加处罚</button>
+              <button class="danger-add-btn" (click)="addPunish(danger)" *ngIf="!taskCheck.operateDate">+增加处罚</button>
             </div>
 
             <!-- 处罚清单 -->
@@ -71,13 +71,13 @@
                         <span class="item-label">处罚类型</span>
                         <div class="item-info">
                           <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
-                          <i class="u-arrow-right"></i>
+                          <i class="u-arrow-right" *ngIf="!taskCheck.operateDate"></i>
                         </div>
                       </div><div class="list-item">
                       <span class="item-label">处罚缘由</span>
                       <div class="item-info">
                         <div class="item-txt">
-                          <input type="text" placeholder="请输入处罚缘由" [(ngModel)]="p.punishReason"/>
+                          <input type="text" placeholder="请输入处罚缘由" [(ngModel)]="p.punishReason" disabled="{{taskCheck.operateDate}}"/>
                         </div>
                       </div>
                     </div>
@@ -85,7 +85,7 @@
                         <span class="item-label">处罚金额</span>
                         <div class="item-info">
                           <div class="item-txt">
-                            <input type="text" type="number" placeholder="请输入处罚金额" [(ngModel)]="p.punishPrice"/>
+                            <input type="text" type="number" placeholder="请输入处罚金额" [(ngModel)]="p.punishPrice" disabled="{{taskCheck.operateDate}}"/>
                           </div>
                         </div>
                       </div>
@@ -93,7 +93,7 @@
                         <span class="item-label">处罚依据</span>
                         <div class="item-info">
                           <div class="item-txt">
-                            <input type="text" placeholder="请输入处罚依据" [(ngModel)]="p.punishBasis"/>
+                            <input type="text" placeholder="请输入处罚依据" [(ngModel)]="p.punishBasis" disabled="{{taskCheck.operateDate}}"/>
                           </div>
                         </div>
                       </div>
@@ -101,7 +101,7 @@
                         <span class="item-label">整改标准</span>
                         <div class="item-info">
                           <div class="item-txt">
-                            <input type="text" placeholder="请输入整改标准" [(ngModel)]="p.rectifyStandard"/>
+                            <input type="text" placeholder="请输入整改标准" [(ngModel)]="p.rectifyStandard" disabled="{{taskCheck.operateDate}}"/>
                           </div>
                         </div>
                       </div>
@@ -109,11 +109,11 @@
                         <span class="item-label">整改时限</span>
                         <div class="item-info">
                           <div class="item-txt">
-                            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="p.rectifyPlanFinishDate"></ion-datetime>
+                            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="p.rectifyPlanFinishDate" disabled="{{taskCheck.operateDate}}"></ion-datetime>
                           </div>
                         </div>
                       </div>
-                      <div class="list-item">
+                      <div class="list-item" *ngIf="!taskCheck.operateDate">
                         <button class="del-full-btn" (click)="removePunish(danger, p)">删除</button>
                       </div>
                     </div>
@@ -129,6 +129,6 @@
         </section>
       </div>
     </div>
-    <button class="submit-button" (click)="submit()">确定</button>
+    <button class="submit-button" (click)="submit()" *ngIf="!taskCheck.operateDate">确定</button>
   </div>
 </ion-content>

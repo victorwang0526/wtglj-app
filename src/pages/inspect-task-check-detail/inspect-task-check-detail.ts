@@ -71,6 +71,7 @@ export class InspectTaskCheckDetailPage {
                       subItem.remark = checkItem.remark;
                       subItem.checked = checkItem.subItemsChecked;
                       subItem.imageUrls = checkItem.subItemsImageUrls;
+                      subItem.dangers = checkItem.dangers;
                     }
                   }
                 }
