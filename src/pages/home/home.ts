@@ -9,6 +9,8 @@ import {TaskProvider} from "../../providers/task-provider";
 import {ExamListPage} from "../exam-list/exam-list";
 import {JPush} from "@jiguang-ionic/jpush";
 import {UserCenterPage} from "../user-center/user-center";
+import {DangerVo} from "../../models/danger-vo";
+import {DangerApprovePage} from "../danger-approve/danger-approve";
 
 @Component({
   selector: 'page-home',
@@ -20,6 +22,8 @@ export class HomePage {
 
   taskUnfinishedCnt1: number = 0; // 检查
   taskUnfinishedCnt2: number = 0; // 自检
+
+  dangers: Array<DangerVo> = [];
 
   constructor(public navCtrl: NavController,
               private storage: Storage,
@@ -39,7 +43,7 @@ export class HomePage {
       return;
     }
     this.taskProvider.getApproveDanger(this.user.id).subscribe((res: any) => {
-      console.log(res);
+      this.dangers = res;
     });
   }
 
@@ -51,6 +55,7 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.getTaskUnfinishedCnt();
+    this.getApproveDangers();
   }
 
   logout() {
@@ -76,6 +81,10 @@ export class HomePage {
         }
       }
     });
+  }
+
+  openDangerApprove(danger) {
+    this.navCtrl.push(DangerApprovePage, {danger});
   }
 
   openInspectCheckGroup() {

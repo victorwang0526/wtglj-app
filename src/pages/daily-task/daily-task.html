@@ -109,6 +109,30 @@
                     </div>
                   </div>
                   <div class="list-item">
+                    <span class="item-label">处罚缘由</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input type="text" placeholder="请输入处罚缘由" [(ngModel)]="p.punishReason" disabled="{{!editable}}"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <span class="item-label">处罚金额</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input type="text" type="number" placeholder="请输入处罚金额" [(ngModel)]="p.punishPrice" disabled="{{!editable}}"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <span class="item-label">处罚依据</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input type="text" placeholder="请输入处罚依据" [(ngModel)]="p.punishBasis" disabled="{{!editable}}"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-item">
                     <span class="item-label">整改标准</span>
                     <div class="item-info">
                       <div class="item-txt">

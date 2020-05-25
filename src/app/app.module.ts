@@ -34,6 +34,7 @@ import {PunishListPage} from "../pages/punish-list/punish-list";
 import {DailyTaskPage} from "../pages/daily-task/daily-task";
 import {EnterpriseSearchPage} from "../pages/enterprise-search/enterprise-search";
 import {DatePipe} from "@angular/common";
+import {DangerApprovePage} from "../pages/danger-approve/danger-approve";
 
 // @ts-ignore
 @NgModule({
@@ -55,6 +56,7 @@ import {DatePipe} from "@angular/common";
     UserCenterPage,
     DangerListPage,
     PunishListPage,
+    DangerApprovePage,
     DailyTaskPage,
     EnterpriseSearchPage,
   ],
@@ -90,6 +92,7 @@ import {DatePipe} from "@angular/common";
     UserCenterPage,
     DangerListPage,
     PunishListPage,
+    DangerApprovePage,
     DailyTaskPage,
     EnterpriseSearchPage,
   ],

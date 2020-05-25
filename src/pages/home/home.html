@@ -50,38 +50,16 @@
     <div class="h-finished-task">
       <div class="d-finished-tit">待审批整改</div>
       <dl class="h-task-list">
-        <dd class="h-task-item">
+        <dd class="h-task-item" *ngFor="let d of dangers" (click)="openDangerApprove(d)">
           <div class="h-task-status">
             <i class="task-status-ok"></i>
           </div>
           <div class="task-inform">
-            <div class="task-tit">旅游景区安全生产排查表</div>
+            <div class="task-tit">{{d.problemDesc}}</div>
             <div class="task-count">
               <div class="t-count-col">
-                任务总数：
-                <span class="c-blue">5</span>
-              </div>
-              <div class="t-count-col">
-                任务剩余：
-                <span class="c-azure">0</span>
-              </div>
-            </div>
-          </div>
-        </dd>
-        <dd class="h-task-item">
-          <div class="h-task-status">
-            <i class="task-status-ok"></i>
-          </div>
-          <div class="task-inform">
-            <div class="task-tit">旅游景区安全生产排查表</div>
-            <div class="task-count">
-              <div class="t-count-col">
-                任务总数：
-                <span class="c-blue">221</span>
-              </div>
-              <div class="t-count-col">
-                任务剩余：
-                <span class="c-red">220</span>
+                隐患内容：
+                <span class="c-blue">{{d.remark}}</span>
               </div>
             </div>
           </div>
