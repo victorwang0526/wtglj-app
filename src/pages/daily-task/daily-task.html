@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>日常巡检</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="!taskCheck.operator">
       <button ion-button (click)="addDanger()">
         新增隐患
       </button>
@@ -10,7 +10,12 @@
 </ion-header>
 
 <ion-content>
-  <div class="g-flex-main">
+
+  <div style="text-align: center">
+    <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
+  </div>
+
+  <div class="g-flex-main" *ngIf="!loading" >
     <div class="g-flex-box">
       <div class="c-form-box">
       <h4 class="c-form-title"><span>日常安全巡查</span></h4>
@@ -21,27 +26,27 @@
             <span class="item-label">企业名称</span>
             <div class="item-info">
               <div class="item-txt c-grey-9">{{taskCheck.enterpriseName}}</div>
-              <i class="u-arrow-right"></i>
+              <i class="u-arrow-right" *ngIf="!taskCheck.operator"></i>
             </div>
           </div>
           <div class="list-item" (click)="chooseInspectType()">
             <span class="item-label">检查类型</span>
             <div class="item-info">
               <div class="item-txt c-grey-9">{{taskCheck.inspectTypeLabel}}</div>
-              <i class="u-arrow-right"></i>
+              <i class="u-arrow-right" *ngIf="!taskCheck.operator"></i>
             </div>
           </div>
           <div class="list-item">
             <span class="item-label">检查日期</span>
             <div class="item-info">
               <div class="item-txt c-grey-9">{{taskCheck.operateDate | date : 'yyyy-MM-dd'}}</div>
-              <i class="u-arrow-right"></i>
+              <i class="u-arrow-right" *ngIf="!taskCheck.operator"></i>
             </div>
           </div>
         </div>
       </section>
     </div>
-      <div class="danger-tipper" *ngIf="!taskCheck.dangers || taskCheck.dangers.length === 0">
+      <div class="danger-tipper" *ngIf="!taskCheck.operator && (!taskCheck.dangers || taskCheck.dangers.length === 0)">
         <i class="lead-none-icon"></i>
         暂无隐患，请点击右上角"新增隐患"
       </div>
@@ -54,16 +59,16 @@
               <span class="item-label">问题表现</span>
               <div class="item-info">
                 <div class="item-txt">
-                  <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc"/>
+                  <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc" disabled="{{!editable}}"/>
                 </div>
-                <button class="danger-del-btn" (click)="removeDanger(danger)">删除</button>
+                <button class="danger-del-btn" (click)="removeDanger(danger)" *ngIf="editable">删除</button>
               </div>
             </div>
             <div class="list-item">
               <span class="item-label">隐患内容</span>
               <div class="item-info">
                 <div class="item-txt">
-                  <input type="text" placeholder="请输入隐患内容" [(ngModel)]="danger.remark"/>
+                  <input type="text" placeholder="请输入隐患内容" [(ngModel)]="danger.remark" disabled="{{!editable}}"/>
                 </div>
               </div>
             </div>
@@ -71,21 +76,21 @@
               <span class="item-label">隐患等级</span>
               <div class="item-info">
                 <div class="item-txt c-grey-9">{{danger.problemLevelLabel}}</div>
-                <i class="u-arrow-right"></i>
+                <i class="u-arrow-right" *ngIf="editable"></i>
               </div>
             </div>
             <div class="list-item upload-pic">
               <ng-container *ngIf="danger.problemImageUrls">
                 <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
-                  <i class="del-icon" (click)="removeImg(danger, imgUrl)"></i>
-                  <img src="{{imgUrl}}" alt="">
+                  <i class="del-icon" (click)="removeImg(danger, imgUrl)" *ngIf="editable"></i>
+                  <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)">
                 </div>
               </ng-container>
-              <div class="pic-col">
+              <div class="pic-col" *ngIf="editable">
                 <button class="add-pic-btn" (click)="cameraChoose(danger)"></button>
               </div>
             </div>
-            <div class="list-item item-danger-btn">
+            <div class="list-item item-danger-btn" *ngIf="editable">
               <button class="danger-add-btn" (click)="addPunish(danger)">+增加处罚</button>
             </div>
 
@@ -100,14 +105,14 @@
                     <span class="item-label">处罚类型</span>
                     <div class="item-info">
                       <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
-                      <i class="u-arrow-right"></i>
+                      <i class="u-arrow-right" *ngIf="editable"></i>
                     </div>
                   </div>
                   <div class="list-item">
                     <span class="item-label">整改标准</span>
                     <div class="item-info">
                       <div class="item-txt">
-                        <input type="text" placeholder="请输入整改标准" [(ngModel)]="p.rectifyStandard"/>
+                        <input type="text" placeholder="请输入整改标准" [(ngModel)]="p.rectifyStandard" disabled="{{!editable}}"/>
                       </div>
                     </div>
                   </div>
@@ -115,11 +120,11 @@
                     <span class="item-label">整改时限</span>
                     <div class="item-info">
                       <div class="item-txt">
-                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="p.rectifyPlanFinishDate"></ion-datetime>
+                        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="p.rectifyPlanFinishDate" disabled="{{!editable}}"></ion-datetime>
                       </div>
                     </div>
                   </div>
-                  <div class="list-item">
+                  <div class="list-item" *ngIf="editable">
                     <button class="del-full-btn" (click)="removePunish(danger, p)">删除</button>
                   </div>
                 </div>
@@ -135,6 +140,6 @@
         </section>
       </div>
     </div>
-    <button class="submit-button" (click)="submit()">确定</button>
+    <button class="submit-button" (click)="submit()" *ngIf="!taskCheck.operator">确定</button>
   </div>
 </ion-content>

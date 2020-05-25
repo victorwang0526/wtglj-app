@@ -47,7 +47,7 @@ export class InspectTaskCheckDetailPage {
               public loadingController: LoadingController,
               private camera: Camera,
               public actionSheetController: ActionSheetController) {
-    this.taskCheck = navParams.get('task');
+    this.taskCheck = navParams.get('taskCheck');
     this.editable = this.taskCheck.inspectType == 1 && !this.taskCheck.operateDate;
 
     this.getDangerTypes();

@@ -27,6 +27,10 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheck/page?page=1&limit=999&inspectId=${inspectId}&taskId=${taskId}&taskTitle=${taskTitle}&areas=${areas}&industries=${industries}`);
   }
 
+  getTaskCheck(taskCheckId: number): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/${taskCheckId}`);
+  }
+
   getInspectDetail(inspectId: number): Observable<InspectVo> {
     return this.http.get(`/sys/sysinspect/${inspectId}`).map((res: any) => res.data);
   }

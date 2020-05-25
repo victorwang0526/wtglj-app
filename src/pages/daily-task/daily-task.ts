@@ -20,6 +20,7 @@ import {DangerVo} from "../../models/danger-vo";
 import {ImagePreviewPage} from "../image-preview/image-preview";
 import {UploadProvider} from "../../providers/upload-provider";
 import {PunishVo} from "../../models/punish-vo";
+import {DatePipe} from "@angular/common";
 @Component({
   selector: 'page-daily-task',
   templateUrl: 'daily-task.html',
@@ -29,6 +30,12 @@ export class DailyTaskPage {
   inspectTypes: Array<DictDataVo> = [];
   dangerTypes: Array<DictDataVo> = [];
   punishTypes: Array<DictDataVo> = [];
+  editable: boolean = true;
+  loading: boolean = false;
+
+  dictFinish: boolean = false;
+  dangerTypeFinish: boolean = false;
+  punishTypeFinish: boolean = false;
 
   constructor(public navCtrl: NavController,
               private storage: Storage,
@@ -38,21 +45,43 @@ export class DailyTaskPage {
               private dictProvider: DictProvider,
               public uploadProvider: UploadProvider,
               private camera: Camera,
+              public datepipe: DatePipe,
               public alertCtrl: AlertController,
               public loadingController: LoadingController,
               public navParams: NavParams) {
-
-    this.taskCheck.operateDate = new Date();
-    this.getDict();
-    this.getDangerTypes();
-    this.getPunishTypes();
+    let tc = this.navParams.get('taskCheck');
+    this.loading = true;
+    if(tc) {
+      this.taskCheck = tc;
+      this.editable = false;
+      this.getTaskCheck();
+    }else {
+      this.taskCheck.operateDate = new Date();
+      this.getDict();
+      this.getDangerTypes();
+      this.getPunishTypes();
+    }
   }
+
+  getTaskCheck() {
+
+    this.taskProvider.getTaskCheck(this.taskCheck.id).subscribe((data: any) => {
+      this.taskCheck = data.data;
+      this.getDict();
+      this.getDangerTypes();
+      this.getPunishTypes();
+    });
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DailyTaskPage');
   }
 
   openSearch() {
+    if(this.taskCheck.operator) {
+      return;
+    }
     this.navCtrl.push(EnterpriseSearchPage, {taskCheck: this.taskCheck});
   }
 
@@ -67,10 +96,10 @@ export class DailyTaskPage {
     let user: UserVo = await this.storage.get('user');
     this.taskCheck.operator = user.realName;
     this.taskCheck.operatorId = user.id;
-    this.taskCheck.groupTitle = '日常检查'
-      + currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDay();
-    this.taskCheck.taskTitle = '日常检查'
-      + currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDay();
+    this.taskCheck.groupTitle = '日常检查 - '
+      + this.datepipe.transform(currentDate, 'yyyy-MM-dd');
+    this.taskCheck.taskTitle = '日常检查 - '
+      + this.datepipe.transform(currentDate, 'yyyy-MM-dd');
 
     this.taskCheck.startDate = currentDate;
     this.taskCheck.startEnd = currentDate;
@@ -96,6 +125,9 @@ export class DailyTaskPage {
   }
 
   async chooseInspectType() {
+    if(this.taskCheck.operator) {
+      return;
+    }
     let buttons = [];
     this.inspectTypes.forEach(inspectType => {
       buttons.push({
@@ -120,13 +152,25 @@ export class DailyTaskPage {
 
   getDict() {
     this.dictProvider.getDicts('inspectType').subscribe((data) => {
-      console.log(data);
       for(let item of data.data) {
         if(item.dictType == 'inspectType') {
           this.inspectTypes = item.dataList;
+          if(this.taskCheck.inspectType) {
+            for(let it of item.dataList) {
+              if(this.taskCheck.inspectType+'' === it.dictValue) {
+                this.taskCheck.inspectTypeLabel = it.dictLabel;
+              }
+            }
+          }
         }
       }
+      this.dictFinish = true;
+      this.finishLoading();
     })
+  }
+
+  finishLoading() {
+    this.loading = !(this.dictFinish && this.dangerTypeFinish && this.punishTypeFinish);
   }
   async chooseLevel(danger: DangerVo) {
     if(this.taskCheck.operator) {
@@ -187,12 +231,38 @@ export class DailyTaskPage {
     this.taskProvider.getDangerTypes()
       .subscribe((datas: Array<DictDataVo>) => {
         this.dangerTypes = datas;
+        if(this.taskCheck.operator) {
+          for(let d of this.taskCheck.dangers) {
+            for(let dt of datas) {
+              if(d.problemLevel === dt.dictValue) {
+                d.problemLevelLabel = dt.dictLabel;
+                break;
+              }
+            }
+          }
+        }
+        this.dangerTypeFinish = true;
+        this.finishLoading();
       });
   }
   getPunishTypes() {
     this.taskProvider.getPunishTypes()
       .subscribe((datas: Array<DictDataVo>) => {
         this.punishTypes = datas;
+        if(this.taskCheck.operator) {
+          for(let d of this.taskCheck.dangers) {
+            for(let p of d.punishesList) {
+              for(let dt of datas) {
+                if(p.punishType+'' === dt.dictValue) {
+                  p.punishTypeLabel = dt.dictLabel;
+                  break;
+                }
+              }
+            }
+          }
+        }
+        this.punishTypeFinish = true;
+        this.finishLoading();
       });
   }
 

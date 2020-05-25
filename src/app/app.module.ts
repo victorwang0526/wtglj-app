@@ -33,6 +33,7 @@ import {DangerListPage} from "../pages/danger-list/danger-list";
 import {PunishListPage} from "../pages/punish-list/punish-list";
 import {DailyTaskPage} from "../pages/daily-task/daily-task";
 import {EnterpriseSearchPage} from "../pages/enterprise-search/enterprise-search";
+import {DatePipe} from "@angular/common";
 
 // @ts-ignore
 @NgModule({
@@ -103,6 +104,7 @@ import {EnterpriseSearchPage} from "../pages/enterprise-search/enterprise-search
     TaskProvider,
     DictProvider,
     UploadProvider,
+    DatePipe,
     SuggestionProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

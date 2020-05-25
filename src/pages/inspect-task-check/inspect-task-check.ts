@@ -7,6 +7,7 @@ import {TaskCheckVo} from "../../models/task-check-vo";
 import {InspectTaskCheckDetailPage} from "../inspect-task-check-detail/inspect-task-check-detail";
 import {UserVo} from "../../models/user-vo";
 import {DictProvider} from "../../providers/dict-provider";
+import {DailyTaskPage} from "../daily-task/daily-task";
 
 @Component({
   selector: 'page-inspect-task-check',
@@ -89,8 +90,8 @@ export class InspectTaskCheckPage {
       });
   }
 
-  async openInspectDetail(task: TaskCheckVo) {
-    if(task.inspectType == 2 && !task.operateDate) {
+  async openInspectDetail(taskCheck: TaskCheckVo) {
+    if(taskCheck.inspectType == 2 && !taskCheck.operateDate) {
       const alert = await this.alertController.create({
         message: '未自检.',
         buttons: ['OK']
@@ -99,11 +100,11 @@ export class InspectTaskCheckPage {
       await alert.present();
       return;
     }
-    if(!task.inspectId) {
-      console.log('日常检查')
-      return;
+    if(!taskCheck.inspectId) {
+      this.navCtrl.push(DailyTaskPage, {taskCheck});
+    }else {
+      this.navCtrl.push(InspectTaskCheckDetailPage, {taskCheck});
     }
-    this.navCtrl.push(InspectTaskCheckDetailPage, {task});
   }
 
   ionViewDidLoad() {

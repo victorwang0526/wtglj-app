@@ -49,7 +49,7 @@
               <ng-container *ngIf="danger.problemImageUrls">
                 <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
                   <i class="del-icon" (click)="removeImg(danger, imgUrl)"></i>
-                  <img src="{{imgUrl}}" alt="">
+                  <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)">
                 </div>
               </ng-container>
               <div class="pic-col">
