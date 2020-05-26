@@ -5,6 +5,7 @@ page-home {
     width: 100%;
     min-height: 23.4rem;
     padding: 4rem 0 0;
+    margin-bottom: 2rem;
     box-sizing: border-box;
     background:url("../../assets/imgs/home_bg.png") no-repeat top center;
     background-size: 100% auto;
@@ -124,7 +125,7 @@ page-home {
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      overflow-x: hidden;
+      //overflow-x: hidden;
       em,i{
         font-style: normal;
       }
@@ -163,10 +164,62 @@ page-home {
     ion-badge{
       position: absolute;
       top: -.6rem;
-      left: 3.6rem;
+      left: 4.6rem;
       padding: 2px 5px;
       font-size: 1.2rem;
       box-shadow: 0 0 0 1px rgba(255,255,255,.8);
+    }
+  }
+  .task-progress-icon{
+    position: relative;
+    width: 4.4rem;
+    height: 4.4rem;
+    display: block;
+    border: .2rem solid #f4f4f4;
+    border-radius: 50%;
+    &.p-0{
+      em{
+        border-color: transparent;
+      }
+    }
+    &.p-25{
+      em{
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+      }
+    }
+    &.p-50{
+      em{
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+      }
+    }
+    &.p-75{
+      em{
+        border-left-color: transparent;
+      }
+    }
+    em{
+      position: absolute;
+      left: -.2rem;
+      top: -.2rem;
+      z-index: 2;
+      width: 4.4rem;
+      height: 4.4rem;
+      font-size: 1.6rem;
+      color: #225DE3;
+      text-align: center;
+      font-style: normal;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: .2rem solid #225DE3;
+      border-radius: 50%;
+      transform: rotate(50deg);
+    }
+    .p-txt{
+      transform: rotate(-50deg);
     }
   }
 }

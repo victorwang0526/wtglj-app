@@ -88,9 +88,46 @@ export class DailyTaskPage {
   async submit() {
     if(!this.taskCheck.enterpriseName) {
       this.alertCtrl.create({
-        title: '请填写完整'
+        title: '请填写企业名称'
       }).present({});
       return;
+    }
+    if(!this.taskCheck.inspectType) {
+      this.alertCtrl.create({
+        title: '请选择检查类型'
+      }).present({});
+      return;
+    }
+
+    if(this.taskCheck.dangers && this.taskCheck.dangers.length > 0) {
+      for(let d of this.taskCheck.dangers) {
+        if(!d.problemDesc) {
+          this.alertCtrl.create({
+            title: '请输入问题表现'
+          }).present({});
+          return;
+        }
+        if(!d.problemLevel) {
+          this.alertCtrl.create({
+            title: '请选择隐患等级'
+          }).present({});
+          return;
+        }
+        if(!d.punishesList || d.punishesList.length == 0) {
+          this.alertCtrl.create({
+            title: '请添加相关处罚'
+          }).present({});
+          return;
+        }
+        for(let p of d.punishesList) {
+          if(!p.punishType) {
+            this.alertCtrl.create({
+              title: '请选择处罚类型'
+            }).present({});
+            return;
+          }
+        }
+      }
     }
     let currentDate: Date = new Date();
     let user: UserVo = await this.storage.get('user');
@@ -154,7 +191,13 @@ export class DailyTaskPage {
     this.dictProvider.getDicts('inspectType').subscribe((data) => {
       for(let item of data.data) {
         if(item.dictType == 'inspectType') {
-          this.inspectTypes = item.dataList;
+          let its = [];
+          for(let it of item.dataList) {
+            if(it.dictValue != '2') {
+              its.push(it);
+            }
+          }
+          this.inspectTypes = its;
           if(this.taskCheck.inspectType) {
             for(let it of item.dataList) {
               if(this.taskCheck.inspectType+'' === it.dictValue) {

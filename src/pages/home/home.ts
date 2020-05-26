@@ -11,6 +11,8 @@ import {JPush} from "@jiguang-ionic/jpush";
 import {UserCenterPage} from "../user-center/user-center";
 import {DangerVo} from "../../models/danger-vo";
 import {DangerApprovePage} from "../danger-approve/danger-approve";
+import {TaskGroupVo} from "../../models/task-group-vo";
+import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 
 @Component({
   selector: 'page-home',
@@ -23,7 +25,11 @@ export class HomePage {
   taskUnfinishedCnt1: number = 0; // 检查
   taskUnfinishedCnt2: number = 0; // 自检
 
+  p = 100;
+
   dangers: Array<DangerVo> = [];
+  groups: Array<TaskGroupVo> = [];
+  loading: boolean = false;
 
   constructor(public navCtrl: NavController,
               private storage: Storage,
@@ -35,6 +41,7 @@ export class HomePage {
       setTimeout(this.initJPush(), 1000);
       this.getTaskUnfinishedCnt();
       this.getApproveDangers();
+      this.getTaskGroups();
     });
   }
 
@@ -47,6 +54,29 @@ export class HomePage {
     });
   }
 
+
+  getTaskGroups() {
+    this.loading = true;
+    this.taskProvider.getTaskGroup(this.user.id, '1', 1).subscribe((res: any) => {
+      let gs = [];
+      for(let g of res.data) {
+        if(g.total - g.finished > 0) {
+          gs.push(g);
+        }
+      }
+      this.groups = gs;
+    }, () => {},
+    () => {
+      this.loading = false;
+    });
+  }
+
+
+  openTaskChecks(group) {
+    this.navCtrl.push(InspectTaskCheckPage, {group});
+  }
+
+
   alert(msg) {
     this.alertCtrl.create({
       title: msg
@@ -56,6 +86,7 @@ export class HomePage {
   ionViewDidEnter() {
     this.getTaskUnfinishedCnt();
     this.getApproveDangers();
+    this.getTaskGroups();
   }
 
   logout() {

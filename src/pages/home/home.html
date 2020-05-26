@@ -47,7 +47,8 @@
         </dl>
       </div>
     </div>
-    <div class="h-finished-task">
+
+    <div class="h-finished-task" *ngIf="dangers && dangers.length > 0">
       <div class="d-finished-tit">待审批整改</div>
       <dl class="h-task-list">
         <dd class="h-task-item" *ngFor="let d of dangers" (click)="openDangerApprove(d)">
@@ -60,6 +61,58 @@
               <div class="t-count-col">
                 隐患内容：
                 <span class="c-blue">{{d.remark}}</span>
+              </div>
+            </div>
+          </div>
+        </dd>
+      </dl>
+    </div>
+
+    <div class="h-finished-task">
+      <div class="d-finished-tit">待完成任务</div>
+      <dl class="h-task-list" *ngIf="!groups || groups.length == 0">
+        <dd class="h-task-item">
+          <div class="h-task-status">
+            <i class="task-status-ok"></i>
+          </div>
+          <div class="task-inform">
+            <div class="task-tit">暂无任务</div>
+            <div class="task-count">
+              <div class="t-count-col">
+                任务总数：
+                <span class="c-blue">0</span>
+              </div>
+              <div class="t-count-col">
+                任务剩余：
+                <span class="c-azure">0</span>
+              </div>
+            </div>
+          </div>
+        </dd>
+      </dl>
+      <dl class="h-task-list">
+        <dd class="h-task-item" *ngFor="let g of groups" (click)="openTaskChecks(g)">
+          <div class="h-task-status">
+            <i class="task-progress-icon"
+               [class.p-75]="g.finished * 100 / g.total >= 75"
+               [class.p-50]="g.finished * 100 / g.total >= 50 && g.finished * 100 / g.total < 75"
+               [class.p-25]="g.finished * 100 / g.total >= 25 && g.finished * 100 / g.total < 50"
+               [class.p-0]="g.finished * 100 / g.total < 25"
+               *ngIf="g.total - g.finished > 0">
+              <em><span class="p-txt">{{g.finished * 100 / g.total}}</span></em>
+            </i>
+            <i class="task-status-ok" *ngIf="g.total - g.finished <= 0"></i>
+          </div>
+          <div class="task-inform">
+            <div class="task-tit">{{g.taskTitle}}</div>
+            <div class="task-count">
+              <div class="t-count-col">
+                任务总数：
+                <span class="c-blue">{{g.total}}</span>
+              </div>
+              <div class="t-count-col">
+                任务剩余：
+                <span class="c-azure">{{g.total - g.finished > 0 ? g.total - g.finished : 0}}</span>
               </div>
             </div>
           </div>

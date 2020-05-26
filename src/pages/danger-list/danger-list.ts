@@ -179,6 +179,36 @@ export class DangerListPage {
   }
 
   submit() {
+    if(this.subItem.dangers && this.subItem.dangers.length > 0) {
+      for(let d of this.subItem.dangers) {
+        if(!d.problemDesc) {
+          this.alertCtrl.create({
+            title: '请输入问题表现'
+          }).present({});
+          return;
+        }
+        if(!d.problemLevel) {
+          this.alertCtrl.create({
+            title: '请选择隐患等级'
+          }).present({});
+          return;
+        }
+        if(!d.punishesList || d.punishesList.length == 0) {
+          this.alertCtrl.create({
+            title: '请添加相关处罚'
+          }).present({});
+          return;
+        }
+        for(let p of d.punishesList) {
+          if(!p.punishType) {
+            this.alertCtrl.create({
+              title: '请选择处罚类型'
+            }).present({});
+            return;
+          }
+        }
+      }
+    }
     this.navCtrl.pop({});
   }
 
