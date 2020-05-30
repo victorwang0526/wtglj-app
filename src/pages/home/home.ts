@@ -34,6 +34,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               private storage: Storage,
               public alertCtrl: AlertController,
+              public alertController: AlertController,
               public jpush: JPush,
               public taskProvider: TaskProvider) {
     this.storage.get('user').then(u => {
@@ -53,7 +54,6 @@ export class HomePage {
       this.dangers = res;
     });
   }
-
 
   getTaskGroups() {
     this.loading = true;

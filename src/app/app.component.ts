@@ -8,6 +8,10 @@ import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
 import {MessageEvent} from "../events/message-event";
 import {JPush} from "@jiguang-ionic/jpush";
+import {AppVersionVo} from "../models/app-version-vo";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {AppVersion} from "@ionic-native/app-version";
+import {PgyProvider} from "../providers/pgy-provider";
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,6 +23,9 @@ export class MyApp {
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private storage: Storage,
+              private iab: InAppBrowser,
+              private appVersion: AppVersion,
+              public pygService: PgyProvider,
               public event: Events,
               public jpush: JPush,
               public alertController: AlertController) {
@@ -29,6 +36,12 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
+      if(this.platform.is('android')) {
+        this.getVersion('android');
+      }else if(this.platform.is('ios')) {
+        this.getVersion('ios');
+      }
+
       this.subEvent();
 
       if(this.platform.is('mobile')) {
@@ -36,6 +49,29 @@ export class MyApp {
         jpush.init();
       }
     });
+  }
+
+  async getVersion(mobile) {
+    let localVersion = await this.appVersion.getVersionNumber();
+    let res: any = await this.pygService.checkUpdate(mobile).toPromise();
+    let newAppVersion: AppVersionVo = res.data;
+    if(newAppVersion.buildVersion == localVersion) {
+      const alert = await this.alertController.create({
+        message: '有新版本，请点击确定更新',
+        enableBackdropDismiss: false,
+        buttons: [{
+            text: '确定',
+            handler: () => {
+              this.iab.create('https://www.pgyer.com/' + newAppVersion.buildShortcutUrl);
+              return false;
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
+
   }
 
 

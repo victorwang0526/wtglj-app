@@ -35,6 +35,9 @@ import {DailyTaskPage} from "../pages/daily-task/daily-task";
 import {EnterpriseSearchPage} from "../pages/enterprise-search/enterprise-search";
 import {DatePipe} from "@angular/common";
 import {DangerApprovePage} from "../pages/danger-approve/danger-approve";
+import {PgyProvider} from "../providers/pgy-provider";
+import {AppVersion} from "@ionic-native/app-version";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 // @ts-ignore
 @NgModule({
@@ -99,6 +102,8 @@ import {DangerApprovePage} from "../pages/danger-approve/danger-approve";
   providers: [
     JPush,
     Camera,
+    AppVersion,
+    InAppBrowser,
     StatusBar,
     SplashScreen,
     BarcodeScanner,
@@ -109,6 +114,7 @@ import {DangerApprovePage} from "../pages/danger-approve/danger-approve";
     UploadProvider,
     DatePipe,
     SuggestionProvider,
+    PgyProvider,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
