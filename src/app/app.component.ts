@@ -55,7 +55,7 @@ export class MyApp {
     let localVersion = await this.appVersion.getVersionNumber();
     let res: any = await this.pygService.checkUpdate(mobile).toPromise();
     let newAppVersion: AppVersionVo = res.data;
-    if(newAppVersion.buildVersion == localVersion) {
+    if(newAppVersion.buildVersion != localVersion) {
       const alert = await this.alertController.create({
         message: '有新版本，请点击确定更新',
         enableBackdropDismiss: false,
