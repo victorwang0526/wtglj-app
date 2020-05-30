@@ -3,7 +3,8 @@
     <div class="h-home-hd">
       <div class="h-home-user" (click)="openUserCenter()">
         <div class="h-user-face">
-          <img src="../../assets/imgs/face2.png" alt="" />
+          <img *ngIf="!!user?.avatar" src="{{user?.avatar}}" alt="" />
+          <img *ngIf="!user?.avatar" src="../../assets/imgs/face2.png" alt=""/>
         </div>
         <div class="h-user-msg">
           <div class="h-user-name">姓名：{{ user?.realName}}</div>
@@ -94,12 +95,12 @@
         <dd class="h-task-item" *ngFor="let g of groups" (click)="openTaskChecks(g)">
           <div class="h-task-status">
             <i class="task-progress-icon"
-               [class.p-75]="g.finished * 100 / g.total >= 75"
-               [class.p-50]="g.finished * 100 / g.total >= 50 && g.finished * 100 / g.total < 75"
-               [class.p-25]="g.finished * 100 / g.total >= 25 && g.finished * 100 / g.total < 50"
-               [class.p-0]="g.finished * 100 / g.total < 25"
+               [class.p-75]="getFP(g) >= 75"
+               [class.p-50]="getFP(g) >= 50 && getFP(g) < 75"
+               [class.p-25]="getFP(g) >= 25 && getFP(g) < 50"
+               [class.p-0]="getFP(g) < 25"
                *ngIf="g.total - g.finished > 0">
-              <em><span class="p-txt">{{g.finished * 100 / g.total}}</span></em>
+              <em><span class="p-txt">{{getFP(g)}}</span></em>
             </i>
             <i class="task-status-ok" *ngIf="g.total - g.finished <= 0"></i>
           </div>
