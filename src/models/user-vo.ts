@@ -1,6 +1,7 @@
 export class UserVo {
   id: number;
   realName: string;
+  avatar: string;
   username: string;
   mobile: string;
   dept: string;
@@ -8,4 +9,7 @@ export class UserVo {
   industries: string;
   areas: string;
   status: number;
+
+  password: string;
+  confirmPassword: string;
 }

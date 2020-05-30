@@ -6,8 +6,9 @@
 
 <ion-content class="bg-grey">
   <div class="u-center-hd">
-    <div class="uc-face">
-      <img src="../../assets/imgs/face2.png" alt="" />
+    <div class="uc-face" (click)="cameraChoose()">
+      <img *ngIf="!!user?.avatar" src="{{user?.avatar}}" alt="" />
+      <img *ngIf="!user?.avatar" src="../../assets/imgs/face2.png" alt=""/>
     </div>
     <div class="uc-msg">
       <div class="uc-name">姓名：{{ user?.realName}}</div>
@@ -33,6 +34,7 @@
         <div class="card-col-info">手机：{{ user?.mobile}}</div>
       </dd>
     </dl>
+    <button class="uc-exit-btn c" (click)="changePsd()">修改密码</button>
     <button class="uc-exit-btn" (click)="logout()">退出</button>
   </div>
 </ion-content>

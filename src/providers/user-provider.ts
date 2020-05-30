@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
+import {UserVo} from "../models/user-vo";
 
 @Injectable()
 export class UserProvider {
@@ -21,5 +22,9 @@ export class UserProvider {
 
   getEnterprise(key: string): Observable<any> {
     return this.http.get('/sys/sysenterprise/page?key=' + key);
+  }
+
+  updateUser(user: UserVo): Observable<any> {
+    return  this.http.put('/sys/user', user);
   }
 }

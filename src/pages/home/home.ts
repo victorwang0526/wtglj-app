@@ -138,6 +138,9 @@ export class HomePage {
     this.navCtrl.push(UserCenterPage, {});
   }
 
+  getFP(g) {
+    return Math.floor(g.finished * 100 / g.total);
+  }
 
 
   //****************************************************
