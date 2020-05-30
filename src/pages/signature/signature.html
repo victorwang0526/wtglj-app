@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>签名</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="submit()">
+        提交
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+</ion-content>

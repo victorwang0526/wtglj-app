@@ -38,6 +38,8 @@ import {DangerApprovePage} from "../pages/danger-approve/danger-approve";
 import {PgyProvider} from "../providers/pgy-provider";
 import {AppVersion} from "@ionic-native/app-version";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {SignaturePadModule} from "angular2-signaturepad";
+import {SignaturePage} from "../pages/signature/signature";
 
 // @ts-ignore
 @NgModule({
@@ -62,12 +64,14 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
     DangerApprovePage,
     DailyTaskPage,
     EnterpriseSearchPage,
+    SignaturePage,
   ],
   imports: [
     HttpClientModule,
     InterceptorModule,
     BrowserModule,
     ComponentsModule,
+    SignaturePadModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       iconMode: 'ios',
@@ -98,6 +102,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
     DangerApprovePage,
     DailyTaskPage,
     EnterpriseSearchPage,
+    SignaturePage,
   ],
   providers: [
     JPush,

@@ -20,6 +20,7 @@ import {UploadProvider} from "../../providers/upload-provider";
 import {ImagePreviewPage} from "../image-preview/image-preview";
 import {DictDataVo} from "../../models/dict-data-vo";
 import {DangerListPage} from "../danger-list/danger-list";
+import {SignaturePage} from "../signature/signature";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -81,6 +82,10 @@ export class InspectTaskCheckDetailPage {
             this.loading = false;
           })
       });
+  }
+
+  async openSignature() {
+    this.navCtrl.push(SignaturePage, {});
   }
 
   openDangerList(subItem) {
