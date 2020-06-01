@@ -49,6 +49,7 @@ export class InspectTaskCheckDetailPage {
               private camera: Camera,
               public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('taskCheck');
+    this.taskCheck.isUnion = this.taskCheck.unionDepts != null;
 
     this.init();
   }
@@ -149,6 +150,9 @@ export class InspectTaskCheckDetailPage {
   }
 
   async chooseIsUnion() {
+    if(!this.editable) {
+      return;
+    }
     let buttons = [];
     buttons.push({
       text: '是',
@@ -296,6 +300,16 @@ export class InspectTaskCheckDetailPage {
           return;
         }
     }
+
+    if(this.taskCheck.isUnion) {
+      if(!this.taskCheck.unionDepts || !this.taskCheck.unionUser) {
+        this.alertCtrl.create({
+          title: '请填联合执法信息'
+        }).present({});
+        return;
+      }
+    }
+
     this.taskCheck.operateDate = new Date();
     this.taskCheck.inspect = this.inspect;
     this.taskCheck.dangers = [];

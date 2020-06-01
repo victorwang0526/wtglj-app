@@ -69,16 +69,17 @@
                 <span class="item-label">负责人</span>
                 <div class="item-info">
                   <div class="item-txt">
-                    <input type="text" placeholder="负责人" [(ngModel)]="taskCheck.operator"/>
+                    <input type="text" placeholder="负责人" [(ngModel)]="taskCheck.operator"
+                           [disabled]="!editable"/>
                   </div>
                 </div>
               </div>
               <div class="list-item">
                 <span class="item-label">负责人签名</span>
                 <div class="item-info">
-                  <div class="item-txt" (click)="openSignature()">
+                  <div class="item-txt">
                     <img class="sign-pic" *ngIf="taskCheck.auditImages" src="{{taskCheck.auditImages}}" (click)="openPreview(taskCheck.auditImages)" alt="" />
-                    <span class="sign-btn">点击签名</span>
+                    <span class="sign-btn" *ngIf="editable" (click)="openSignature()">点击签名</span>
                   </div>
                 </div>
               </div>
@@ -86,7 +87,8 @@
                 <span class="item-label">备注</span>
                 <div class="item-info">
                   <div class="item-txt">
-                    <input type="text" placeholder="暂无隐患，或输入其他备注"  [(ngModel)]="taskCheck.remark"/>
+                    <input type="text" placeholder="暂无隐患，或输入其他备注"  [(ngModel)]="taskCheck.remark"
+                           [disabled]="!editable"/>
                   </div>
                 </div>
               </div>
@@ -110,7 +112,8 @@
                   <span class="item-label">联合部门</span>
                   <div class="item-info">
                     <div class="item-txt">
-                      <input type="text" placeholder="请输入联合部门"  [(ngModel)]="taskCheck.unionDepts"/>
+                      <input type="text" placeholder="请输入联合部门"  [(ngModel)]="taskCheck.unionDepts"
+                             [disabled]="!editable"/>
                     </div>
                   </div>
                 </div>
@@ -118,7 +121,8 @@
                   <span class="item-label">负责人</span>
                   <div class="item-info">
                     <div class="item-txt">
-                      <input type="text" placeholder="请输入负责人"  [(ngModel)]="taskCheck.unionUser"/>
+                      <input type="text" placeholder="请输入负责人"  [(ngModel)]="taskCheck.unionUser"
+                             [disabled]="!editable"/>
                     </div>
                   </div>
                 </div>
