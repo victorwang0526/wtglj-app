@@ -74,6 +74,23 @@ export class TaskCheckVo {
    */
   operateDate: Date;
 
+  /**
+   * 审核人签名图片
+   */
+  auditImages: string;
+
+  isUnion: boolean = false; //local
+
+  /**
+   * 联合部门
+   */
+  unionDepts: string;
+
+  /**
+   * 联合检查负责人
+   */
+  unionUser: string;
+
   dangerChange: string;
   dangerDate: Date;
   dangerDesc: string;

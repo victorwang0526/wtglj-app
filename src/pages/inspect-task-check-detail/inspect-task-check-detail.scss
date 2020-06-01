@@ -275,7 +275,7 @@ page-inspect-task-check-detail {
    }
    .item-label{
      flex-shrink: 0;
-     width: 8rem;
+     width: 8.4rem;
      margin-right: .5rem;
    }
    .item-info{
@@ -327,5 +327,13 @@ page-inspect-task-check-detail {
   }
   .danger-count-txt{
     color: #f84848;
+  }
+  .sign-btn{
+    color: #137FFE;
+    text-decoration: underline;
+  }
+  .sign-pic{
+    max-width: 60%;
+    max-height: 5.6rem;
   }
 }

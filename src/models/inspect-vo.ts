@@ -1,4 +1,4 @@
-import {InspectItemVo} from "./inspect-item-vo";
+import {InspectSubItemVo} from "./inspect-sub-item-vo";
 
 export class InspectVo {
   id: string;
@@ -10,5 +10,6 @@ export class InspectVo {
   industry: string;
   frequency: string;
   status: number;
-  items: Array<InspectItemVo>;
+
+  subItems: Array<InspectSubItemVo>;
 }

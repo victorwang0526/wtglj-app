@@ -1,11 +1,6 @@
 <ion-header>
   <ion-navbar>
     <ion-title>检查清单</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="openSignature()">
-        签名
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -16,11 +11,11 @@
       <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
     </div>
     <div class="check-form g-flex-box" *ngIf="inspect">
-      <div class="c-form-box" *ngFor="let item of inspect.items">
-        <h4 class="c-form-title"><span>{{item.title}}</span></h4>
+      <div class="c-form-box">
+        <h4 class="c-form-title"><span>检查列表</span></h4>
         <!-- 选项 -->
         <ng-container>
-          <section class="c-form-inner" *ngFor="let subItem of item.subItems; let i = index">
+          <section class="c-form-inner" *ngFor="let subItem of inspect.subItems; let i = index">
             <div class="c-form-tit">{{i+1}}.{{subItem.title}}</div>
             <div class="c-form-inform">
               <dl class="c-form-choose">
@@ -63,33 +58,72 @@
             </div>
           </section>
         </ng-container>
-        <section class="c-form-inner" *ngIf="item.title == '其他内容'">
-          <div class="c-form-tit">请填写其他内容</div>
-          <div class="c-form-inform">
-            <div class="c-form-remark">
-              <div class="remark-info">
-                <span class="c-label">备注：</span>
-                <div class="remark-txt">
-                  <input type="text" placeholder="请输入其他内容" [(ngModel)]="item.subItems[0].remark"
-                         [disabled]="!editable"/>
+      </div>
+
+      <div class="c-form-box">
+        <section class="c-form-inner has-fold">
+          <!--        展开 +active-->
+          <div class="c-form-list active">
+            <div class="list-item-box fold-box">
+              <div class="list-item item-hd">
+                <span class="item-label">负责人</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <input type="text" placeholder="负责人" [(ngModel)]="taskCheck.operator"/>
+                  </div>
                 </div>
               </div>
-              <button class="photo-btn" ion-button color="primary" outline
-                      (click)="cameraChoose(item.subItems[0])"
-                      *ngIf="taskCheck.operateDate == null">
-                <ion-icon slot="start" name="camera"></ion-icon>
-                拍照
-              </button>
+              <div class="list-item">
+                <span class="item-label">负责人签名</span>
+                <div class="item-info">
+                  <div class="item-txt" (click)="openSignature()">
+                    <img class="sign-pic" *ngIf="taskCheck.auditImages" src="{{taskCheck.auditImages}}" (click)="openPreview(taskCheck.auditImages)" alt="" />
+                    <span class="sign-btn">点击签名</span>
+                  </div>
+                </div>
+              </div>
+              <div class="list-item">
+                <span class="item-label">备注</span>
+                <div class="item-info">
+                  <div class="item-txt">
+                    <input type="text" placeholder="暂无隐患，或输入其他备注"  [(ngModel)]="taskCheck.remark"/>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="upload-pic" *ngIf="item.subItems[0].imageUrls || item.subItems[0].imgLoading">
-              <ng-container *ngIf="item.subItems[0].imageUrls">
-                <v-image *ngFor="let imgUrl of item.subItems[0].imageUrls.split(',')"
-                         [imgUrl]="imgUrl"
-                         (remove)="removeImg(item.subItems[0], imgUrl)"
-                         [showRemove]="taskCheck.operateDate == null"></v-image>
-              </ng-container>
-              <v-image *ngIf="item.subItems[0].imgLoading" [loading]="true"></v-image>
+          </div>
+        </section>
+
+        <section class="c-form-inner has-fold">
+          <!--        展开 +active-->
+          <div class="c-form-list active">
+            <div class="list-item item-hd">
+              <span class="item-label">联合检查</span>
+              <div class="item-info" (click)="chooseIsUnion()">
+                <div class="item-txt c-grey-9">{{taskCheck.isUnion ? '是' : '否'}}</div>
+                <i [class.u-arrow-right]="!taskCheck.isUnion" [class.u-arrow-down]="taskCheck.isUnion"></i>
+              </div>
             </div>
+            <ng-container *ngIf="taskCheck.isUnion">
+              <div class="list-item-box fold-box">
+                <div class="list-item">
+                  <span class="item-label">联合部门</span>
+                  <div class="item-info">
+                    <div class="item-txt">
+                      <input type="text" placeholder="请输入联合部门"  [(ngModel)]="taskCheck.unionDepts"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <span class="item-label">负责人</span>
+                  <div class="item-info">
+                    <div class="item-txt">
+                      <input type="text" placeholder="请输入负责人"  [(ngModel)]="taskCheck.unionUser"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </section>
       </div>

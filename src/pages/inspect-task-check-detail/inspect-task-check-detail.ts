@@ -49,31 +49,38 @@ export class InspectTaskCheckDetailPage {
               private camera: Camera,
               public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('taskCheck');
+
+    this.init();
+  }
+
+  async init() {
+    let user: UserVo = await this.storage.get('user');
+    this.taskCheck.operator = user.realName;
+    this.taskCheck.operatorId = user.id;
+
     this.editable = this.taskCheck.inspectType == 1 && !this.taskCheck.operateDate;
 
     this.getDangerTypes();
     this.getPunishTypes();
 
     this.loading = true;
-    taskProvider.getInspectDetail(this.taskCheck.inspectId)
+    this.taskProvider.getInspectDetail(this.taskCheck.inspectId)
       .subscribe((inspectVo: InspectVo) => {
         this.inspect = inspectVo;
       }, ()=> {}, () => {
-        taskProvider.getTaskCheckItems(this.taskCheck.id)
+        this.taskProvider.getTaskCheckItems(this.taskCheck.id)
           .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
             this.taskCheckItems = taskCheckItems;
 
             //init data
             if(this.taskCheckItems && this.taskCheckItems.length > 0) {
               for(let checkItem of this.taskCheckItems) {
-                for(let item of this.inspect.items) {
-                  for(let subItem of item.subItems) {
-                    if(checkItem.subItemId == subItem.id) {
-                      subItem.remark = checkItem.remark;
-                      subItem.checked = checkItem.subItemsChecked;
-                      subItem.imageUrls = checkItem.subItemsImageUrls;
-                      subItem.dangers = checkItem.dangers;
-                    }
+                for(let subItem of this.inspect.subItems) {
+                  if(checkItem.subItemId == subItem.id) {
+                    subItem.remark = checkItem.remark;
+                    subItem.checked = checkItem.subItemsChecked;
+                    subItem.imageUrls = checkItem.subItemsImageUrls;
+                    subItem.dangers = checkItem.dangers;
                   }
                 }
               }
@@ -85,7 +92,7 @@ export class InspectTaskCheckDetailPage {
   }
 
   async openSignature() {
-    this.navCtrl.push(SignaturePage, {});
+    this.navCtrl.push(SignaturePage, {taskCheck: this.taskCheck});
   }
 
   openDangerList(subItem) {
@@ -138,6 +145,35 @@ export class InspectTaskCheckDetailPage {
         }
       }]
     });
+    await actionSheet.present();
+  }
+
+  async chooseIsUnion() {
+    let buttons = [];
+    buttons.push({
+      text: '是',
+      handler: () => {
+        this.taskCheck.isUnion = true;
+        this.taskCheck.unionDepts = '';
+        this.taskCheck.unionUser = '';
+      }
+    },{
+      text: '否',
+      handler: () => {
+        this.taskCheck.isUnion = false;
+        this.taskCheck.unionDepts = '';
+        this.taskCheck.unionUser = '';
+      }
+    });
+    buttons.push({
+      text: '取消',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    });
+    const actionSheet = await this.actionSheetController.create({buttons});
     await actionSheet.present();
   }
 
@@ -252,29 +288,22 @@ export class InspectTaskCheckDetailPage {
   }
 
   async submit() {
-    for(let item of this.inspect.items) {
-      for(let subItem of item.subItems) {
-        if(!subItem.checked && item.title != '其他内容') {
+    for(let subItem of this.inspect.subItems) {
+        if(!subItem.checked) {
           this.alertCtrl.create({
             title: '请填写完整'
           }).present({});
           return;
         }
-      }
     }
-    let user: UserVo = await this.storage.get('user');
-    this.taskCheck.operator = user.realName;
-    this.taskCheck.operatorId = user.id;
     this.taskCheck.operateDate = new Date();
     this.taskCheck.inspect = this.inspect;
     this.taskCheck.dangers = [];
-    for(let item of this.inspect.items) {
-      for(let subItem of item.subItems) {
-        if(!subItem.dangers || subItem.dangers.length == 0) {
-          continue;
-        }
-        this.taskCheck.dangers.push(...subItem.dangers);
+    for(let subItem of this.inspect.subItems) {
+      if(!subItem.dangers || subItem.dangers.length == 0) {
+        continue;
       }
+      this.taskCheck.dangers.push(...subItem.dangers);
     }
     const loading = this.loadingController.create({
       spinner: 'circles',
