@@ -40,6 +40,7 @@ import {AppVersion} from "@ionic-native/app-version";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {SignaturePadModule} from "angular2-signaturepad";
 import {SignaturePage} from "../pages/signature/signature";
+import {PipesModule} from "../pipes/pipes.module";
 
 // @ts-ignore
 @NgModule({
@@ -71,6 +72,7 @@ import {SignaturePage} from "../pages/signature/signature";
     InterceptorModule,
     BrowserModule,
     ComponentsModule,
+    PipesModule,
     SignaturePadModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',

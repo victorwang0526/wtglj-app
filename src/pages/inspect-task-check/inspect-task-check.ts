@@ -23,6 +23,7 @@ export class InspectTaskCheckPage {
   selectedArea: string = '';
   industries: Array<any> = [];
   selectedIndustry: string = '';
+  key: string = '';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -35,6 +36,10 @@ export class InspectTaskCheckPage {
       this.user = u;
       this.getDict();
     });
+  }
+
+  keyChange(e: any) {
+    this.key = e.target.value;
   }
 
   getDict() {

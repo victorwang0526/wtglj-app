@@ -3,6 +3,9 @@
     <ion-title>{{ (group.inspectTitle ? group.inspectTitle : '') + ' ' + group.groupTitle }}({{group.finished}}/{{group.total}})</ion-title>
   </ion-navbar>
   <ion-toolbar class="task-select-bar">
+    <ion-searchbar color="danger" show-cancel-button="focus"
+                   cancel-button-text="取消" placeholder="公司名称"
+                   enterkeyhint="search" (ionInput)="keyChange($event)"></ion-searchbar>
     <ion-buttons class="select-btn" slot="start">
       <ion-select placeholder="区域"
                   (ionChange)="getTaskChecks()"
@@ -30,7 +33,7 @@
 
   <dl class="check-group">
     <dd class="c-group-row"
-        *ngFor="let task of tasks" (click)="openInspectDetail(task)">
+        *ngFor="let task of tasks | taskPipe : key" (click)="openInspectDetail(task)">
       <div class="c-group-info">
         <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
         <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate | date : 'yyyy-MM-dd'}}</div>
