@@ -1,3 +1,5 @@
+import {DeptVo} from "./dept-vo";
+
 export class UserVo {
   id: number;
   realName: string;
@@ -12,4 +14,6 @@ export class UserVo {
 
   password: string;
   confirmPassword: string;
+
+  deptDTO: DeptVo;
 }

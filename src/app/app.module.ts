@@ -41,6 +41,8 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {SignaturePadModule} from "angular2-signaturepad";
 import {SignaturePage} from "../pages/signature/signature";
 import {PipesModule} from "../pipes/pipes.module";
+import {EnterpriseListPage} from "../pages/enterprise-list/enterprise-list";
+import {CallNumber} from "@ionic-native/call-number";
 
 // @ts-ignore
 @NgModule({
@@ -66,6 +68,7 @@ import {PipesModule} from "../pipes/pipes.module";
     DailyTaskPage,
     EnterpriseSearchPage,
     SignaturePage,
+    EnterpriseListPage,
   ],
   imports: [
     HttpClientModule,
@@ -105,8 +108,10 @@ import {PipesModule} from "../pipes/pipes.module";
     DailyTaskPage,
     EnterpriseSearchPage,
     SignaturePage,
+    EnterpriseListPage,
   ],
   providers: [
+    CallNumber,
     JPush,
     Camera,
     AppVersion,

@@ -13,6 +13,7 @@ import {DangerVo} from "../../models/danger-vo";
 import {DangerApprovePage} from "../danger-approve/danger-approve";
 import {TaskGroupVo} from "../../models/task-group-vo";
 import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
+import {EnterpriseListPage} from "../enterprise-list/enterprise-list";
 
 @Component({
   selector: 'page-home',
@@ -128,6 +129,10 @@ export class HomePage {
 
   openExam() {
     this.navCtrl.push(ExamListPage, {});
+  }
+
+  openEnterprise() {
+    this.navCtrl.push(EnterpriseListPage, {});
   }
 
   openAdvice() {

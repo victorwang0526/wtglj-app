@@ -1,0 +1,49 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>企业信息</ion-title>
+  </ion-navbar>
+  <ion-toolbar class="task-select-bar">
+    <ion-searchbar color="danger" show-cancel-button="focus"
+                   cancel-button-text="取消" placeholder="公司名称"
+                   enterkeyhint="search" (ionInput)="keyChange($event)"></ion-searchbar>
+    <ion-buttons class="select-btn" slot="end">
+      <ion-select class="ico-select-txt" placeholder="行业"
+                  [(ngModel)]="selectedIndustry"
+                  [cancelText]="'取消'" [okText]="'确定'">
+        <ion-option *ngFor="let industry of industries" [value]="industry">{{industry}}</ion-option>
+      </ion-select>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-grey">
+
+  <div style="text-align: center">
+    <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
+  </div>
+
+  <dl class="check-group" *ngIf="!loading && industryEnterprises && industryEnterprises.length == 0">
+    <dd class="c-group-row">
+      <h4 class="c-group-tit">暂无企业</h4>
+    </dd>
+  </dl>
+
+  <ng-container *ngIf="!loading && industryEnterprises && industryEnterprises.length > 0">
+    <ion-item-group *ngFor="let industryEnterprise of industryEnterprises | enterpriseIndustry: selectedIndustry">
+      <ion-item-divider>
+        <ion-label>{{industryEnterprise.industry}}</ion-label>
+      </ion-item-divider>
+      <dl class="check-group">
+        <dd class="c-group-row"
+            *ngFor="let enterprise of industryEnterprise.enterprises | enterpriseFilter: key">
+          <div class="c-group-info" (click)="openEnterprise(enterprise)">
+            <h4 class="c-group-tit">{{enterprise.name}}</h4>
+            <div class="check-time">{{enterprise.contact + '  ' + enterprise.mobile}}</div>
+            <div class="check-time">{{enterprise.address}}</div>
+          </div>
+        </dd>
+      </dl>
+    </ion-item-group>
+  </ng-container>
+</ion-content>

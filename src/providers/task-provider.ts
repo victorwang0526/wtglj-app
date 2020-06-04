@@ -6,6 +6,7 @@ import {InspectVo} from "../models/inspect-vo";
 import {TaskCheckVo} from "../models/task-check-vo";
 import {TaskCheckItemVo} from "../models/task-check-item-vo";
 import {DictDataVo} from "../models/dict-data-vo";
+import {IndustryEnterpriseVo} from "../models/industry-enterprise-vo";
 
 @Injectable()
 export class TaskProvider {
@@ -62,5 +63,10 @@ export class TaskProvider {
       .map((res: any) => res.data.list);
   }
 
+
+  getIndustryEnterprise(areas: string): Observable<Array<IndustryEnterpriseVo>> {
+    return this.http.get(`/sys/sysenterprise/industries?areas=`+areas)
+      .map((res: any) => res.data);
+  }
 
 }

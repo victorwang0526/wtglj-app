@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/app-version": "^4.20.0",
     "@ionic-native/barcode-scanner": "^4.20.0",
+    "@ionic-native/call-number": "^4.20.0",
     "@ionic-native/camera": "^4.20.0",
     "@ionic-native/core": "4.20.0",
     "@ionic-native/in-app-browser": "^4.20.0",
@@ -29,6 +30,7 @@
     "@ionic/storage": "^2.2.0",
     "@jiguang-ionic/jpush": "^1.0.2",
     "angular2-signaturepad": "^2.11.0",
+    "call-number": "^1.0.1",
     "cordova-android": "^8.1.0",
     "cordova-ios": "^5.1.1",
     "cordova-plugin-app-version": "^0.1.9",
@@ -74,7 +76,8 @@
         "APP_KEY": "f82b13237c26a0c4ccc38e86"
       },
       "cordova-plugin-app-version": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "mx.ferreyra.callnumber": {}
     },
     "platforms": [
       "ios",
