@@ -8,8 +8,8 @@ export class UserVo {
   mobile: string;
   dept: string;
   duty: string;
-  industries: string;
-  areas: string;
+  // industries: string;
+  // areas: string;
   status: number;
 
   password: string;

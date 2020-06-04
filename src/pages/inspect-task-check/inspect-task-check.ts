@@ -47,14 +47,14 @@ export class InspectTaskCheckPage {
       console.log(data);
       for(let item of data.data) {
         if(item.dictType == 'area') {
-          if(this.user.areas == null || this.user.areas == '') {
+          if(this.user.deptDTO.areasName == null || this.user.deptDTO.areasName == '') {
 
-          } else if(this.user.areas.indexOf('全部') > -1) {
+          } else if(this.user.deptDTO.areasName.indexOf('全部') > -1) {
             this.areas.push({dictLabel: "全部", dictValue: ""});
             this.areas.push(...item.dataList);
           }else {
             let a = [];
-            let as = this.user.areas.split(',');
+            let as = this.user.deptDTO.areasName.split(',');
             a.push({dictLabel: "全部", dictValue: ""});
             for(let aa of as) {
               a.push({dictLabel: aa, dictValue: aa});
@@ -62,13 +62,12 @@ export class InspectTaskCheckPage {
             this.areas.push(...a);
           }
         }else if(item.dictType == 'industry') {
-          if(this.user.industries == null || this.user.industries == '') {
-          }else if(this.user.industries.indexOf('全部') > -1){
+          if(this.user.deptDTO.industryNames == null || this.user.deptDTO.industryNames == ''){
             this.industries.push({dictLabel: "全部", dictValue: ""});
             this.industries.push(...item.dataList);
           }else {
             let a = [];
-            let is = this.user.industries.split(',');
+            let is = this.user.deptDTO.industryNames.split(',');
             a.push({dictLabel: "全部", dictValue: ""});
             for(let aa of is) {
               a.push({dictLabel: aa, dictValue: aa});
