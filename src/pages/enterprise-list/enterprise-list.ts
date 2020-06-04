@@ -45,7 +45,7 @@ export class EnterpriseListPage {
       taskProvider.getIndustryEnterprise(u.deptDTO.areas).subscribe(data => {
         this.industryEnterprises = data;
         for(let ie of data) {
-          this.industries.push(ie.industry);
+          this.industries.push(ie.industryName);
         }
       }, error => {},
         () => {

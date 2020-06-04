@@ -24,8 +24,8 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheck/${userId}/taskUnfinishCnt`);
   }
 
-  getTaskChecks(inspectId: number, taskId: number, taskTitle: string, areas: string, industries: string): Observable<any> {
-    return this.http.get(`/sys/sysinspecttaskcheck/page?page=1&limit=999&inspectId=${inspectId}&taskId=${taskId}&taskTitle=${taskTitle}&areas=${areas}&industries=${industries}`);
+  getTaskChecks(userId: string, inspectId: number, taskId: number, taskTitle: string, areas: string, industries: string): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/page?page=1&limit=999&userId=${userId}&inspectId=${inspectId}&taskId=${taskId}&taskTitle=${taskTitle}&areas=${areas}&industries=${industries}`);
   }
 
   getTaskCheck(taskCheckId: number): Observable<any> {

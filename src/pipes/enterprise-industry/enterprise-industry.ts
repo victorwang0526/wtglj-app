@@ -11,7 +11,7 @@ export class EnterpriseIndustryPipe implements PipeTransform {
        return ies;
      }
      return ies.filter((ie: IndustryEnterpriseVo, index: number) => {
-       return ie.industry.indexOf(industry) > -1;
+       return ie.industryName.indexOf(industry) > -1;
      })
   }
 }

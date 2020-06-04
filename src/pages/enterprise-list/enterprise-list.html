@@ -5,7 +5,7 @@
   </ion-navbar>
   <ion-toolbar class="task-select-bar">
     <ion-searchbar color="danger" show-cancel-button="focus"
-                   cancel-button-text="取消" placeholder="公司名称"
+                   cancel-button-text="取消" placeholder="公司名称、地址、联系人"
                    enterkeyhint="search" (ionInput)="keyChange($event)"></ion-searchbar>
     <ion-buttons class="select-btn" slot="end">
       <ion-select class="ico-select-txt" placeholder="行业"
@@ -32,7 +32,7 @@
   <ng-container *ngIf="!loading && industryEnterprises && industryEnterprises.length > 0">
     <ion-item-group *ngFor="let industryEnterprise of industryEnterprises | enterpriseIndustry: selectedIndustry">
       <ion-item-divider>
-        <ion-label>{{industryEnterprise.industry}}</ion-label>
+        <ion-label>{{industryEnterprise.industryName}}</ion-label>
       </ion-item-divider>
       <dl class="check-group">
         <dd class="c-group-row"
