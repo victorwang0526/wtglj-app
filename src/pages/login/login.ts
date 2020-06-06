@@ -44,7 +44,7 @@ export class LoginPage {
         localStorage.setItem('token', res.data.token);
         this.getUserInfo();
       }, error => {
-        this.alertCtrl.create({message: '登录异常，请稍后再试.'}).present({});
+        this.alertCtrl.create({message: '登录异常，请稍后再试.' + JSON.stringify(error)}).present({});
       }, () => {
         loading.dismiss();
       })
