@@ -62,7 +62,7 @@ export class MyApp {
         buttons: [{
             text: '确定',
             handler: () => {
-              this.iab.create('https://www.pgyer.com/' + newAppVersion.buildShortcutUrl);
+              this.iab.create('https://www.pgyer.com/' + newAppVersion.buildShortcutUrl, '_system');
               return false;
             }
           }
