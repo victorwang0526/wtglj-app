@@ -27,10 +27,16 @@ export class UserCenterPage {
 
   }
 
-  ionViewDidLoad() {
-    this.storage.get('user').then(u => {
-      this.user = u;
+  getUserInfo() {
+    this.userService.getUserInfo().subscribe((res: any) => {
+      this.storage.set('user', res.data);
+      this.user = res.data;
     });
+  }
+
+  ionViewDidLoad() {
+    this.getUserInfo();
+
     console.log('ionViewDidLoad UserCenterPage');
   }
   logout() {
