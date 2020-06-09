@@ -88,8 +88,8 @@ export class UserCenterPage {
               _ts.presentToast('密码不一致，请重新输入');
               return false;
             }
-            if(_ts.user.password.length < 8) {
-              _ts.presentToast('密码至少输入8位');
+            if(_ts.user.password.length < 6) {
+              _ts.presentToast('密码至少输入6位');
               return false;
             }
             _ts.userService.updateUser(_ts.user).subscribe(res => {
