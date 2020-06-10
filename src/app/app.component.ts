@@ -12,6 +12,7 @@ import {AppVersionVo} from "../models/app-version-vo";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppVersion} from "@ionic-native/app-version";
 import {PgyProvider} from "../providers/pgy-provider";
+import {UserProvider} from "../providers/user-provider";
 @Component({
   templateUrl: 'app.html'
 })
@@ -25,6 +26,7 @@ export class MyApp {
               private storage: Storage,
               private iab: InAppBrowser,
               private appVersion: AppVersion,
+              public userService: UserProvider,
               public pygService: PgyProvider,
               public event: Events,
               public jpush: JPush,
@@ -81,8 +83,15 @@ export class MyApp {
       if(!val) {
         this.rootPage = LoginPage;
       }else {
+        this.getUserInfo();
         this.rootPage = HomePage;
       }
+    });
+  }
+
+  getUserInfo() {
+    this.userService.getUserInfo().subscribe((res: any) => {
+      this.storage.set('user', res.data);
     });
   }
 

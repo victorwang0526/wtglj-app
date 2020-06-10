@@ -27,10 +27,16 @@ export class UserCenterPage {
 
   }
 
-  ionViewDidLoad() {
-    this.storage.get('user').then(u => {
-      this.user = u;
+  getUserInfo() {
+    this.userService.getUserInfo().subscribe((res: any) => {
+      this.storage.set('user', res.data);
+      this.user = res.data;
     });
+  }
+
+  ionViewDidLoad() {
+    this.getUserInfo();
+
     console.log('ionViewDidLoad UserCenterPage');
   }
   logout() {
@@ -82,8 +88,8 @@ export class UserCenterPage {
               _ts.presentToast('密码不一致，请重新输入');
               return false;
             }
-            if(_ts.user.password.length < 8) {
-              _ts.presentToast('密码至少输入8位');
+            if(_ts.user.password.length < 6) {
+              _ts.presentToast('密码至少输入6位');
               return false;
             }
             _ts.userService.updateUser(_ts.user).subscribe(res => {
