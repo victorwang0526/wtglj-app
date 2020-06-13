@@ -41,7 +41,7 @@ export class MyApp {
       if(this.platform.is('android')) {
         this.getVersion('android');
       }else if(this.platform.is('ios')) {
-        this.getVersion('ios');
+        // this.getVersion('ios');
       }
 
       this.subEvent();
