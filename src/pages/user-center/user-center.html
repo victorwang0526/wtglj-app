@@ -12,19 +12,13 @@
     </div>
     <div class="uc-msg">
       <div class="uc-name">姓名：{{ user?.realName}}</div>
-      <div class="uc-area" *ngIf="user != null && user.deptDTO != null && user.deptDTO.areasName">
-        管辖区域：{{ user?.deptDTO.areasName}}
-      </div>
-      <div class="uc-area" *ngIf="user != null && user.deptDTO != null && user.deptDTO.industryNames">
-        管辖行业：{{ user?.deptDTO.industryNames}}
-      </div>
     </div>
   </div>
   <div class="u-center-card">
     <dl class="card-column">
       <dd class="card-col">
         <i class="uc-icon blue-icon"></i>
-        <div class="card-col-info">部门：{{ user?.deptDTO.name}}</div>
+        <div class="card-col-info">部门：{{ user?.deptDTO?.name}}</div>
       </dd>
       <dd class="card-col">
         <i class="uc-icon red-icon"></i>
@@ -33,6 +27,14 @@
       <dd class="card-col">
         <i class="uc-icon green-icon"></i>
         <div class="card-col-info">职务：{{ user?.duty}}</div>
+      </dd>
+      <dd class="card-col" *ngIf="user != null && user.deptDTO != null && user.deptDTO.areasName">
+        <i class="uc-icon yellow-icon"></i>
+        <div class="card-col-info">区域：{{ user?.deptDTO.areasName }}</div>
+      </dd>
+      <dd class="card-col" *ngIf="user != null && user.deptDTO != null && user.deptDTO.industryNames">
+        <i class="uc-icon yellow-icon"></i>
+        <div class="card-col-info">行业：{{ user?.deptDTO.industryNames }}</div>
       </dd>
     </dl>
     <button class="uc-exit-btn c" (click)="changePsd()">修改密码</button>

@@ -14,6 +14,7 @@ import {DangerApprovePage} from "../danger-approve/danger-approve";
 import {TaskGroupVo} from "../../models/task-group-vo";
 import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 import {EnterpriseListPage} from "../enterprise-list/enterprise-list";
+import {DailyTaskPage} from "../daily-task/daily-task";
 
 @Component({
   selector: 'page-home',
@@ -72,6 +73,9 @@ export class HomePage {
     });
   }
 
+  addTaskCheck() {
+    this.navCtrl.push(DailyTaskPage, {});
+  }
 
   openTaskChecks(group) {
     this.navCtrl.push(InspectTaskCheckPage, {group});

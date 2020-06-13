@@ -4,12 +4,23 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="bg-grey">
+<ion-content class="">
   <div class="g-flex-advice">
     <div class="advice-box">
       <div class="advice-box-inner">
         <h2 class="advice-title">意见描述</h2>
         <textarea placeholder="请输入意见反馈信息" [(ngModel)]="remark"></textarea>
+      </div>
+      <div class="list-item upload-pic">
+        <ng-container *ngIf="imgUrls">
+          <div class="pic-col" *ngFor="let imgUrl of imgUrls.split(',')">
+            <i class="del-icon" (click)="removeImg(imgUrl)"></i>
+            <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)">
+          </div>
+        </ng-container>
+        <div class="pic-col">
+          <button class="add-pic-btn" (click)="cameraChoose()"></button>
+        </div>
       </div>
     </div>
     <button class="advice-button" (click)="submit()" [disabled]="!remark">提交</button>

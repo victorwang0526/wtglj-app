@@ -9,9 +9,10 @@ export class SuggestionProvider {
     console.log('Hello UserProvider Provider');
   }
 
-  submit(remark): Observable<any> {
+  submit(remark, images): Observable<any> {
     return this.http.post('/sys/syssuggestion', {
-      remark
+      remark,
+      images
     });
   }
 }

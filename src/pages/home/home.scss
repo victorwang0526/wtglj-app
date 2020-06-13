@@ -58,7 +58,7 @@ page-home {
       display: flex;
       align-items: center;
       min-height: 4.4rem;
-      padding: 1.6rem 2rem;
+      padding: 1.6rem 1rem;
       margin-bottom: 2.6rem;
       background: #fff;
       border-radius: .5rem;
@@ -105,6 +105,7 @@ page-home {
       width: 4.4rem;
       height: 4.4rem;
       display: block;
+      margin-left: 1rem;
       background: url("../../assets/imgs/ok.png") no-repeat center center;
       background-size: contain;
     }
@@ -117,11 +118,11 @@ page-home {
     border-radius: 1rem;
     background: #fff;
     .enter-col{
-      width: 25%;
+      width: 20%;
       color: #585858;
       font-size: 1.2rem;
       text-align: center;
-      padding: .8rem;
+      padding: .8rem 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -135,15 +136,15 @@ page-home {
       width: 100%;
       display: block;
       color: #5c5c5c;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       line-height: 1.5;
       padding: 0;
       background: transparent;
     }
     .enter-icon{
       position: relative;
-      width: 5.6rem;
-      height: 5.6rem;
+      width: 4.6rem;
+      height: 4.6rem;
       display: block;
       margin: 0 auto .5rem;
       background-repeat: no-repeat;
@@ -161,11 +162,14 @@ page-home {
       &.advice-icon{
         background-image: url("../../assets/imgs/feedback.png");
       }
+      &.contact-icon{
+        background-image: url("../../assets/imgs/contacts.png");
+      }
     }
     ion-badge{
       position: absolute;
       top: -.6rem;
-      left: 4.6rem;
+      right: -1rem;
       padding: 2px 5px;
       font-size: 1.2rem;
       box-shadow: 0 0 0 1px rgba(255,255,255,.8);
@@ -221,6 +225,28 @@ page-home {
     }
     .p-txt{
       transform: rotate(-50deg);
+    }
+  }
+  @media screen and (width:320px) {
+    .h-task-list .task-count{
+      font-size: 1.2rem;
+    }
+    .h-home-hd{
+      margin-bottom: 0;
+      padding-top: 2.5rem;
+      .h-user-face{
+        border-width: .4rem;
+        box-shadow: 0 0 0 .4rem #2E6DFF;
+      }
+      .h-home-user{
+        padding-bottom: 1rem;
+      }
+    }
+    .home-entrance{
+      padding: 1rem;
+    }
+    .h-task-list{
+      padding: 0 1.4rem;
     }
   }
 }

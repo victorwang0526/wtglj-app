@@ -19,11 +19,11 @@
       <div class="h-home-enter">
         <dl class="home-entrance">
           <dd class="enter-col">
-            <button class="enter-btn" (click)="openInspectCheckGroup()">
+            <button class="enter-btn" (click)="addTaskCheck()">
               <i class="enter-icon task-icon">
-                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>
+<!--                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>-->
               </i>
-              <div class="enter-tit">检查任务</div>
+              <div class="enter-tit">安全巡查</div>
             </button>
           </dd>
           <dd class="enter-col">
@@ -36,10 +36,17 @@
           </dd>
           <dd class="enter-col">
             <button class="enter-btn" (click)="openEnterprise()">
-              <i class="enter-icon exam-icon">
-                <!--              <ion-badge color="danger">6</ion-badge>-->
+              <i class="enter-icon contact-icon">
+<!--                <ion-badge color="danger">9</ion-badge>-->
               </i>
               <div class="enter-tit">企业信息</div>
+            </button>
+          </dd>
+          <dd class="enter-col">
+            <button class="enter-btn" (click)="openExam()">
+              <i class="enter-icon exam-icon">
+              </i>
+              <div class="enter-tit">安全考试</div>
             </button>
           </dd>
           <dd class="enter-col">
