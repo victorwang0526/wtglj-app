@@ -39,6 +39,10 @@ export class HomePage {
               public alertController: AlertController,
               public jpush: JPush,
               public taskProvider: TaskProvider) {
+
+  }
+
+  ionViewDidLoad() {
     this.storage.get('user').then(u => {
       this.user = u;
       setTimeout(this.initJPush(), 1000);
@@ -80,7 +84,6 @@ export class HomePage {
   openTaskChecks(group) {
     this.navCtrl.push(InspectTaskCheckPage, {group});
   }
-
 
   alert(msg) {
     this.alertCtrl.create({
