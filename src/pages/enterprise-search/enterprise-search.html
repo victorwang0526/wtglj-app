@@ -8,6 +8,8 @@
   <ion-searchbar
     [(ngModel)]="key"
     [showCancelButton]="shouldShowCancel"
+    [cancelButtonText]="'取消'"
+    [placeholder]="'请输入企业名称搜索'"
     (ionInput)="onInput($event)"
     (ionCancel)="onCancel($event)">
   </ion-searchbar>

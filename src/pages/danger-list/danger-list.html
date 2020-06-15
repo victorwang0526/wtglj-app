@@ -109,7 +109,11 @@
                         <span class="item-label">整改时限</span>
                         <div class="item-info">
                           <div class="item-txt">
-                            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="p.rectifyPlanFinishDate" disabled="{{!!taskCheck.operateDate}}"></ion-datetime>
+                            <ion-datetime displayFormat="YYYY-MM-DD"
+                                          [(ngModel)]="p.rectifyPlanFinishDate"
+                                          [cancelText]="'取消'"
+                                          [doneText]="'确定'"
+                                          disabled="{{!!taskCheck.operateDate}}"></ion-datetime>
                           </div>
                         </div>
                       </div>
