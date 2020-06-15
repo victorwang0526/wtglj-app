@@ -47,9 +47,7 @@ export class InspectTaskCheckPage {
       console.log(data);
       for(let item of data.data) {
         if(item.dictType == 'area') {
-          if(this.user.deptDTO.areasName == null || this.user.deptDTO.areasName == '') {
-
-          } else if(this.user.deptDTO.areasName.indexOf('全部') > -1) {
+          if((this.user.deptDTO.areasName == null || this.user.deptDTO.areasName == '') || this.user.deptDTO.areasName.indexOf('全部') > -1) {
             this.areas.push({dictLabel: "全部", dictValue: ""});
             this.areas.push(...item.dataList);
           }else {
@@ -62,7 +60,7 @@ export class InspectTaskCheckPage {
             this.areas.push(...a);
           }
         }else if(item.dictType == 'industry') {
-          if(this.user.deptDTO.industryNames == null || this.user.deptDTO.industryNames == ''){
+          if((this.user.deptDTO.industryNames == null || this.user.deptDTO.industryNames == '') || this.user.deptDTO.industryNames.indexOf('全部') > -1){
             this.industries.push({dictLabel: "全部", dictValue: ""});
             this.industries.push(...item.dataList);
           }else {
