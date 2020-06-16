@@ -82,7 +82,12 @@ export class InspectTaskCheckPage {
     this.getTaskChecks();
   }
 
-  async getTaskChecks(event?) {
+  doRefresh(event) {
+    this.page = 1;
+    this.getTaskChecks(null, event);
+  }
+
+  async getTaskChecks(event?, re?) {
     this.loading = true;
     const user = await this.storage.get('user');
     this.taskProvider.getTaskChecks(this.user.id+'', this.group.inspectId, this.group.taskId, this.group.taskTitle, this.selectedArea, this.selectedIndustry, this.page)
@@ -93,12 +98,20 @@ export class InspectTaskCheckPage {
           }
           return;
         }
-        this.tasks.push(...res.data.list);
+        if(this.page == 1) {
+          this.tasks = res.data.list;
+        } else {
+          this.tasks.push(...res.data.list);
+        }
+
         this.page = this.page + 1;
     }, () => {},
       () => {
       if(event) {
         event.complete();
+      }
+      if(re) {
+        re.complete();
       }
       this.loading = false;
       });

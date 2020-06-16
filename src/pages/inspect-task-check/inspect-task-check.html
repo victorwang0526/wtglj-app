@@ -24,10 +24,12 @@
 </ion-header>
 
 <ion-content class="bg-grey">
-
-  <div  style="text-align: center">
-    <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
-  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<!--  <div  style="text-align: center">-->
+<!--    <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>-->
+<!--  </div>-->
 
   <dl class="check-group">
     <dd class="c-group-row"
