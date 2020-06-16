@@ -213,7 +213,7 @@ export class DangerListPage {
   }
 
   async choosePunishLevel(p: PunishVo) {
-    if(this.taskCheck.operateDate) {
+    if(this.taskCheck.operatorId) {
       return;
     }
     let buttons = [];
@@ -245,7 +245,7 @@ export class DangerListPage {
     await actionSheet.present();
   }
   async chooseLevel(danger: DangerVo) {
-    if(this.taskCheck.operateDate) {
+    if(this.taskCheck.operatorId) {
       return;
     }
     let buttons = [];

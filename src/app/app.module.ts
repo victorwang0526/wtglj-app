@@ -43,6 +43,7 @@ import {SignaturePage} from "../pages/signature/signature";
 import {PipesModule} from "../pipes/pipes.module";
 import {EnterpriseListPage} from "../pages/enterprise-list/enterprise-list";
 import {CallNumber} from "@ionic-native/call-number";
+import {XunChaPage} from "../pages/xun-cha/xun-cha";
 
 // @ts-ignore
 @NgModule({
@@ -69,6 +70,7 @@ import {CallNumber} from "@ionic-native/call-number";
     EnterpriseSearchPage,
     SignaturePage,
     EnterpriseListPage,
+    XunChaPage,
   ],
   imports: [
     HttpClientModule,
@@ -109,6 +111,7 @@ import {CallNumber} from "@ionic-native/call-number";
     EnterpriseSearchPage,
     SignaturePage,
     EnterpriseListPage,
+    XunChaPage,
   ],
   providers: [
     CallNumber,

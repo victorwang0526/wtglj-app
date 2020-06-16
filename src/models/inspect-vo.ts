@@ -1,7 +1,7 @@
 import {InspectSubItemVo} from "./inspect-sub-item-vo";
 
 export class InspectVo {
-  id: string;
+  id: number;
   title: string;
   specTitle: string;
   spec: string;

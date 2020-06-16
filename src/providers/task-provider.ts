@@ -32,8 +32,16 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheck/${taskCheckId}`);
   }
 
+  getXunChaTaskCheck(userId: number): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/xuncha?userId=${userId}`).map((res:any) => res.data);
+  }
+
   getInspectDetail(inspectId: number): Observable<InspectVo> {
     return this.http.get(`/sys/sysinspect/${inspectId}`).map((res: any) => res.data);
+  }
+
+  getInspects(): Observable<InspectVo> {
+    return this.http.get(`/sys/sysinspect/page`).map((res: any) => res.data.list);
   }
 
   getApproveDanger(userId: number): Observable<any> {

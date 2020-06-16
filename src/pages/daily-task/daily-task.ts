@@ -21,6 +21,10 @@ import {ImagePreviewPage} from "../image-preview/image-preview";
 import {UploadProvider} from "../../providers/upload-provider";
 import {PunishVo} from "../../models/punish-vo";
 import {DatePipe} from "@angular/common";
+import {InspectVo} from "../../models/inspect-vo";
+import {InspectSubItemVo} from "../../models/inspect-sub-item-vo";
+import {DangerListPage} from "../danger-list/danger-list";
+import {TaskCheckItemVo} from "../../models/task-check-item-vo";
 @Component({
   selector: 'page-daily-task',
   templateUrl: 'daily-task.html',
@@ -36,6 +40,9 @@ export class DailyTaskPage {
   dictFinish: boolean = false;
   dangerTypeFinish: boolean = false;
   punishTypeFinish: boolean = false;
+
+  inspects: Array<InspectVo> = [];
+  taskCheckItems: Array<TaskCheckItemVo> = [];
 
   constructor(public navCtrl: NavController,
               private storage: Storage,
@@ -55,12 +62,44 @@ export class DailyTaskPage {
       this.taskCheck = tc;
       this.editable = false;
       this.getTaskCheck();
+      this.taskProvider.getInspectDetail(this.taskCheck.inspectId)
+        .subscribe((inspectVo: InspectVo) => {
+          this.taskCheck.inspect = inspectVo;
+        }, ()=> {}, () => {
+          this.taskProvider.getTaskCheckItems(this.taskCheck.id)
+            .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
+              this.taskCheckItems = taskCheckItems;
+
+              //init data
+              if(this.taskCheckItems && this.taskCheckItems.length > 0) {
+                for(let checkItem of this.taskCheckItems) {
+                  for(let subItem of this.taskCheck.inspect.subItems) {
+                    if(checkItem.subItemId == subItem.id) {
+                      subItem.remark = checkItem.remark;
+                      subItem.checked = checkItem.subItemsChecked;
+                      subItem.imageUrls = checkItem.subItemsImageUrls;
+                      subItem.dangers = checkItem.dangers;
+                    }
+                  }
+                }
+              }
+            }, () => {}, () => {
+              this.loading = false;
+            })
+        });
     }else {
       this.taskCheck.operateDate = new Date();
       this.getDict();
+      this.getInspects();
       this.getDangerTypes();
       this.getPunishTypes();
     }
+  }
+
+  getInspects() {
+    this.taskProvider.getInspects().subscribe((data: any) => {
+      this.inspects = data;
+    })
   }
 
   getTaskCheck() {
@@ -141,6 +180,19 @@ export class DailyTaskPage {
     this.taskCheck.startDate = this.datepipe.transform(currentDate, 'yyyy-MM-dd hh:mm:ss');
     this.taskCheck.startEnd = this.datepipe.transform(currentDate, 'yyyy-MM-dd hh:mm:ss');
 
+    for(let subItem of this.taskCheck.inspect.subItems) {
+      if(!subItem.dangers || subItem.dangers.length == 0) {
+        continue;
+      }
+      this.taskCheck.dangers.push(...subItem.dangers);
+    }
+
+    if(this.taskCheck.dangers && this.taskCheck.dangers.length > 0) {
+      this.taskCheck.status = 0;
+    }else {
+      this.taskCheck.status = 3;
+    }
+
     const loading = this.loadingController.create({
       spinner: 'circles',
       content: '提交中...',
@@ -186,6 +238,138 @@ export class DailyTaskPage {
     const actionSheet = await this.actionSheetController.create({buttons});
     await actionSheet.present();
   }
+
+  async chooseInspects() {
+    let buttons = [];
+    this.inspects.forEach((inspect: InspectVo) => {
+      buttons.push({
+        text: inspect.title,
+        handler: () => {
+          this.taskCheck.inspectTitle = inspect.title;
+          this.taskCheck.inspectId = inspect.id;
+          this.taskCheck.inspect = inspect;
+
+          this.taskProvider.getInspectDetail(this.taskCheck.inspectId)
+            .subscribe((inspectVo: InspectVo) => {
+              this.taskCheck.inspect = inspectVo;
+            }, ()=> {}, () => {
+              this.taskProvider.getTaskCheckItems(this.taskCheck.id)
+                .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
+                  this.taskCheckItems = taskCheckItems;
+
+                  //init data
+                  if(this.taskCheckItems && this.taskCheckItems.length > 0) {
+                    for(let checkItem of this.taskCheckItems) {
+                      for(let subItem of this.taskCheck.inspect.subItems) {
+                        if(checkItem.subItemId == subItem.id) {
+                          subItem.remark = checkItem.remark;
+                          subItem.checked = checkItem.subItemsChecked;
+                          subItem.imageUrls = checkItem.subItemsImageUrls;
+                          subItem.dangers = checkItem.dangers;
+                        }
+                      }
+                    }
+                  }
+                }, () => {}, () => {
+                  this.loading = false;
+                })
+            });
+        }
+      })
+    });
+    buttons.push({
+      text: '取消',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    });
+    const actionSheet = await this.actionSheetController.create({buttons});
+    await actionSheet.present();
+  }
+
+  checkItem(subItem: InspectSubItemVo, checkedValue: any) {
+    subItem.checked = checkedValue;
+  }
+
+  openDangerList(subItem) {
+    this.navCtrl.push(DangerListPage, {subItem, taskCheck: this.taskCheck});
+  }
+
+
+  async cameraChooseSub(subItem: InspectSubItemVo) {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [{
+        text: '拍照',
+        icon: 'camera',
+        handler: () => {
+          this.cameraOpenSub(PictureSourceType.CAMERA, subItem);
+        }
+      }, {
+        text: '相册',
+        icon: 'folder',
+        handler: () => {
+          this.cameraOpenSub(PictureSourceType.SAVEDPHOTOALBUM, subItem);
+        }
+        // }, {
+        //   text: 'test',
+        //   handler: () => {
+        //     const imageData = 'iVBORw0KGgoAAAANSUhEUgAAADUAAAA0CAYAAAAqunDVAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAzCDPIMRgycCRmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsgsEY19jWyvZ9bp5ZtP558v8QBTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwCETV0AEc4kCwAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAANaADAAQAAAABAAAANAAAAAD50QR6AAABA0lEQVRoBe2YMQ6EQAhFR2Np9gaWWtjZ7f0PsY23MPa7cRMbowkDOCD5NsYMDMN/CMaqG8ZvCnbVwfL5p4OknkIVpEDKUAGUn6H4WaFBKksuQ+Pmrtivtk1j319uv6xr+szz5bpkAeUnUa+kbyX5Sj8rsdyy0tjjKFjI8lNvFJvy72k6ilf0OSQpJFW0hgTBQEogXlFX1e6XO6P2TM9m1b7GuYcsP1VSHmbURjYkKSTFeWktfEDKQnVOTNXuhznFQUD0USWFOUVUnWOG7sdRzcInJCnRLzILCpSYIUkhKQp6DzYg5YEC5QwgRVHJgw1IeaBAOQNIUVTyYANSHihQzhCS1A9sAiT2ApsH7wAAAABJRU5ErkJggg==';
+        //     this.uploadImg(imageData, subItem);
+        //   }
+      }, {
+        text: '取消',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+
+  removeImgSub(subItem: InspectSubItemVo, imgUrl: string) {
+    subItem.imageUrls = subItem.imageUrls.replace(imgUrl + ',', '');
+    subItem.imageUrls = subItem.imageUrls.replace(imgUrl, '');
+    console.log(subItem.imageUrls);
+  }
+
+  cameraOpenSub(sourceType: number, subItem: InspectSubItemVo) {
+    const options: CameraOptions = {
+      quality: 80,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.uploadImgSub(imageData, subItem);
+    }, (err) => {
+      // Handle error
+    });
+  }
+
+
+  uploadImgSub(imageData: any, subItem: InspectSubItemVo) {
+    fetch(`data:application/octet-stream;base64,${imageData}`)
+      .then(res => res.blob())
+      .then(blob => {
+        subItem.imgLoading = true;
+        this.uploadProvider.upload(blob).subscribe((src)=> {
+          if(!subItem.imageUrls) {
+            subItem.imageUrls = src;
+          }else {
+            subItem.imageUrls = subItem.imageUrls + ',' + src;
+          }
+        }, () => {}, () => {
+          subItem.imgLoading = false;
+        })
+      });
+  }
+
 
   getDict() {
     this.dictProvider.getDicts('inspectType').subscribe((data) => {
