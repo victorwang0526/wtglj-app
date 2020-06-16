@@ -61,6 +61,7 @@ export class TaskCheckVo {
    * 状态  0：停用   1：正常
    */
   status: number;
+  taskStatus: number;
   /**
    * 填表人id，检查为系统user id， 自检为微信udid
    */

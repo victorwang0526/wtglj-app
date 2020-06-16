@@ -55,9 +55,7 @@ export class InspectTaskCheckDetailPage {
   }
 
   async init() {
-    let user: UserVo = await this.storage.get('user');
-    this.taskCheck.operator = user.realName;
-    this.taskCheck.operatorId = user.id;
+
 
     this.editable = this.taskCheck.inspectType == 1 && !this.taskCheck.operateDate;
 
@@ -310,6 +308,9 @@ export class InspectTaskCheckDetailPage {
       }
     }
 
+    let user: UserVo = await this.storage.get('user');
+    this.taskCheck.operator = user.realName;
+    this.taskCheck.operatorId = user.id;
     this.taskCheck.operateDate = new Date();
     this.taskCheck.inspect = this.inspect;
     this.taskCheck.dangers = [];

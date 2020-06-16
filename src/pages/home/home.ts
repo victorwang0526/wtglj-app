@@ -15,6 +15,8 @@ import {TaskGroupVo} from "../../models/task-group-vo";
 import {InspectTaskCheckPage} from "../inspect-task-check/inspect-task-check";
 import {EnterpriseListPage} from "../enterprise-list/enterprise-list";
 import {XunChaPage} from "../xun-cha/xun-cha";
+import {TaskCheckVo} from "../../models/task-check-vo";
+import {DailyTaskPage} from "../daily-task/daily-task";
 
 @Component({
   selector: 'page-home',
@@ -33,6 +35,8 @@ export class HomePage {
   groups: Array<TaskGroupVo> = [];
   loading: boolean = false;
 
+  tasks: Array<TaskCheckVo> = [];
+
   constructor(public navCtrl: NavController,
               private storage: Storage,
               public alertCtrl: AlertController,
@@ -49,7 +53,19 @@ export class HomePage {
       this.getTaskUnfinishedCnt();
       this.getApproveDangers();
       this.getTaskGroups();
+      this.getXunChas();
     });
+  }
+
+
+  async openInspectDetail(taskCheck: TaskCheckVo) {
+    this.navCtrl.push(DailyTaskPage, {taskCheck});
+  }
+
+  getXunChas() {
+    this.taskProvider.getXunChaTaskCheck(this.user.id).subscribe((data: any) => {
+        this.tasks = data;
+      })
   }
 
   getApproveDangers() {

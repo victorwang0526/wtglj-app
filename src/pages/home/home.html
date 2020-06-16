@@ -132,5 +132,34 @@
         </dd>
       </dl>
     </div>
+
+    <div class="h-finished-task">
+      <div class="d-finished-tit">安全巡查</div>
+      <dl class="h-task-list" *ngIf="!tasks || tasks.length == 0">
+        <dd class="h-task-item">
+          <div class="h-task-status">
+            <i class="task-status-ok"></i>
+          </div>
+          <div class="task-inform">
+            <div class="task-tit">暂无巡查</div>
+          </div>
+        </dd>
+      </dl>
+      <dl class="h-task-list">
+        <dd class="h-task-item"
+            *ngFor="let task of tasks" (click)="openInspectDetail(task)">
+          <div class="c-group-info">
+            <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
+            <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate | date : 'yyyy-MM-dd'}}</div>
+          </div>
+          <div class="c-group-count">
+            <i class="check-status-icon" [class.unchecked]="task.status == 0"
+               [class.unfix]="task.status == 1"
+               [class.unconfirm]="task.status == 2"
+               [class.finish]="task.status == 3"></i>
+          </div>
+        </dd>
+      </dl>
+    </div>
   </div>
 </ion-content>

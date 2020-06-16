@@ -249,4 +249,68 @@ page-home {
       padding: 0 1.4rem;
     }
   }
+
+
+
+  .check-group{
+    padding: 1rem;
+  }
+
+  .c-group-row{
+    width: 100%;
+    min-height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    border-radius: .5rem;
+  }
+  .c-group-info{
+    min-width: 0;
+    word-wrap: break-word;
+    word-break: break-all;
+    flex: 1;
+  }
+
+  .check-time{
+    color: #999;
+    font-size: 1.2rem;
+    padding-top: .4rem;
+  }
+  .c-group-tit{
+    font-size: 1.6rem;
+    font-weight: normal;
+  }
+  .c-group-count{
+    color: #666;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .check-status-icon{
+    width: 5rem;
+    height: 4.8rem;
+    display: block;
+    margin-right: .4rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    &.checked{
+      background-image: url("../../assets/imgs/checked.png");
+    }
+    &.unfix{
+      background-image: url("../../assets/imgs/unfix.png");
+    }
+    &.unchecked{
+      background-image: url("../../assets/imgs/unchecked.png");
+    }
+    &.unconfirm{
+      background-image: url("../../assets/imgs/unconfirm.png");
+    }
+    &.finish{
+      background-image: url("../../assets/imgs/finish.png");
+    }
+  }
 }

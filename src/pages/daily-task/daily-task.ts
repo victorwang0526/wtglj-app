@@ -64,16 +64,13 @@ export class DailyTaskPage {
       this.getTaskCheck();
       this.taskProvider.getInspectDetail(this.taskCheck.inspectId)
         .subscribe((inspectVo: InspectVo) => {
-          this.taskCheck.inspect = inspectVo;
-        }, ()=> {}, () => {
           this.taskProvider.getTaskCheckItems(this.taskCheck.id)
             .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
               this.taskCheckItems = taskCheckItems;
-
               //init data
               if(this.taskCheckItems && this.taskCheckItems.length > 0) {
                 for(let checkItem of this.taskCheckItems) {
-                  for(let subItem of this.taskCheck.inspect.subItems) {
+                  for(let subItem of inspectVo.subItems) {
                     if(checkItem.subItemId == subItem.id) {
                       subItem.remark = checkItem.remark;
                       subItem.checked = checkItem.subItemsChecked;
@@ -83,9 +80,12 @@ export class DailyTaskPage {
                   }
                 }
               }
+              this.taskCheck.inspect = inspectVo;
             }, () => {}, () => {
               this.loading = false;
             })
+        }, ()=> {}, () => {
+
         });
     }else {
       this.taskCheck.operateDate = new Date();
