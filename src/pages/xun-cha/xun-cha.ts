@@ -21,21 +21,21 @@ export class XunChaPage {
               public taskProvider: TaskProvider,
               private storage: Storage,
               public navParams: NavParams) {
+
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidLoad XunChaPage');
     this.storage.get('user').then(u => {
       this.user = u;
       this.loading = true;
-      taskProvider.getXunChaTaskCheck(this.user.id).subscribe((data: any) => {
-        this.tasks = data;
-      }, () => {},
+      this.taskProvider.getXunChaTaskCheck(this.user.id).subscribe((data: any) => {
+          this.tasks = data;
+        }, () => {},
         () => {
-        this.loading = false;
+          this.loading = false;
         })
     });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad XunChaPage');
-
   }
 
 

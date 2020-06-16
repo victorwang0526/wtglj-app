@@ -24,6 +24,7 @@ export class InspectTaskCheckPage {
   industries: Array<any> = [];
   selectedIndustry: string = '';
   key: string = '';
+  page: number = 1;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -81,13 +82,24 @@ export class InspectTaskCheckPage {
     this.getTaskChecks();
   }
 
-  async getTaskChecks() {
+  async getTaskChecks(event?) {
     this.loading = true;
     const user = await this.storage.get('user');
-    this.taskProvider.getTaskChecks(this.user.id+'', this.group.inspectId, this.group.taskId, this.group.taskTitle, this.selectedArea, this.selectedIndustry).subscribe((res: any) => {
-      this.tasks = res.data.list;
+    this.taskProvider.getTaskChecks(this.user.id+'', this.group.inspectId, this.group.taskId, this.group.taskTitle, this.selectedArea, this.selectedIndustry, this.page)
+      .subscribe((res: any) => {
+        if(res.data.list.length == 0) {
+          if(event) {
+            event.enabled = false;
+          }
+          return;
+        }
+        this.tasks.push(...res.data.list);
+        this.page = this.page + 1;
     }, () => {},
       () => {
+      if(event) {
+        event.complete();
+      }
       this.loading = false;
       });
   }

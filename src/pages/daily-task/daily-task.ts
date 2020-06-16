@@ -180,11 +180,13 @@ export class DailyTaskPage {
     this.taskCheck.startDate = this.datepipe.transform(currentDate, 'yyyy-MM-dd hh:mm:ss');
     this.taskCheck.startEnd = this.datepipe.transform(currentDate, 'yyyy-MM-dd hh:mm:ss');
 
-    for(let subItem of this.taskCheck.inspect.subItems) {
-      if(!subItem.dangers || subItem.dangers.length == 0) {
-        continue;
+    if(this.taskCheck.inspect) {
+      for(let subItem of this.taskCheck.inspect.subItems) {
+        if(!subItem.dangers || subItem.dangers.length == 0) {
+          continue;
+        }
+        this.taskCheck.dangers.push(...subItem.dangers);
       }
-      this.taskCheck.dangers.push(...subItem.dangers);
     }
 
     if(this.taskCheck.dangers && this.taskCheck.dangers.length > 0) {
