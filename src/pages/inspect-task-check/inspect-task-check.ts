@@ -79,6 +79,7 @@ export class InspectTaskCheckPage {
   }
 
   ionViewDidEnter() {
+    this.page = 1;
     this.getTaskChecks();
   }
 
