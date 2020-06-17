@@ -41,7 +41,7 @@ export class TaskProvider {
   }
 
   getInspects(): Observable<InspectVo> {
-    return this.http.get(`/sys/sysinspect/page`).map((res: any) => res.data.list);
+    return this.http.get(`/sys/sysinspect/page?limit=99`).map((res: any) => res.data.list);
   }
 
   getApproveDanger(userId: number): Observable<any> {
