@@ -8,11 +8,8 @@
         </div>
         <div class="h-user-msg">
           <div class="h-user-name">姓名：{{ user?.realName}}</div>
-          <div class="h-user-area" *ngIf="user != null && user.deptDTO != null && user.deptDTO.areasName">
-            管辖区域：{{ user?.deptDTO?.areasName}}
-          </div>
-          <div class="h-user-area" *ngIf="user != null && user.deptDTO != null && user.deptDTO.industryNames">
-            管辖行业：{{ user?.deptDTO?.industryNames}}
+          <div class="h-user-area" *ngIf="user != null && user.deptDTO != null && user.deptDTO.name">
+            部门：{{ user?.deptDTO?.name}}
           </div>
         </div>
       </div>
