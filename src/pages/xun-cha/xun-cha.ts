@@ -5,7 +5,6 @@ import {UserVo} from "../../models/user-vo";
 import {Storage} from "@ionic/storage";
 import {DailyTaskPage} from "../daily-task/daily-task";
 import {TaskCheckVo} from "../../models/task-check-vo";
-import {InspectTaskCheckDetailPage} from "../inspect-task-check-detail/inspect-task-check-detail";
 @Component({
   selector: 'page-xun-cha',
   templateUrl: 'xun-cha.html',
@@ -37,7 +36,6 @@ export class XunChaPage {
         })
     });
   }
-
 
   async openInspectDetail(taskCheck: TaskCheckVo) {
     this.navCtrl.push(DailyTaskPage, {taskCheck});

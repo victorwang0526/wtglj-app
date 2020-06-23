@@ -57,36 +57,32 @@ export class DailyTaskPage {
               public loadingController: LoadingController,
               public navParams: NavParams) {
     let tc = this.navParams.get('taskCheck');
+    this.init(tc);
+  }
+
+  async init(tc) {
     this.loading = true;
     if(tc) {
       this.taskCheck = tc;
       this.editable = false;
       this.getTaskCheck();
-      this.taskProvider.getInspectDetail(this.taskCheck.inspectId)
-        .subscribe((inspectVo: InspectVo) => {
-          this.taskProvider.getTaskCheckItems(this.taskCheck.id)
-            .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
-              this.taskCheckItems = taskCheckItems;
-              //init data
-              if(this.taskCheckItems && this.taskCheckItems.length > 0) {
-                for(let checkItem of this.taskCheckItems) {
-                  for(let subItem of inspectVo.subItems) {
-                    if(checkItem.subItemId == subItem.id) {
-                      subItem.remark = checkItem.remark;
-                      subItem.checked = checkItem.subItemsChecked;
-                      subItem.imageUrls = checkItem.subItemsImageUrls;
-                      subItem.dangers = checkItem.dangers;
-                    }
-                  }
-                }
-              }
-              this.taskCheck.inspect = inspectVo;
-            }, () => {}, () => {
-              this.loading = false;
-            })
-        }, ()=> {}, () => {
+      const inspectVo = await this.taskProvider.getInspectDetail(this.taskCheck.inspectId);
 
-        });
+      this.taskCheckItems = await this.taskProvider.getTaskCheckItems(this.taskCheck.id);
+      //init data
+      if(this.taskCheckItems && this.taskCheckItems.length > 0) {
+        for(let checkItem of this.taskCheckItems) {
+          for(let subItem of inspectVo.subItems) {
+            if(checkItem.subItemId == subItem.id) {
+              subItem.remark = checkItem.remark;
+              subItem.checked = checkItem.subItemsChecked;
+              subItem.imageUrls = checkItem.subItemsImageUrls;
+              subItem.dangers = checkItem.dangers;
+            }
+          }
+        }
+      }
+      this.taskCheck.inspect = inspectVo;
     }else {
       this.taskCheck.operateDate = new Date();
       this.getDict();
@@ -94,6 +90,7 @@ export class DailyTaskPage {
       this.getDangerTypes();
       this.getPunishTypes();
     }
+    this.loading = false;
   }
 
   getInspects() {
@@ -247,35 +244,7 @@ export class DailyTaskPage {
       buttons.push({
         text: inspect.title,
         handler: () => {
-          this.taskCheck.inspectTitle = inspect.title;
-          this.taskCheck.inspectId = inspect.id;
-          this.taskCheck.inspect = inspect;
-
-          this.taskProvider.getInspectDetail(this.taskCheck.inspectId)
-            .subscribe((inspectVo: InspectVo) => {
-              this.taskCheck.inspect = inspectVo;
-            }, ()=> {}, () => {
-              this.taskProvider.getTaskCheckItems(this.taskCheck.id)
-                .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
-                  this.taskCheckItems = taskCheckItems;
-
-                  //init data
-                  if(this.taskCheckItems && this.taskCheckItems.length > 0) {
-                    for(let checkItem of this.taskCheckItems) {
-                      for(let subItem of this.taskCheck.inspect.subItems) {
-                        if(checkItem.subItemId == subItem.id) {
-                          subItem.remark = checkItem.remark;
-                          subItem.checked = checkItem.subItemsChecked;
-                          subItem.imageUrls = checkItem.subItemsImageUrls;
-                          subItem.dangers = checkItem.dangers;
-                        }
-                      }
-                    }
-                  }
-                }, () => {}, () => {
-                  this.loading = false;
-                })
-            });
+          this.chooseInspect(inspect);
         }
       })
     });
@@ -289,6 +258,29 @@ export class DailyTaskPage {
     });
     const actionSheet = await this.actionSheetController.create({buttons});
     await actionSheet.present();
+  }
+
+  async chooseInspect(inspect: InspectVo) {
+    this.taskCheck.inspectTitle = inspect.title;
+    this.taskCheck.inspectId = inspect.id;
+    this.taskCheck.inspect = inspect;
+
+    this.taskCheck.inspect = await this.taskProvider.getInspectDetail(this.taskCheck.inspectId);
+    this.taskCheckItems = await this.taskProvider.getTaskCheckItems(this.taskCheck.id);
+    //init data
+    if(this.taskCheckItems && this.taskCheckItems.length > 0) {
+      for(let checkItem of this.taskCheckItems) {
+        for(let subItem of this.taskCheck.inspect.subItems) {
+          if(checkItem.subItemId == subItem.id) {
+            subItem.remark = checkItem.remark;
+            subItem.checked = checkItem.subItemsChecked;
+            subItem.imageUrls = checkItem.subItemsImageUrls;
+            subItem.dangers = checkItem.dangers;
+          }
+        }
+      }
+    }
+    this.loading = false;
   }
 
   checkItem(subItem: InspectSubItemVo, checkedValue: any) {

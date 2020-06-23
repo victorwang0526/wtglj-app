@@ -21,6 +21,9 @@ import {ImagePreviewPage} from "../image-preview/image-preview";
 import {DictDataVo} from "../../models/dict-data-vo";
 import {DangerListPage} from "../danger-list/danger-list";
 import {SignaturePage} from "../signature/signature";
+import {EnterpriseVo} from "../../models/enterprise-vo";
+import {UserProvider} from "../../providers/user-provider";
+import {CallNumber} from "@ionic-native/call-number";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -37,6 +40,7 @@ export class InspectTaskCheckDetailPage {
   punishTypes: Array<DictDataVo> = [];
 
   editable: boolean = false;
+  enterprise: EnterpriseVo;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -47,6 +51,8 @@ export class InspectTaskCheckDetailPage {
               public uploadProvider: UploadProvider,
               public loadingController: LoadingController,
               private camera: Camera,
+              private callNumber: CallNumber,
+              private userProvider: UserProvider,
               public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('taskCheck');
     this.taskCheck.isUnion = this.taskCheck.unionDepts != null;
@@ -55,39 +61,31 @@ export class InspectTaskCheckDetailPage {
   }
 
   async init() {
-
-
     this.editable = this.taskCheck.inspectType == 1 && !this.taskCheck.operateDate;
 
     this.getDangerTypes();
     this.getPunishTypes();
 
     this.loading = true;
-    this.taskProvider.getInspectDetail(this.taskCheck.inspectId)
-      .subscribe((inspectVo: InspectVo) => {
-        this.inspect = inspectVo;
-      }, ()=> {}, () => {
-        this.taskProvider.getTaskCheckItems(this.taskCheck.id)
-          .subscribe((taskCheckItems: Array<TaskCheckItemVo>) => {
-            this.taskCheckItems = taskCheckItems;
+    this.inspect = await this.taskProvider.getInspectDetail(this.taskCheck.inspectId);
+    this.taskCheckItems = await this.taskProvider.getTaskCheckItems(this.taskCheck.id);
+    //init data
+    if(this.taskCheckItems && this.taskCheckItems.length > 0) {
+      for(let checkItem of this.taskCheckItems) {
+        for(let subItem of this.inspect.subItems) {
+          if(checkItem.subItemId == subItem.id) {
+            subItem.remark = checkItem.remark;
+            subItem.checked = checkItem.subItemsChecked;
+            subItem.imageUrls = checkItem.subItemsImageUrls;
+            subItem.dangers = checkItem.dangers;
+          }
+        }
+      }
+    }
 
-            //init data
-            if(this.taskCheckItems && this.taskCheckItems.length > 0) {
-              for(let checkItem of this.taskCheckItems) {
-                for(let subItem of this.inspect.subItems) {
-                  if(checkItem.subItemId == subItem.id) {
-                    subItem.remark = checkItem.remark;
-                    subItem.checked = checkItem.subItemsChecked;
-                    subItem.imageUrls = checkItem.subItemsImageUrls;
-                    subItem.dangers = checkItem.dangers;
-                  }
-                }
-              }
-            }
-          }, () => {}, () => {
-            this.loading = false;
-          })
-      });
+    this.enterprise = await this.userProvider.getEnterpriseById(this.taskCheck.enterpriseId);
+    this.loading = false;
+
   }
 
   async openSignature() {
@@ -409,5 +407,46 @@ export class InspectTaskCheckDetailPage {
 
     let blob = new Blob(byteArrays, {type: contentType});
     return blob;
+  }
+
+  async openEnterpriseDetail() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [{
+        text: '' + this.enterprise.name,
+        handler: () => {
+          this.call(this.enterprise);
+        }
+      }, {
+        text: '' + this.enterprise.contact,
+        handler: () => {
+          this.call(this.enterprise);
+        }
+      }, {
+        text: '' + this.enterprise.mobile,
+        handler: () => {
+
+        }
+      },{
+        text: '' + this.enterprise.address,
+        handler: () => {
+
+        }
+      }, {
+        text: '取消',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+
+  call(enterprise: EnterpriseVo) {
+    this.callNumber.callNumber(enterprise.mobile, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
   }
 }

@@ -36,8 +36,8 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheck/xuncha?userId=${userId}`).map((res:any) => res.data);
   }
 
-  getInspectDetail(inspectId: number): Observable<InspectVo> {
-    return this.http.get(`/sys/sysinspect/${inspectId}`).map((res: any) => res.data);
+  getInspectDetail(inspectId: number): Promise<InspectVo> {
+    return this.http.get(`/sys/sysinspect/${inspectId}`).map((res: any) => res.data).toPromise();
   }
 
   getInspects(): Observable<InspectVo> {
@@ -56,9 +56,9 @@ export class TaskProvider {
     return this.http.put('/sys/sysinspecttaskcheck', taskCheck);
   }
 
-  getTaskCheckItems(taskCheckId: number): Observable<Array<TaskCheckItemVo>> {
+  getTaskCheckItems(taskCheckId: number): Promise<Array<TaskCheckItemVo>> {
     return this.http.get(`/sys/sysinspecttaskcheckitem/page?taskCheckId=${taskCheckId}&page=1&limit=999`)
-      .map((res: any) => res.data.list);
+      .map((res: any) => res.data.list).toPromise();
   }
 
   getDangerTypes(): Observable<Array<DictDataVo>> {

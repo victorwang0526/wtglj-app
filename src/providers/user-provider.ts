@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {UserVo} from "../models/user-vo";
+import {EnterpriseVo} from "../models/enterprise-vo";
 
 @Injectable()
 export class UserProvider {
@@ -22,6 +23,10 @@ export class UserProvider {
 
   getEnterprise(key: string): Observable<any> {
     return this.http.get('/sys/sysenterprise/page?key=' + key);
+  }
+
+  getEnterpriseById(id: number): Promise<EnterpriseVo> {
+    return this.http.get('/sys/sysenterprise/' + id).map((res: any) => res.data).toPromise();
   }
 
   updateUser(user: UserVo): Observable<any> {
