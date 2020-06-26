@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.victorwang.wtgljaq" version="0.0.11" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.victorwang.wtgljaq" version="0.0.13" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>文体广旅安全</name>
     <description>安全平台.</description>
     <author email="fengxuanwang@qq.com" href="http://victorwang.cn/">Victor Wang</author>

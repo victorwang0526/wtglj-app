@@ -24,8 +24,8 @@ export class TaskProvider {
     return this.http.get(`/sys/sysinspecttaskcheck/${userId}/taskUnfinishCnt`);
   }
 
-  getTaskChecks(userId: string, inspectId: number, taskId: number, taskTitle: string, areas: string, industries: string, page: number): Observable<any> {
-    return this.http.get(`/sys/sysinspecttaskcheck/page2?page=${page}&limit=20&userId=${userId}&inspectId=${inspectId}&taskId=${taskId}&taskTitle=${taskTitle}&areas=${areas}&industries=${industries}`);
+  getTaskChecks(userId: string, key: string, inspectId: number, taskId: number, taskTitle: string, areas: string, industries: string, page: number): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/page2?page=${page}&limit=20&userId=${userId}&key=${key}&inspectId=${inspectId}&taskId=${taskId}&taskTitle=${taskTitle}&areas=${areas}&industries=${industries}`);
   }
 
   getTaskCheck(taskCheckId: number): Observable<any> {
@@ -73,6 +73,9 @@ export class TaskProvider {
 
 
   getIndustryEnterprise(areas: string): Observable<Array<IndustryEnterpriseVo>> {
+    if(!areas || areas == 'null') {
+      areas = '';
+    }
     return this.http.get(`/sys/sysenterprise/industries?areas=`+areas)
       .map((res: any) => res.data);
   }

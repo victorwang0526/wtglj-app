@@ -8,14 +8,14 @@
                    enterkeyhint="search" (ionInput)="keyChange($event)"></ion-searchbar>
     <ion-buttons class="select-btn" slot="start">
       <ion-select placeholder="区域"
-                  [(ngModel)]="selectedArea"
+                  [(ngModel)]="selectedArea" (ionChange)="areaChange($event)"
                   [cancelText]="'取消'" [okText]="'确定'">
         <ion-option *ngFor="let item of areas" [value]="item.dictValue">{{item.dictLabel}}</ion-option>
       </ion-select>
     </ion-buttons>
     <ion-buttons class="select-btn" slot="end">
       <ion-select class="ico-select-txt" placeholder="行业"
-                  [(ngModel)]="selectedIndustry"
+                  [(ngModel)]="selectedIndustry" (ionChange)="inChange($event)"
                   [cancelText]="'取消'" [okText]="'确定'">
         <ion-option *ngFor="let item of industries" [value]="item.dictValue">{{item.dictLabel}}</ion-option>
       </ion-select>
@@ -33,7 +33,7 @@
 
   <dl class="check-group">
     <dd class="c-group-row"
-        *ngFor="let task of tasks | taskPipe : key: selectedArea: selectedIndustry" (click)="openInspectDetail(task)">
+        *ngFor="let task of tasks" (click)="openInspectDetail(task)">
       <div class="c-group-info">
         <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
         <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate | date : 'yyyy-MM-dd'}}</div>

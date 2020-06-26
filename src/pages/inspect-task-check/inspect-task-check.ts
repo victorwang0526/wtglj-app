@@ -41,6 +41,8 @@ export class InspectTaskCheckPage {
 
   keyChange(e: any) {
     this.key = e.target.value;
+    this.page = 1;
+    this.getTaskChecks();
   }
 
   getDict() {
@@ -88,10 +90,20 @@ export class InspectTaskCheckPage {
     this.getTaskChecks(null, event);
   }
 
+  areaChange(event) {
+    this.page = 1;
+    this.getTaskChecks();
+  }
+
+  inChange(event) {
+    this.page = 1;
+    this.getTaskChecks();
+  }
+
   async getTaskChecks(event?, re?) {
     this.loading = true;
     const user = await this.storage.get('user');
-    this.taskProvider.getTaskChecks(this.user.id+'', this.group.inspectId, this.group.taskId, this.group.taskTitle, this.selectedArea, this.selectedIndustry, this.page)
+    this.taskProvider.getTaskChecks(this.user.id+'', this.key, this.group.inspectId, this.group.taskId, this.group.taskTitle, this.selectedArea, this.selectedIndustry, this.page)
       .subscribe((res: any) => {
         if(res.data.list.length == 0) {
           if(event) {
