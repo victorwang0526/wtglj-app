@@ -35,12 +35,13 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleLightContent();
       splashScreen.hide();
 
       if(this.platform.is('android')) {
+        statusBar.styleLightContent();
         this.getVersion('android');
       }else if(this.platform.is('ios')) {
+        statusBar.styleDefault();
         // this.getVersion('ios');
       }
 
