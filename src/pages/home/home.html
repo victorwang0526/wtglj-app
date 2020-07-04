@@ -78,7 +78,7 @@
       </dl>
     </div>
 
-    <div class="h-finished-task">
+    <div class="h-finished-task" *ngIf="user && user.deptDTO && user.deptDTO.areas">
       <div class="d-finished-tit">安全检查</div>
       <dl class="h-task-list" *ngIf="!groups || groups.length == 0">
         <dd class="h-task-item">
