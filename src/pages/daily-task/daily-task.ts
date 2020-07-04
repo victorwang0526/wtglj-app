@@ -216,6 +216,9 @@ export class DailyTaskPage {
     if(this.taskCheck.operator) {
       return;
     }
+    if(this.inspectTypes && this.inspectTypes.length < 2) {
+      return;
+    }
     let buttons = [];
     this.inspectTypes.forEach(inspectType => {
       buttons.push({
@@ -371,16 +374,22 @@ export class DailyTaskPage {
         if(item.dictType == 'inspectType') {
           let its = [];
           for(let it of item.dataList) {
-            if(it.dictValue != '2') {
+            if(it.dictValue != '2' && it.dictValue != '1') {
               its.push(it);
             }
           }
           this.inspectTypes = its;
+
           if(this.taskCheck.inspectType) {
             for(let it of item.dataList) {
               if(this.taskCheck.inspectType+'' === it.dictValue) {
                 this.taskCheck.inspectTypeLabel = it.dictLabel;
               }
+            }
+          }else {
+            if(this.inspectTypes && this.inspectTypes.length > 0) {
+              this.taskCheck.inspectType = this.inspectTypes[0].dictValue;
+              this.taskCheck.inspectTypeLabel = this.inspectTypes[0].dictLabel;
             }
           }
         }
