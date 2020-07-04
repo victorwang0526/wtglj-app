@@ -142,7 +142,7 @@ export class InspectTaskCheckPage {
     if(!taskCheck.inspectId) {
       this.navCtrl.push(DailyTaskPage, {taskCheck});
     }else {
-      this.navCtrl.push(InspectTaskCheckDetailPage, {taskCheck});
+      this.navCtrl.push(InspectTaskCheckDetailPage, {taskCheck, group: this.group});
     }
   }
 

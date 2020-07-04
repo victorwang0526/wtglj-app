@@ -24,6 +24,7 @@ import {SignaturePage} from "../signature/signature";
 import {EnterpriseVo} from "../../models/enterprise-vo";
 import {UserProvider} from "../../providers/user-provider";
 import {CallNumber} from "@ionic-native/call-number";
+import {TaskGroupVo} from "../../models/task-group-vo";
 
 @Component({
   selector: 'page-inspect-task-check-detail',
@@ -35,6 +36,7 @@ export class InspectTaskCheckDetailPage {
   inspect: InspectVo;
   loading: boolean = false;
   taskCheckItems: Array<TaskCheckItemVo> = [];
+  group: TaskGroupVo;
 
   dangerTypes: Array<DictDataVo> = [];
   punishTypes: Array<DictDataVo> = [];
@@ -55,6 +57,7 @@ export class InspectTaskCheckDetailPage {
               private userProvider: UserProvider,
               public actionSheetController: ActionSheetController) {
     this.taskCheck = navParams.get('taskCheck');
+    this.group = navParams.get('group');
     this.taskCheck.isUnion = this.taskCheck.unionDepts != null;
 
     this.init();
@@ -326,6 +329,7 @@ export class InspectTaskCheckDetailPage {
     loading.present({});
     this.taskProvider.submitTaskCheck(this.taskCheck).subscribe((res: any) => {
       if(res.code == 0) {
+        this.group.finished = this.group.finished + 1;
         this.event.publish(MessageEvent.MESSAGE_EVENT, new MessageEvent('提交成功！', 'success', true));
       }
     }, error => {},
