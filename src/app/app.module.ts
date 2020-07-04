@@ -44,6 +44,7 @@ import {PipesModule} from "../pipes/pipes.module";
 import {EnterpriseListPage} from "../pages/enterprise-list/enterprise-list";
 import {CallNumber} from "@ionic-native/call-number";
 import {XunChaPage} from "../pages/xun-cha/xun-cha";
+import {ScreenOrientation} from "@ionic-native/screen-orientation";
 
 // @ts-ignore
 @NgModule({
@@ -119,6 +120,7 @@ import {XunChaPage} from "../pages/xun-cha/xun-cha";
     Camera,
     AppVersion,
     InAppBrowser,
+    ScreenOrientation,
     StatusBar,
     SplashScreen,
     BarcodeScanner,

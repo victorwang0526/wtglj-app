@@ -13,6 +13,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppVersion} from "@ionic-native/app-version";
 import {PgyProvider} from "../providers/pgy-provider";
 import {UserProvider} from "../providers/user-provider";
+import {ScreenOrientation} from "@ionic-native/screen-orientation/ngx";
 @Component({
   templateUrl: 'app.html'
 })
@@ -25,6 +26,7 @@ export class MyApp {
               splashScreen: SplashScreen,
               private storage: Storage,
               private iab: InAppBrowser,
+              private screenOrientation: ScreenOrientation,
               private appVersion: AppVersion,
               public userService: UserProvider,
               public pygService: PgyProvider,
@@ -46,6 +48,10 @@ export class MyApp {
       }
 
       this.subEvent();
+
+      // set to landscape
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
 
       if(this.platform.is('mobile')) {
         jpush.setDebugMode(true);
