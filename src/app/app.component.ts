@@ -13,7 +13,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {AppVersion} from "@ionic-native/app-version";
 import {PgyProvider} from "../providers/pgy-provider";
 import {UserProvider} from "../providers/user-provider";
-import {ScreenOrientation} from "@ionic-native/screen-orientation/ngx";
+import {ScreenOrientation} from "@ionic-native/screen-orientation";
 @Component({
   templateUrl: 'app.html'
 })
