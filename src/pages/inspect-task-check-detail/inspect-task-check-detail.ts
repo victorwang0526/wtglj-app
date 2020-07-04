@@ -424,12 +424,12 @@ export class InspectTaskCheckDetailPage {
       }, {
         text: '' + this.enterprise.mobile,
         handler: () => {
-
+          this.call(this.enterprise);
         }
       },{
         text: '' + this.enterprise.address,
         handler: () => {
-
+          this.call(this.enterprise);
         }
       }, {
         text: '取消',
