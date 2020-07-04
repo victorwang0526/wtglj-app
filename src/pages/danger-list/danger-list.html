@@ -12,11 +12,11 @@
 <ion-content>
   <div class="g-flex-main">
     <div class="g-flex-box">
-      <div class="danger-tipper" *ngIf="!subItem.dangers || subItem.dangers.length === 0">
+      <div class="danger-tipper" *ngIf="!dangers || dangers.length === 0">
         <i class="lead-none-icon"></i>
         暂无隐患，请点击右上角"新增隐患"
       </div>
-      <div class="c-form-box" *ngFor="let danger of subItem.dangers; let di = index;">
+      <div class="c-form-box" *ngFor="let danger of dangers; let di = index;">
         <h4 class="c-form-title"><span>问题 {{di+1}}</span></h4>
         <section class="c-form-inner has-fold">
           <!--          展开 +active-->
@@ -67,7 +67,7 @@
                   <section class="c-form-inner has-fold danger-inner-box" *ngFor="let p of danger.punishesList">
                     <!--          展开 +active-->
                     <div class="c-form-list active">
-                      <div class="list-item item-hd" > <!--  (click)="choosePunishLevel(p)" -->
+                      <div class="list-item item-hd" (click)="choosePunishLevel(p)">
                         <span class="item-label">处罚类型</span>
                         <div class="item-info">
                           <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
@@ -111,6 +111,8 @@
                           <div class="item-txt">
                             <ion-datetime displayFormat="YYYY-MM-DD"
                                           [(ngModel)]="p.rectifyPlanFinishDate"
+                                          [min]="getMin()"
+                                          [max]="'2030-12-30'"
                                           [cancelText]="'取消'"
                                           [doneText]="'确定'"
                                           disabled="{{!!taskCheck.operatorId}}"></ion-datetime>

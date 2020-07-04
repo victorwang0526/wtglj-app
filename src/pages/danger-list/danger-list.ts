@@ -10,6 +10,7 @@ import {PunishVo} from "../../models/punish-vo";
 import {InspectSubItemVo} from "../../models/inspect-sub-item-vo";
 import {TaskCheckVo} from "../../models/task-check-vo";
 import {ImagePreviewPage} from "../image-preview/image-preview";
+import {DatePipe} from "@angular/common";
 @Component({
   selector: 'page-danger-list',
   templateUrl: 'danger-list.html',
@@ -21,21 +22,24 @@ export class DangerListPage {
   dangerTypes: Array<DictDataVo> = [];
   punishTypes: Array<DictDataVo> = [];
 
-  zlzg: DictDataVo = new DictDataVo();
+  dangers: Array<DangerVo> = [];
 
   constructor(public navCtrl: NavController,
               public taskProvider: TaskProvider,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public uploadProvider: UploadProvider,
+              public datePipe: DatePipe,
               public loadingController: LoadingController,
               private camera: Camera,
               public actionSheetController: ActionSheetController) {
     this.subItem = navParams.get('subItem');
     this.taskCheck = navParams.get('taskCheck');
     if(!this.subItem.dangers || this.subItem.dangers.length == 0) {
-      this.subItem.dangers = [];
-      // this.addDanger();
+      this.dangers = [];
+      this.addDanger();
+    }else {
+      this.dangers = [...this.subItem.dangers];
     }
     this.getDangerTypes();
     this.getPunishTypes();
@@ -124,18 +128,16 @@ export class DangerListPage {
   addDanger() {
     let d = new DangerVo();
     d.taskSubItemId = this.subItem.id;
-    // this.addPunish(d);
-    this.subItem.dangers.push(d);
+    this.addPunish(d);
+    this.dangers.push(d);
   }
 
   removeDanger(d) {
-    this.subItem.dangers.splice(this.subItem.dangers.indexOf(d), 1);
+    this.dangers.splice(this.dangers.indexOf(d), 1);
   }
 
   addPunish(d) {
     let p = new PunishVo();
-    p.punishType = Number.parseInt(this.zlzg.dictValue);
-    p.punishTypeLabel = this.zlzg.dictLabel;
     d.punishesList.push(p);
   }
 
@@ -148,7 +150,7 @@ export class DangerListPage {
       .subscribe((datas: Array<DictDataVo>) => {
         this.dangerTypes = datas;
         for(let dt of datas) {
-          for(let d of this.subItem.dangers) {
+          for(let d of this.dangers) {
             if(d.problemLevel == dt.dictValue) {
               d.problemLevelLabel = dt.dictLabel;
             }
@@ -160,7 +162,7 @@ export class DangerListPage {
     this.taskProvider.getPunishTypes()
       .subscribe((datas: Array<DictDataVo>) => {
         this.punishTypes = datas;
-        for(let d of this.subItem.dangers) {
+        for(let d of this.dangers) {
           for(let p of d.punishesList) {
             for(let pt of datas) {
               if(pt.dictValue == p.punishType+'') {
@@ -170,17 +172,16 @@ export class DangerListPage {
             }
           }
         }
-        for(let p of datas) {
-          if(p.dictLabel.indexOf('整改') > -1) {
-            this.zlzg = p;
-          }
-        }
       });
   }
 
+  getMin() {
+    return this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+  }
+
   submit() {
-    if(this.subItem.dangers && this.subItem.dangers.length > 0) {
-      for(let d of this.subItem.dangers) {
+    if(this.dangers && this.dangers.length > 0) {
+      for(let d of this.dangers) {
         if(!d.problemDesc) {
           this.alertCtrl.create({
             title: '请输入问题表现'
@@ -209,6 +210,7 @@ export class DangerListPage {
         }
       }
     }
+    this.subItem.dangers = this.dangers;
     this.navCtrl.pop({});
   }
 
@@ -249,13 +251,6 @@ export class DangerListPage {
       return;
     }
     let buttons = [];
-    buttons.push({
-      text: '无隐患',
-      handler: () => {
-        danger.problemLevel = '';
-        danger.problemLevelLabel = '';
-      }
-    });
     this.dangerTypes.forEach(dangerType => {
       buttons.push({
         text: dangerType.dictLabel,
