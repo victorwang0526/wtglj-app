@@ -109,7 +109,6 @@ export class InspectTaskCheckPage {
           if(event) {
             event.enabled = false;
           }
-          return;
         }
         if(this.page == 1) {
           this.tasks = res.data.list;

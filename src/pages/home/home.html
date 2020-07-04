@@ -79,7 +79,7 @@
     </div>
 
     <div class="h-finished-task">
-      <div class="d-finished-tit">待完成任务</div>
+      <div class="d-finished-tit">安全检查</div>
       <dl class="h-task-list" *ngIf="!groups || groups.length == 0">
         <dd class="h-task-item">
           <div class="h-task-status">
@@ -109,7 +109,7 @@
                [class.p-25]="getFP(g) >= 25 && getFP(g) < 50"
                [class.p-0]="getFP(g) < 25"
                *ngIf="g.total - g.finished > 0">
-              <em><span class="p-txt">{{getFP(g)}}</span></em>
+              <em><span class="p-txt">{{getFP(g)}}%</span></em>
             </i>
             <i class="task-status-ok" *ngIf="g.total - g.finished <= 0"></i>
           </div>

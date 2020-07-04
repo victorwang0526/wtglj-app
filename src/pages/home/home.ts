@@ -47,15 +47,9 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.storage.get('user').then(u => {
-      this.user = u;
-      setTimeout(this.initJPush(), 1000);
-      this.getTaskUnfinishedCnt();
-      this.getApproveDangers();
-      this.getTaskGroups();
-      this.getXunChas();
-    });
+    setTimeout(this.initJPush(), 1000);
   }
+
 
 
   async openInspectDetail(taskCheck: TaskCheckVo) {
@@ -108,9 +102,13 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.getTaskUnfinishedCnt();
-    this.getApproveDangers();
-    this.getTaskGroups();
+    this.storage.get('user').then(u => {
+      this.user = u;
+      this.getTaskUnfinishedCnt();
+      this.getApproveDangers();
+      this.getTaskGroups();
+      this.getXunChas();
+    });
   }
 
   logout() {
