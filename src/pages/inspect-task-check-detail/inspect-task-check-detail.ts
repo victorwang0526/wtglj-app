@@ -185,13 +185,6 @@ export class InspectTaskCheckDetailPage {
       return;
     }
     let buttons = [];
-    buttons.push({
-      text: '无隐患',
-      handler: () => {
-        this.taskCheck.dangerType = '';
-        this.taskCheck.dangerTypeLabel = '';
-      }
-    });
     this.dangerTypes.forEach(dangerType => {
       buttons.push({
         text: dangerType.dictLabel,

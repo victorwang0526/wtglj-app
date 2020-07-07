@@ -407,13 +407,6 @@ export class DailyTaskPage {
       return;
     }
     let buttons = [];
-    buttons.push({
-      text: '无隐患',
-      handler: () => {
-        danger.problemLevel = '';
-        danger.problemLevelLabel = '';
-      }
-    });
     this.dangerTypes.forEach(dangerType => {
       buttons.push({
         text: dangerType.dictLabel,
