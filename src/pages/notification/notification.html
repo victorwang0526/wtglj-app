@@ -1,0 +1,34 @@
+<!--
+  Generated template for the NotificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>消息通知</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="notice-contant">
+  <dd class="notice-list">
+    <dl
+      class="notice-item"
+      *ngFor="let item of (list$|async)"
+      (click)="openNoticeDetail(item.noticeId)"
+    >
+      <div class="notice-item-header">
+        <span class="notice-item-title">{{item.noticeDTO?.title}}</span>
+        <span class="notice-item-new" *ngIf="item.status===0">new ~</span>
+      </div>
+      <div class="notice-item-footer">
+        <span class="notice-item-department">{{item.noticeDTO.deptName}}</span>
+        <span class="notice-item-time">{{item.createDate}}</span>
+      </div>
+    </dl>
+    <dl class="notice-item" *ngIf="(list$|async)?.length===0">暂无消息</dl>
+  </dd>
+  <!-- <ion-footer>
+    <button type="button" style="height: 30px; width: 100%;" (click)="openNoticeDetail(1)"></button>
+  </ion-footer> -->
+</ion-content>

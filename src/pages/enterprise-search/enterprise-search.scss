@@ -1,8 +1,8 @@
 page-enterprise-search {
-  .check-group{
+  .check-group {
     padding: 1rem;
   }
-  .c-group-row{
+  .c-group-row {
     width: 100%;
     min-height: 6rem;
     display: flex;
@@ -12,58 +12,62 @@ page-enterprise-search {
     padding: 1rem;
     margin-bottom: 1rem;
     background: #fff;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
-  .c-group-info{
+  .c-group-info {
     min-width: 0;
     word-wrap: break-word;
     word-break: break-all;
     flex: 1;
   }
-  .check-time{
+  .check-time {
     color: #999;
     font-size: 1.2rem;
-    padding-top: .4rem;
+    padding-top: 0.4rem;
   }
-  .c-group-tit{
+  .c-group-tit {
     font-size: 1.6rem;
     font-weight: normal;
   }
-  .c-group-count{
+  .c-group-count {
     color: #666;
     flex-shrink: 0;
     margin-left: 1rem;
   }
-  .is-check-icon{
+  .is-check-icon {
     width: 5rem;
     height: 4.8rem;
     display: block;
-    margin-right: .4rem;
+    margin-right: 0.4rem;
     background: url("../../assets/imgs/check.png") no-repeat center center;
     background-size: contain;
-    &.checked{
+    &.checked {
       background-image: url("../../assets/imgs/checked.png");
     }
   }
-  .task-select-bar{
-    .toolbar-content{
+  .task-select-bar {
+    .toolbar-content {
       display: flex;
       flex-flow: row wrap;
     }
-    .select-btn{
+    .select-btn {
       width: 50%;
       margin: 0;
     }
     .select-ios .select-placeholder,
     .select-ios .select-icon .select-icon-inner,
-    .select-text{
+    .select-text {
       color: #fff;
     }
-    .select-ios{
+    .select-ios {
       width: 100%;
       max-width: 100%;
       padding: 11px 14px 11px 16px;
       box-sizing: border-box;
     }
   }
+}
+
+.link-text {
+  color: #137ffe;
 }

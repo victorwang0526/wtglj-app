@@ -4,57 +4,92 @@
       <div class="h-home-user" (click)="openUserCenter()">
         <div class="h-user-face">
           <img *ngIf="!!user?.avatar" src="{{user?.avatar}}" alt="" />
-          <img *ngIf="!user?.avatar" src="../../assets/imgs/face2.png" alt=""/>
+          <img *ngIf="!user?.avatar" src="../../assets/imgs/face2.png" alt="" />
         </div>
         <div class="h-user-msg">
           <div class="h-user-name">姓名：{{ user?.realName}}</div>
-          <div class="h-user-area" *ngIf="user != null && user.deptDTO != null && user.deptDTO.name">
+          <div
+            class="h-user-area"
+            *ngIf="user != null && user.deptDTO != null && user.deptDTO.name"
+          >
             部门：{{ user?.deptDTO?.name}}
           </div>
         </div>
       </div>
       <div class="h-home-enter">
-        <dl class="home-entrance">
-          <dd class="enter-col">
-            <button class="enter-btn" (click)="addTaskCheck()">
-              <i class="enter-icon task-icon">
-<!--                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>-->
-              </i>
-              <div class="enter-tit">安全巡查</div>
-            </button>
-          </dd>
-          <dd class="enter-col">
-            <button class="enter-btn" (click)="openSelfCheckGroup()">
-              <i class="enter-icon self-icon">
-                <ion-badge color="danger" *ngIf="taskUnfinishedCnt2 > 0">{{taskUnfinishedCnt2}}</ion-badge>
-              </i>
-              <div class="enter-tit">企业自检</div>
-            </button>
-          </dd>
-          <dd class="enter-col">
-            <button class="enter-btn" (click)="openEnterprise()">
-              <i class="enter-icon contact-icon">
-<!--                <ion-badge color="danger">9</ion-badge>-->
-              </i>
-              <div class="enter-tit">企业信息</div>
-            </button>
-          </dd>
-          <dd class="enter-col">
-            <button class="enter-btn" (click)="openExam()">
-              <i class="enter-icon exam-icon">
-              </i>
-              <div class="enter-tit">安全考试</div>
-            </button>
-          </dd>
-          <dd class="enter-col">
-            <button class="enter-btn" (click)="openAdvice()">
-              <i class="enter-icon advice-icon">
-                <!--              <ion-badge color="danger">6</ion-badge>-->
-              </i>
-              <div class="enter-tit">意见反馈</div>
-            </button>
-          </dd>
-        </dl>
+        <ion-slides pager="true" scrollbar="true" class="home-entrance">
+          <ion-slide>
+            <dl class="enter-warp">
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="addTaskCheck()">
+                  <i class="enter-icon task-icon">
+                    <!--                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>-->
+                  </i>
+                  <div class="enter-tit">安全巡查</div>
+                </button>
+              </dd>
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openSelfCheckGroup()">
+                  <i class="enter-icon self-icon">
+                    <ion-badge color="danger" *ngIf="taskUnfinishedCnt2 > 0"
+                      >{{taskUnfinishedCnt2}}</ion-badge
+                    >
+                  </i>
+                  <div class="enter-tit">企业自检</div>
+                </button>
+              </dd>
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openEnterprise()">
+                  <i class="enter-icon contact-icon">
+                    <!--                <ion-badge color="danger">9</ion-badge>-->
+                  </i>
+                  <div class="enter-tit">企业信息</div>
+                </button>
+              </dd>
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openAdvice()">
+                  <i class="enter-icon advice-icon">
+                    <!--              <ion-badge color="danger">6</ion-badge>-->
+                  </i>
+                  <div class="enter-tit">隐患检查</div>
+                </button>
+              </dd>
+            </dl>
+          </ion-slide>
+          <ion-slide>
+            <dl class="enter-warp">
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openExercise()">
+                  <i class="enter-icon practice-icon">
+                    <!--                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>-->
+                  </i>
+                  <div class="enter-tit">每日练习</div>
+                </button>
+              </dd>
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openExam()">
+                  <i class="enter-icon exam-icon"> </i>
+                  <div class="enter-tit">安全考试</div>
+                </button>
+              </dd>
+
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openNotification()">
+                  <i class="enter-icon notice-icon"> </i>
+                  <div class="enter-tit">消息通知</div>
+                </button>
+              </dd>
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openAdvice()">
+                  <i class="enter-icon feedback-icon">
+                    <!--              <ion-badge color="danger">6</ion-badge>-->
+                  </i>
+                  <div class="enter-tit">意见反馈</div>
+                </button>
+              </dd>
+            </dl>
+          </ion-slide>
+        </ion-slides>
       </div>
     </div>
 
@@ -103,12 +138,14 @@
       <dl class="h-task-list">
         <dd class="h-task-item" *ngFor="let g of groups" (click)="openTaskChecks(g)">
           <div class="h-task-status">
-            <i class="task-progress-icon"
-               [class.p-75]="getFP(g) >= 75"
-               [class.p-50]="getFP(g) >= 50 && getFP(g) < 75"
-               [class.p-25]="getFP(g) >= 25 && getFP(g) < 50"
-               [class.p-0]="getFP(g) < 25"
-               *ngIf="g.total - g.finished > 0">
+            <i
+              class="task-progress-icon"
+              [class.p-75]="getFP(g) >= 75"
+              [class.p-50]="getFP(g) >= 50 && getFP(g) < 75"
+              [class.p-25]="getFP(g) >= 25 && getFP(g) < 50"
+              [class.p-0]="getFP(g) < 25"
+              *ngIf="g.total - g.finished > 0"
+            >
               <em><span class="p-txt">{{getFP(g)}}%</span></em>
             </i>
             <i class="task-status-ok" *ngIf="g.total - g.finished <= 0"></i>
@@ -143,17 +180,21 @@
         </dd>
       </dl>
       <dl class="h-task-list">
-        <dd class="h-task-item"
-            *ngFor="let task of tasks" (click)="openInspectDetail(task)">
+        <dd class="h-task-item" *ngFor="let task of tasks" (click)="openInspectDetail(task)">
           <div class="c-group-info">
             <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
-            <div class="check-time" *ngIf="task.operateDate != null">检查日期：{{task.operateDate | date : 'yyyy-MM-dd'}}</div>
+            <div class="check-time" *ngIf="task.operateDate != null">
+              检查日期：{{task.operateDate | date : 'yyyy-MM-dd'}}
+            </div>
           </div>
           <div class="c-group-count">
-            <i class="check-status-icon" [class.unchecked]="task.status == 0"
-               [class.unfix]="task.status == 1"
-               [class.unconfirm]="task.status == 2"
-               [class.finish]="task.status == 3"></i>
+            <i
+              class="check-status-icon"
+              [class.unchecked]="task.status == 0"
+              [class.unfix]="task.status == 1"
+              [class.unconfirm]="task.status == 2"
+              [class.finish]="task.status == 3"
+            ></i>
           </div>
         </dd>
       </dl>

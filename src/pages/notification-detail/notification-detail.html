@@ -1,0 +1,30 @@
+<!--
+  Generated template for the NotificationDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>消息通知</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ng-container *ngIf="detail">
+    <div>
+      <div class="notice-header">
+        <span>{{detail.deptName}}</span>
+        <span class="notice-time">{{detail.createDate}}</span>
+      </div>
+      <div class="notice-title">{{detail.title}}</div>
+    </div>
+
+    <div class="notice-context">
+      {{detail.context}}
+    </div>
+    <div class="notice-annex" *ngFor="let item of detail.fileDto" (click)="openAnnex(item.path)">
+      {{item.name}}
+    </div>
+  </ng-container>
+</ion-content>

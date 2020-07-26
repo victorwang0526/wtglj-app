@@ -1,0 +1,29 @@
+page-notification-detail {
+  .notice-header {
+    font-size: 1.2rem;
+    color: #999;
+    .notice-time {
+      float: right;
+    }
+  }
+
+  .notice-title {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #000;
+  }
+
+  .notice-context {
+    margin: 1.5rem 0;
+    min-height: 20rem;
+    text-indent: 2em;
+    font-size: 1.5rem;
+  }
+
+  .notice-annex {
+    color: #137ffe;
+    text-decoration: underline;
+  }
+}

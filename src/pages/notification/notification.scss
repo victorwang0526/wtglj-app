@@ -1,0 +1,32 @@
+page-notification {
+  .notice-list {
+    margin: 1rem 0;
+    padding: 0 2rem;
+
+    .notice-item {
+      min-height: 4.4rem;
+      padding: 1.2rem 1rem;
+      margin-bottom: 1.5rem;
+      background: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1) inset, 0 0 1rem rgba(17, 17, 17, 0.08);
+
+      .notice-item-header {
+        font-size: 1.6rem;
+        font-weight: bolder;
+        color: #000;
+        .notice-item-new {
+          color: #f00f0f;
+        }
+      }
+      .notice-item-footer {
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+        color: #999;
+        .notice-item-time {
+          float: right;
+        }
+      }
+    }
+  }
+}

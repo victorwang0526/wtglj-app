@@ -11,20 +11,23 @@
     [cancelButtonText]="'取消'"
     [placeholder]="'请输入企业名称搜索'"
     (ionInput)="onInput($event)"
-    (ionCancel)="onCancel($event)">
+    (ionCancel)="onCancel($event)"
+  >
   </ion-searchbar>
 
-  <div  style="text-align: center">
-    <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
+  <div style="text-align: center;">
+    <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
   </div>
 
   <dl class="check-group">
-    <dd class="c-group-row"
-        *ngFor="let enterprise of enterprises">
+    <dd class="c-group-row" *ngFor="let enterprise of enterprises">
       <div class="c-group-info" (click)="choose(enterprise)">
         <h4 class="c-group-tit">{{enterprise.name}}</h4>
         <div class="check-time">{{enterprise.address}}</div>
       </div>
+    </dd>
+    <dd *ngIf="isShowAdd">
+      暂无该企业 <span class="link-text" (click)="add()">点击添加</span>
     </dd>
   </dl>
 </ion-content>

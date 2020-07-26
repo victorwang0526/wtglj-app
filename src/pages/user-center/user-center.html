@@ -8,7 +8,7 @@
   <div class="u-center-hd">
     <div class="uc-face" (click)="cameraChoose()">
       <img *ngIf="!!user?.avatar" src="{{user?.avatar}}" alt="" />
-      <img *ngIf="!user?.avatar" src="../../assets/imgs/face2.png" alt=""/>
+      <img *ngIf="!user?.avatar" src="../../assets/imgs/face2.png" alt="" />
     </div>
     <div class="uc-msg">
       <div class="uc-name">姓名：{{ user?.realName}}</div>
@@ -25,19 +25,32 @@
       </dd>
       <dd class="card-col">
         <i class="uc-icon green-icon"></i>
-        <div class="card-col-info">检查区域：{{ user != null && user.deptDTO != null && user.deptDTO.areasName ? user?.deptDTO.areasName : '全部' }}</div>
+        <div class="card-col-info">
+          检查区域：{{ user != null && user.deptDTO != null && user.deptDTO.areasName ?
+          user?.deptDTO.areasName : '全部' }}
+        </div>
       </dd>
       <dd class="card-col">
         <i class="uc-icon blue-icon"></i>
-        <div class="card-col-info">检查行业：{{ user != null && user.deptDTO != null && user.deptDTO.industryNames ? user?.deptDTO.industryNames : '全部'}}</div>
+        <div class="card-col-info">
+          检查行业：{{ user != null && user.deptDTO != null && user.deptDTO.industryNames ?
+          user?.deptDTO.industryNames : '全部'}}
+        </div>
       </dd>
       <dd class="card-col">
         <i class="uc-icon yellow-icon"></i>
-        <div class="card-col-info">检查企业：{{ user != null && user.deptDTO != null && user.deptDTO.enterprises ? user?.deptDTO.enterprises : '全部' }}</div>
+        <div class="card-col-info">
+          检查企业：{{ user != null && user.deptDTO != null && user.deptDTO.enterprises ?
+          user?.deptDTO.enterprises : '全部' }}
+        </div>
       </dd>
       <dd class="card-col">
         <i class="uc-icon red-icon"></i>
         <div class="card-col-info">手机：{{ user?.mobile}}</div>
+      </dd>
+      <dd class="card-col">
+        <i class="uc-icon red-icon"></i>
+        <div class="card-col-info">学习积分：{{ user?.integral}}</div>
       </dd>
     </dl>
     <button class="uc-exit-btn c" (click)="changePsd()">修改密码</button>

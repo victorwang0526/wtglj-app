@@ -6,10 +6,42 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>exam-detail</ion-title>
+    <ion-title>xxxxx考试</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <div class="exam-container">
+    <div class="exam-list">
+      <dd>
+        <dl *ngFor="let item of questions; let i=index" class="exam-question">
+          <div>
+            {{i+1}}．{{item.topic}}
+          </div>
+          <dd>
+            <dl *ngFor="let answer of item.itemList" class="exam-answer">
+              <label class="exam-answer-option">
+                <input
+                  [type]="item.examType===2?'checkbox':'radio'"
+                  [name]="item.id"
+                  [value]="answer.options"
+                  (click)="choose($event,item,answer.options)"
+                />
+                <i></i>
+                <div class="label">
+                  {{answer.options}}
+                </div>
+              </label>
+              <span class="description">{{answer.description}}</span>
+            </dl>
+          </dd>
+        </dl>
+      </dd>
+    </div>
+  </div>
 </ion-content>
+<ion-footer>
+  <div class="btn-area">
+    <button type="submit" class="btn" (click)="onSubmit()">提交</button>
+  </div>
+</ion-footer>

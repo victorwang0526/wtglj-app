@@ -1,3 +1,35 @@
-page-exam-list {
+.exam-list {
+  .exam-item {
+    position: relative;
+    min-height: 4.4rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1) inset, 0 0 1rem rgba(17, 17, 17, 0.08);
 
+    .exam-title {
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      font-weight: bolder;
+      color: #000;
+    }
+
+    .exam-time {
+      font-size: 1.2rem;
+      color: #999;
+    }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: 2%;
+      transform: translateY(-50%);
+      display: block;
+      width: 6.5rem;
+      height: 6.5rem;
+      content: ' ';
+      background: url('../../assets/imgs/unchecked.png') center / 100% no-repeat;
+    }
+  }
 }

@@ -1,3 +1,22 @@
 page-exam-finish {
-
+  .exam-result {
+    height: 3.5rem;
+    line-height: 3.5rem;
+    color: #fff;
+    background-color: #488aff;
+    text-align: center;
+    &-item:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+  .exam-result-list {
+    margin: 2rem 0;
+  }
+  .exam-duration {
+    font-size: 1rem;
+  }
+  .exam-scope {
+    font-size: 2rem;
+    font-weight: bolder;
+  }
 }

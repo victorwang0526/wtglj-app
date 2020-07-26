@@ -1,24 +1,28 @@
 <ion-content no-bounce class="login-wrap">
   <div class="login-hd">
-      <h1 class="login-title">您好，</h1>
-      <h2 class="login-welcome">欢迎来到文体广旅局</h2>
-    </div>
+    <h1 class="login-title">您好，</h1>
+    <h2 class="login-welcome">欢迎来到文体广旅局</h2>
+  </div>
   <div class="g-login-main">
     <div class="login-form">
       <div class="login-row">
         <i class="log-form-icon account-icon"></i>
         <div class="log-input">
-          <input type="text" placeholder="请输入你的账号" [(ngModel)]="username"/>
+          <input type="text" placeholder="请输入你的账号" [(ngModel)]="username" />
         </div>
       </div>
       <div class="login-row">
         <i class="log-form-icon lock-icon"></i>
         <div class="log-input">
-          <input type="password" placeholder="请输入你的密码" [(ngModel)]="password"/>
+          <input type="password" placeholder="请输入你的密码" [(ngModel)]="password" />
         </div>
+      </div>
+      <div class="retrieve-password" (click)="goPassword()">
+        <a>忘记密码？</a>
       </div>
     </div>
     <button class="login-button" (click)="login()">登录</button>
+    <button ion-button round outline class="register-button" (click)="register()">注册</button>
   </div>
   <div class="g-login-bottom"></div>
 </ion-content>

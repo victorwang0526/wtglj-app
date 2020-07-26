@@ -1,23 +1,34 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
-import { ExamProvider } from '../../providers/exam-provider';
+import { Storage } from '@ionic/storage';
 import { UserVo } from '../../models/user-vo';
+import { ExamProvider } from '../../providers/exam-provider';
 import { Question } from '../../models/exam-vo';
-import { ExamFinishPage } from '../exam-finish/exam-finish';
+
+/**
+ * Generated class for the ExerciseDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @Component({
-  selector: 'page-exam-detail',
-  templateUrl: 'exam-detail.html',
+  selector: 'page-exercise-detail',
+  templateUrl: 'exercise-detail.html',
 })
-export class ExamDetailPage {
+export class ExerciseDetailPage {
+  items = ['A', 'B', 'C', 'D'];
+  questionNo = 0;
+  questions: Question[] = [];
   user: UserVo;
   examId: string;
-  questions: Question[] = [];
-  startTime: Date;
+  isShowAnswer = false;
+  startTime: Date = new Date();
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public examService: ExamProvider,
+    private storage: Storage,
     public loadingController: LoadingController,
   ) {
     this.examId = navParams.get('examId');
@@ -26,7 +37,12 @@ export class ExamDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ExamDetailPage');
+    console.log('ionViewDidLoad ExerciseDetailPage');
+  }
+
+  next() {
+    this.questionNo += 1;
+    this.isShowAnswer = false;
   }
 
   onSubmit() {
@@ -41,25 +57,14 @@ export class ExamDetailPage {
       startTime: this.startTime, //开始时间
       itemList,
     };
-    this.examService
-      .achievementSave(data)
-      .subscribe((data) => this.navCtrl.push(ExamFinishPage, { examResult: data.data }));
+    this.examService.achievementSave(data).subscribe(() => this.navCtrl.popToRoot());
   }
 
-  async getData(id: string) {
+  async getData(examId: string) {
     const loading = this.loadingController.create({});
     await loading.present();
-    this.examService.getQuestions(id).subscribe(
-      (data) => {
-        this.startTime = new Date();
-        this.questions = data;
-        this.questions = data.map((item) => ({
-          ...item,
-          itemList: item.itemList.map((i) => ({ ...i, checked: false })),
-          answer: [],
-          examMasterId: item.id,
-        }));
-      },
+    this.examService.getQuestions(examId).subscribe(
+      (data) => (this.questions = data),
       null,
       () => loading.dismiss(),
     );
@@ -75,5 +80,9 @@ export class ExamDetailPage {
     } else {
       item.answer.splice(item.answer.indexOf(option), 1);
     }
+  }
+
+  showAnswer() {
+    this.isShowAnswer = true;
   }
 }

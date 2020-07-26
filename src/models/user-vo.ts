@@ -1,4 +1,4 @@
-import {DeptVo} from "./dept-vo";
+import { DeptVo } from './dept-vo';
 
 export class UserVo {
   id: number;
@@ -16,4 +16,5 @@ export class UserVo {
   confirmPassword: string;
 
   deptDTO: DeptVo;
+  integral: number;
 }
