@@ -1,48 +1,50 @@
-import {Component, ViewChild} from '@angular/core';
-import {AlertController, Events, Nav, Platform} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { AlertController, Events, Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../pages/home/home';
-import {LoginPage} from "../pages/login/login";
-import {MessageEvent} from "../events/message-event";
-import {JPush} from "@jiguang-ionic/jpush";
-import {AppVersionVo} from "../models/app-version-vo";
-import {InAppBrowser} from "@ionic-native/in-app-browser";
-import {AppVersion} from "@ionic-native/app-version";
-import {PgyProvider} from "../providers/pgy-provider";
-import {UserProvider} from "../providers/user-provider";
-import {ScreenOrientation} from "@ionic-native/screen-orientation";
+import { LoginPage } from '../pages/login/login';
+import { MessageEvent } from '../events/message-event';
+import { JPush } from '@jiguang-ionic/jpush';
+import { AppVersionVo } from '../models/app-version-vo';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AppVersion } from '@ionic-native/app-version';
+import { PgyProvider } from '../providers/pgy-provider';
+import { UserProvider } from '../providers/user-provider';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
 })
 export class MyApp {
-  rootPage:any = null;
+  rootPage: any = null;
   @ViewChild(Nav) nav: Nav;
 
-  constructor(public platform: Platform,
-              statusBar: StatusBar,
-              splashScreen: SplashScreen,
-              private storage: Storage,
-              private iab: InAppBrowser,
-              private screenOrientation: ScreenOrientation,
-              private appVersion: AppVersion,
-              public userService: UserProvider,
-              public pygService: PgyProvider,
-              public event: Events,
-              public jpush: JPush,
-              public alertController: AlertController) {
+  constructor(
+    public platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    private storage: Storage,
+    private iab: InAppBrowser,
+    private screenOrientation: ScreenOrientation,
+    private appVersion: AppVersion,
+    public userService: UserProvider,
+    public pygService: PgyProvider,
+    public event: Events,
+    public jpush: JPush,
+    public alertController: AlertController,
+  ) {
     this.initRoot();
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       splashScreen.hide();
 
-      if(this.platform.is('android')) {
+      if (this.platform.is('android')) {
         statusBar.styleLightContent();
-        this.getVersion('android');
-      }else if(this.platform.is('ios')) {
+        // this.getVersion('android');
+      } else if (this.platform.is('ios')) {
         statusBar.styleDefault();
         // this.getVersion('ios');
       }
@@ -52,8 +54,7 @@ export class MyApp {
       // set to landscape
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-
-      if(this.platform.is('mobile')) {
+      if (this.platform.is('mobile')) {
         jpush.setDebugMode(true);
         jpush.init();
       }
@@ -64,32 +65,31 @@ export class MyApp {
     let localVersion = await this.appVersion.getVersionNumber();
     let res: any = await this.pygService.checkUpdate(mobile).toPromise();
     let newAppVersion: AppVersionVo = res.data;
-    if(newAppVersion.buildVersion != localVersion) {
+    if (newAppVersion.buildVersion != localVersion) {
       const alert = await this.alertController.create({
         message: '有新版本，请点击确定更新',
         enableBackdropDismiss: false,
-        buttons: [{
+        buttons: [
+          {
             text: '确定',
             handler: () => {
               this.iab.create('https://www.pgyer.com/' + newAppVersion.buildShortcutUrl, '_system');
               return false;
-            }
-          }
-        ]
+            },
+          },
+        ],
       });
 
       await alert.present();
     }
-
   }
-
 
   initRoot() {
     // Or to get a key/value pair
     this.storage.get('user').then((val) => {
-      if(!val) {
+      if (!val) {
         this.rootPage = LoginPage;
-      }else {
+      } else {
         this.getUserInfo();
         this.rootPage = HomePage;
       }
@@ -109,7 +109,7 @@ export class MyApp {
     });
     this.event.subscribe(MessageEvent.MESSAGE_EVENT, (messageEvent: MessageEvent) => {
       this.alertMessage(messageEvent);
-    })
+    });
   }
 
   async alertMessage(messageEvent: MessageEvent) {
@@ -119,14 +119,14 @@ export class MyApp {
         {
           text: '确定',
           handler: () => {
-            if(messageEvent.goHome) {
+            if (messageEvent.goHome) {
               this.nav.popToRoot();
-            }else if(messageEvent.back) {
+            } else if (messageEvent.back) {
               this.nav.pop({});
             }
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alert.present();
   }
@@ -139,11 +139,10 @@ export class MyApp {
           text: '确定',
           handler: () => {
             this.rootPage = LoginPage;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alert.present();
   }
 }
-
