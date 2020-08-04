@@ -21,20 +21,36 @@
         <section class="c-form-inner has-fold">
           <!--          展开 +active-->
           <div class="c-form-list active">
-            <div class="list-item  item-hd">
+            <div class="list-item item-hd">
               <span class="item-label">问题表现</span>
               <div class="item-info">
                 <div class="item-txt">
-                  <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc" disabled="{{!!taskCheck.operatorId}}"/>
+                  <input
+                    type="text"
+                    placeholder="请输入问题表现"
+                    [(ngModel)]="danger.problemDesc"
+                    disabled="{{!!taskCheck.operatorId}}"
+                  />
                 </div>
-                <button class="danger-del-btn" (click)="removeDanger(danger)" *ngIf="!taskCheck.operatorId">删除</button>
+                <button
+                  class="danger-del-btn"
+                  (click)="removeDanger(danger)"
+                  *ngIf="!taskCheck.operatorId"
+                >
+                  删除
+                </button>
               </div>
             </div>
             <div class="list-item">
               <span class="item-label">隐患内容</span>
               <div class="item-info">
                 <div class="item-txt">
-                  <input type="text" placeholder="请输入隐患内容" [(ngModel)]="danger.remark" disabled="{{!!taskCheck.operatorId}}"/>
+                  <input
+                    type="text"
+                    placeholder="请输入隐患内容"
+                    [(ngModel)]="danger.remark"
+                    disabled="{{!!taskCheck.operatorId}}"
+                  />
                 </div>
               </div>
             </div>
@@ -48,8 +64,12 @@
             <div class="list-item upload-pic">
               <ng-container *ngIf="danger.problemImageUrls">
                 <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
-                  <i class="del-icon" (click)="removeImg(danger, imgUrl)" *ngIf="!taskCheck.operatorId"></i>
-                  <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)">
+                  <i
+                    class="del-icon"
+                    (click)="removeImg(danger, imgUrl)"
+                    *ngIf="!taskCheck.operatorId"
+                  ></i>
+                  <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
                 </div>
               </ng-container>
               <div class="pic-col" *ngIf="!taskCheck.operatorId">
@@ -57,79 +77,114 @@
               </div>
             </div>
             <div class="list-item item-danger-btn">
-              <button class="danger-add-btn" (click)="addPunish(danger)" *ngIf="!taskCheck.operatorId">+增加处罚</button>
+              <button
+                class="danger-add-btn"
+                (click)="addPunish(danger)"
+                *ngIf="!taskCheck.operatorId"
+              >
+                +增加处罚
+              </button>
             </div>
 
             <!-- 处罚清单 -->
             <ion-list>
-<!--              <ion-item-sliding>-->
-<!--                <ion-item>-->
-                  <section class="c-form-inner has-fold danger-inner-box" *ngFor="let p of danger.punishesList">
-                    <!--          展开 +active-->
-                    <div class="c-form-list active">
-                      <div class="list-item item-hd" (click)="choosePunishLevel(p)">
-                        <span class="item-label">处罚类型</span>
-                        <div class="item-info">
-                          <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
-                          <i class="u-arrow-right" *ngIf="!taskCheck.operatorId"></i>
-                        </div>
-                      </div><div class="list-item">
-                      <span class="item-label">处罚缘由</span>
-                      <div class="item-info">
-                        <div class="item-txt">
-                          <input type="text" placeholder="请输入处罚缘由" [(ngModel)]="p.punishReason" disabled="{{!!taskCheck.operatorId}}"/>
-                        </div>
+              <!--              <ion-item-sliding>-->
+              <!--                <ion-item>-->
+              <section
+                class="c-form-inner has-fold danger-inner-box"
+                *ngFor="let p of danger.punishesList"
+              >
+                <!--          展开 +active-->
+                <div class="c-form-list active">
+                  <div class="list-item item-hd" (click)="choosePunishLevel(p)">
+                    <span class="item-label">处罚类型</span>
+                    <div class="item-info">
+                      <div class="item-txt c-grey-9">
+                        {{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}
+                      </div>
+                      <i class="u-arrow-right" *ngIf="!taskCheck.operatorId"></i>
+                    </div>
+                  </div>
+                  <!-- <div class="list-item">
+                    <span class="item-label">处罚缘由</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input
+                          type="text"
+                          placeholder="请输入处罚缘由"
+                          [(ngModel)]="p.punishReason"
+                          disabled="{{!!taskCheck.operatorId}}"
+                        />
                       </div>
                     </div>
-                      <div class="list-item">
-                        <span class="item-label">处罚金额</span>
-                        <div class="item-info">
-                          <div class="item-txt">
-                            <input type="text" type="number" placeholder="请输入处罚金额" [(ngModel)]="p.punishPrice" disabled="{{!!taskCheck.operatorId}}"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="list-item">
-                        <span class="item-label">处罚依据</span>
-                        <div class="item-info">
-                          <div class="item-txt">
-                            <input type="text" placeholder="请输入处罚依据" [(ngModel)]="p.punishBasis" disabled="{{!!taskCheck.operatorId}}"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="list-item">
-                        <span class="item-label">整改标准</span>
-                        <div class="item-info">
-                          <div class="item-txt">
-                            <input type="text" placeholder="请输入整改标准" [(ngModel)]="p.rectifyStandard" disabled="{{!!taskCheck.operatorId}}"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="list-item">
-                        <span class="item-label">整改时限</span>
-                        <div class="item-info">
-                          <div class="item-txt">
-                            <ion-datetime displayFormat="YYYY-MM-DD"
-                                          [(ngModel)]="p.rectifyPlanFinishDate"
-                                          [min]="getMin()"
-                                          [max]="'2030-12-30'"
-                                          [cancelText]="'取消'"
-                                          [doneText]="'确定'"
-                                          disabled="{{!!taskCheck.operatorId}}"></ion-datetime>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="list-item" *ngIf="!taskCheck.operatorId">
-                        <button class="del-full-btn" (click)="removePunish(danger, p)">删除</button>
+                  </div> -->
+                  <div class="list-item" *ngIf="p.punishType===2">
+                    <span class="item-label">处罚金额</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input
+                          type="text"
+                          type="number"
+                          placeholder="请输入处罚金额"
+                          [(ngModel)]="p.punishPrice"
+                          disabled="{{!!taskCheck.operatorId}}"
+                        />
                       </div>
                     </div>
-                  </section>
-<!--                </ion-item>-->
+                  </div>
+                  <div class="list-item" *ngIf="[2,3,4,5,6].includes(p.punishType)">
+                    <span class="item-label">处罚依据</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input
+                          type="text"
+                          placeholder="请输入处罚依据"
+                          [(ngModel)]="p.punishBasis"
+                          disabled="{{!!taskCheck.operatorId}}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <span class="item-label">整改标准</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input
+                          type="text"
+                          placeholder="请输入整改标准"
+                          [(ngModel)]="p.rectifyStandard"
+                          disabled="{{!!taskCheck.operatorId}}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <span class="item-label">整改时限</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <ion-datetime
+                          displayFormat="YYYY-MM-DD"
+                          [(ngModel)]="p.rectifyPlanFinishDate"
+                          [min]="getMin()"
+                          [max]="'2030-12-30'"
+                          [cancelText]="'取消'"
+                          [doneText]="'确定'"
+                          disabled="{{!!taskCheck.operatorId}}"
+                        ></ion-datetime>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-item" *ngIf="!taskCheck.operatorId">
+                    <button class="del-full-btn" (click)="removePunish(danger, p)">删除</button>
+                  </div>
+                </div>
+              </section>
+              <!--                </ion-item>-->
 
-<!--                <ion-item-options side="right">-->
-<!--                  <button ion-button color="danger" (click)="removePunish(danger, p)">删除</button>-->
-<!--                </ion-item-options>-->
-<!--              </ion-item-sliding>-->
+              <!--                <ion-item-options side="right">-->
+              <!--                  <button ion-button color="danger" (click)="removePunish(danger, p)">删除</button>-->
+              <!--                </ion-item-options>-->
+              <!--              </ion-item-sliding>-->
             </ion-list>
           </div>
         </section>
