@@ -6,6 +6,7 @@ import {
   LoadingController,
   NavController,
   NavParams,
+  ModalController,
 } from 'ionic-angular';
 import { TaskCheckVo } from '../../models/task-check-vo';
 import { TaskProvider } from '../../providers/task-provider';
@@ -42,7 +43,11 @@ export class InspectTaskCheckDetailPage {
 
   editable: boolean = false;
   enterprise: EnterpriseVo;
-  operators: { [key: string]: string }[];
+  operators: any[] = [];
+
+  user: UserVo;
+
+  principals: any[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -57,12 +62,16 @@ export class InspectTaskCheckDetailPage {
     private callNumber: CallNumber,
     private userProvider: UserProvider,
     public actionSheetController: ActionSheetController,
+    public model: ModalController,
   ) {
     this.taskCheck = navParams.get('taskCheck');
     this.group = navParams.get('group');
     this.taskCheck.isUnion = this.taskCheck.unionDepts != null;
-
-    this.init();
+    this.storage.get('user').then((u) => {
+      this.user = u;
+      this.init();
+      this.principals.push(this.user.id);
+    });
   }
 
   async init() {
@@ -70,6 +79,7 @@ export class InspectTaskCheckDetailPage {
 
     this.getDangerTypes();
     this.getPunishTypes();
+    this.editable && this.getGroupUsers();
 
     this.loading = true;
     this.inspect = await this.taskProvider.getInspectDetail(this.taskCheck.inspectId);
@@ -297,6 +307,7 @@ export class InspectTaskCheckDetailPage {
   }
 
   async submit() {
+    console.log(this.principals);
     for (let subItem of this.inspect.subItems) {
       if (!subItem.checked) {
         this.alertCtrl
@@ -319,11 +330,21 @@ export class InspectTaskCheckDetailPage {
       }
     }
 
+    if (this.principals.length === 0) {
+      this.alertCtrl
+        .create({
+          title: '选择检查人员',
+        })
+        .present({});
+      return;
+    }
+
     let user: UserVo = await this.storage.get('user');
     this.taskCheck.operator = user.realName;
     this.taskCheck.operatorId = user.id;
     this.taskCheck.operateDate = new Date();
     this.taskCheck.inspect = this.inspect;
+    this.taskCheck.principals = this.principals.join(',');
     this.taskCheck.dangers = [];
     for (let subItem of this.inspect.subItems) {
       if (!subItem.dangers || subItem.dangers.length == 0) {
@@ -476,5 +497,10 @@ export class InspectTaskCheckDetailPage {
       .catch((err) => console.log('Error launching dialer', err));
   }
 
-  add() {}
+  getGroupUsers() {
+    this.taskProvider
+      .getGroupUsers(this.user.dept)
+      .take(1)
+      .subscribe((users) => (this.operators = users));
+  }
 }

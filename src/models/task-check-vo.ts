@@ -1,8 +1,7 @@
-import {InspectVo} from "./inspect-vo";
-import {DangerVo} from "./danger-vo";
+import { InspectVo } from './inspect-vo';
+import { DangerVo } from './danger-vo';
 
 export class TaskCheckVo {
-
   id: number;
   /**
    * 检查清单项目表id
@@ -74,6 +73,9 @@ export class TaskCheckVo {
    * 更新时间
    */
   operateDate: Date;
+
+  /** 负责人名称列表 */
+  principals: string;
 
   /**
    * 审核人签名图片

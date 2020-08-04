@@ -1,6 +1,4 @@
-
 export class PunishVo {
-
   id: number;
 
   dangerId: number;
@@ -54,6 +52,9 @@ export class PunishVo {
    * 整改描述
    */
   rectifyCompleteDesc: string;
+
+  /** 整改结果 */
+  remark: string;
 
   /**
    * 审核人

@@ -99,19 +99,24 @@
                       [(ngModel)]="taskCheck.operator"
                       [disabled]="!editable"
                     /> -->
-                    <ion-buttons class="select-btn" slot="end">
-                      <ion-select
-                        class="ico-select-txt"
-                        placeholder="行业"
-                        [(ngModel)]="taskCheck.operator"
-                        [cancelText]="'取消'"
-                        [okText]="'确定'"
+                    <!-- <ion-buttons class="select-btn" slot="end"> -->
+                    <ion-select
+                      style="max-width: 100%;"
+                      placeholder="检查人员"
+                      multiple="true"
+                      [(ngModel)]="principals"
+                      [cancelText]="'取消'"
+                      [okText]="'确定'"
+                    >
+                      <ion-option
+                        *ngFor="let operator of operators"
+                        [value]="operator.id"
+                        [disabled]="operator.id===user.id"
                       >
-                        <ion-option *ngFor="let operator of operators" [value]="operator"
-                          >{{operator}}</ion-option
-                        >
-                      </ion-select>
-                    </ion-buttons>
+                        {{operator.realName}}
+                      </ion-option>
+                    </ion-select>
+                    <!-- </ion-buttons> -->
                   </div>
                 </div>
               </div>
