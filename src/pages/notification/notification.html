@@ -12,11 +12,7 @@
 
 <ion-content class="notice-contant">
   <dd class="notice-list">
-    <dl
-      class="notice-item"
-      *ngFor="let item of (list$|async)"
-      (click)="openNoticeDetail(item.noticeId)"
-    >
+    <dl class="notice-item" *ngFor="let item of (list$|async)" (click)="openNoticeDetail(item.id)">
       <div class="notice-item-header">
         <span class="notice-item-title">{{item.noticeDTO?.title}}</span>
         <span class="notice-item-new" *ngIf="item.status===0">new ~</span>

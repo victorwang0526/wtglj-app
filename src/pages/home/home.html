@@ -25,7 +25,7 @@
                   <i class="enter-icon task-icon">
                     <!--                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>-->
                   </i>
-                  <div class="enter-tit">安全巡查</div>
+                  <div class="enter-tit">日常检查</div>
                 </button>
               </dd>
               <dd class="enter-col">
@@ -114,7 +114,7 @@
     </div>
 
     <div class="h-finished-task" *ngIf="user && user.deptDTO && user.deptDTO.areas">
-      <div class="d-finished-tit">安全检查</div>
+      <div class="d-finished-tit">专题督查</div>
       <dl class="h-task-list" *ngIf="!groups || groups.length == 0">
         <dd class="h-task-item">
           <div class="h-task-status">
@@ -168,7 +168,7 @@
     </div>
 
     <div class="h-finished-task">
-      <div class="d-finished-tit">安全巡查</div>
+      <div class="d-finished-tit">日常检查</div>
       <dl class="h-task-list" *ngIf="!tasks || tasks.length == 0">
         <dd class="h-task-item">
           <div class="h-task-status">
@@ -195,6 +195,39 @@
               [class.unconfirm]="task.status == 2"
               [class.finish]="task.status == 3"
             ></i>
+          </div>
+        </dd>
+      </dl>
+    </div>
+
+    <div class="h-finished-task">
+      <div class="d-finished-tit">安全考试</div>
+      <dl class="h-task-list" *ngIf="!tasks || tasks.length == 0">
+        <dd class="h-task-item">
+          <div class="h-task-status">
+            <i class="task-status-ok"></i>
+          </div>
+          <div class="task-inform">
+            <div class="task-tit">暂无考试</div>
+          </div>
+        </dd>
+      </dl>
+      <dl class="h-task-list">
+        <dd class="h-task-item" *ngFor="let exam of exams" (click)="openExamDetail(exam)">
+          <div class="c-group-info">
+            <h4 class="c-group-tit">{{exam.name}}</h4>
+            <div class="check-time" *ngIf="exam.startDate">
+              考试日期：{{exam.startDate | date : 'yyyy-MM-dd'}}
+            </div>
+          </div>
+          <div class="c-group-count">
+            <!-- <i
+              class="check-status-icon"
+              [class.unchecked]="task.status == 0"
+              [class.unfix]="task.status == 1"
+              [class.unconfirm]="task.status == 2"
+              [class.finish]="task.status == 3"
+            ></i> -->
           </div>
         </dd>
       </dl>

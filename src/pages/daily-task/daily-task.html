@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>安全巡查</ion-title>
+    <ion-title>日常检查</ion-title>
     <ion-buttons end *ngIf="!taskCheck.operator">
       <button ion-button (click)="addDanger()">
         新增隐患
@@ -10,15 +10,14 @@
 </ion-header>
 
 <ion-content>
-
-  <div style="text-align: center">
+  <div style="text-align: center;">
     <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
   </div>
 
   <div class="g-flex-main" *ngIf="!loading">
     <div class="g-flex-box">
       <div class="c-form-box">
-<!--        <h4 class="c-form-title"><span>日常安全巡查</span></h4>-->
+        <!--        <h4 class="c-form-title"><span>日常日常检查</span></h4>-->
         <section class="c-form-inner has-fold">
           <!--          展开 +active-->
           <div class="c-form-list active">
@@ -39,7 +38,9 @@
             <div class="list-item" (click)="chooseInspects()">
               <span class="item-label">检查清单</span>
               <div class="item-info">
-                <div class="item-txt c-grey-9">{{taskCheck.inspectTitle ? taskCheck.inspectTitle : '非必填'}}</div>
+                <div class="item-txt c-grey-9">
+                  {{taskCheck.inspectTitle ? taskCheck.inspectTitle : '非必填'}}
+                </div>
                 <i class="u-arrow-right" *ngIf="!taskCheck.operator"></i>
               </div>
             </div>
@@ -58,43 +59,67 @@
           <h4 class="c-form-title"><span>检查列表</span></h4>
           <!-- 选项 -->
           <ng-container>
-            <section class="c-form-inner" *ngFor="let subItem of taskCheck.inspect.subItems; let i = index">
+            <section
+              class="c-form-inner"
+              *ngFor="let subItem of taskCheck.inspect.subItems; let i = index"
+            >
               <div class="c-form-tit">{{i+1}}.{{subItem.title}}</div>
               <div class="c-form-inform">
                 <dl class="c-form-choose">
                   <dd class="choose-desc" *ngFor="let c of subItem.items.split(',')">
                     <div class="c-desc-txt">{{c}}</div>
-                    <ion-checkbox mode="md" [checked]="subItem.checked == c"
-                                  [disabled]="!editable"
-                                  (click)="checkItem(subItem, c)"></ion-checkbox>
+                    <ion-checkbox
+                      mode="md"
+                      [checked]="subItem.checked == c"
+                      [disabled]="!editable"
+                      (click)="checkItem(subItem, c)"
+                    ></ion-checkbox>
                   </dd>
                 </dl>
-                <div class="danger-enter" (click)="openDangerList(subItem)" *ngIf="subItem.checked === '有隐患'">
+                <div
+                  class="danger-enter"
+                  (click)="openDangerList(subItem)"
+                  *ngIf="subItem.checked === '有隐患'"
+                >
                   <div class="link-txt">隐患列表</div>
-                  <span class="danger-count-txt">({{!subItem.dangers || subItem.dangers.length === 0 ? 0 : subItem.dangers.length}})</span>
+                  <span class="danger-count-txt"
+                    >({{!subItem.dangers || subItem.dangers.length === 0 ? 0 :
+                    subItem.dangers.length}})</span
+                  >
                 </div>
 
                 <div class="c-form-remark" style="display: none;">
                   <div class="remark-info">
                     <span class="c-label">备注：</span>
                     <div class="remark-txt">
-                      <input type="text" placeholder="请输入备注" [(ngModel)]="subItem.remark"
-                             [disabled]="!editable"/>
+                      <input
+                        type="text"
+                        placeholder="请输入备注"
+                        [(ngModel)]="subItem.remark"
+                        [disabled]="!editable"
+                      />
                     </div>
                   </div>
-                  <button class="photo-btn" ion-button color="primary" outline
-                          (click)="cameraChooseSub(subItem)"
-                          *ngIf="taskCheck.operateDate == null">
+                  <button
+                    class="photo-btn"
+                    ion-button
+                    color="primary"
+                    outline
+                    (click)="cameraChooseSub(subItem)"
+                    *ngIf="taskCheck.operateDate == null"
+                  >
                     <ion-icon slot="start" name="camera"></ion-icon>
                     拍照
                   </button>
                 </div>
                 <div class="upload-pic" *ngIf="subItem.imageUrls || subItem.imgLoading">
                   <ng-container *ngIf="subItem.imageUrls">
-                    <v-image *ngFor="let imgUrl of subItem.imageUrls.split(',')"
-                             [imgUrl]="imgUrl"
-                             (remove)="removeImgSub(subItem, imgUrl)"
-                             [showRemove]="taskCheck.operateDate == null"></v-image>
+                    <v-image
+                      *ngFor="let imgUrl of subItem.imageUrls.split(',')"
+                      [imgUrl]="imgUrl"
+                      (remove)="removeImgSub(subItem, imgUrl)"
+                      [showRemove]="taskCheck.operateDate == null"
+                    ></v-image>
                   </ng-container>
                   <v-image *ngIf="subItem.imgLoading" [loading]="true"></v-image>
                 </div>
@@ -105,7 +130,10 @@
       </div>
 
       <ng-container>
-        <div class="danger-tipper" *ngIf="!taskCheck.operator && (!taskCheck.dangers || taskCheck.dangers.length === 0)">
+        <div
+          class="danger-tipper"
+          *ngIf="!taskCheck.operator && (!taskCheck.dangers || taskCheck.dangers.length === 0)"
+        >
           <i class="lead-none-icon"></i>
           暂无隐患，请点击右上角"新增隐患"
         </div>
@@ -114,21 +142,20 @@
           <section class="c-form-inner has-fold">
             <!--          展开 +active-->
             <div class="c-form-list active">
-              <div class="list-item  item-hd">
-                <span class="item-label">问题表现</span>
-                <div class="item-info">
-                  <div class="item-txt">
-                    <input type="text" placeholder="请输入问题表现" [(ngModel)]="danger.problemDesc" disabled="{{!editable}}"/>
-                  </div>
-                  <button class="danger-del-btn" (click)="removeDanger(danger)" *ngIf="editable">删除</button>
-                </div>
-              </div>
-              <div class="list-item">
+              <div class="list-item item-hd">
                 <span class="item-label">隐患内容</span>
                 <div class="item-info">
                   <div class="item-txt">
-                    <input type="text" placeholder="请输入隐患内容" [(ngModel)]="danger.remark" disabled="{{!editable}}"/>
+                    <input
+                      type="text"
+                      placeholder="请输入隐患内容"
+                      [(ngModel)]="danger.remark"
+                      disabled="{{!editable}}"
+                    />
                   </div>
+                  <button class="danger-del-btn" (click)="removeDanger(danger)" *ngIf="editable">
+                    删除
+                  </button>
                 </div>
               </div>
               <div class="list-item" (click)="chooseLevel(danger)">
@@ -142,7 +169,7 @@
                 <ng-container *ngIf="danger.problemImageUrls">
                   <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
                     <i class="del-icon" (click)="removeImg(danger, imgUrl)" *ngIf="editable"></i>
-                    <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)">
+                    <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
                   </div>
                 </ng-container>
                 <div class="pic-col" *ngIf="editable">
@@ -157,13 +184,19 @@
               <ion-list>
                 <!--              <ion-item-sliding>-->
                 <!--                <ion-item>-->
-                <section class="c-form-inner has-fold danger-inner-box" *ngFor="let p of danger.punishesList">
+                <section
+                  class="c-form-inner has-fold danger-inner-box"
+                  *ngFor="let p of danger.punishesList"
+                >
                   <!--          展开 +active-->
                   <div class="c-form-list active">
-                    <div class="list-item item-hd" (click)="choosePunishLevel(p)"> <!--   -->
+                    <div class="list-item item-hd" (click)="choosePunishLevel(p)">
+                      <!--   -->
                       <span class="item-label">处罚类型</span>
                       <div class="item-info">
-                        <div class="item-txt c-grey-9">{{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}</div>
+                        <div class="item-txt c-grey-9">
+                          {{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}
+                        </div>
                         <i class="u-arrow-right" *ngIf="editable"></i>
                       </div>
                     </div>
@@ -171,7 +204,12 @@
                       <span class="item-label">处罚缘由</span>
                       <div class="item-info">
                         <div class="item-txt">
-                          <input type="text" placeholder="请输入处罚缘由" [(ngModel)]="p.punishReason" disabled="{{!editable}}"/>
+                          <input
+                            type="text"
+                            placeholder="请输入处罚缘由"
+                            [(ngModel)]="p.punishReason"
+                            disabled="{{!editable}}"
+                          />
                         </div>
                       </div>
                     </div>
@@ -179,37 +217,53 @@
                       <span class="item-label">处罚金额</span>
                       <div class="item-info">
                         <div class="item-txt">
-                          <input type="text" type="number" placeholder="请输入处罚金额" [(ngModel)]="p.punishPrice"
-                                 disabled="{{!editable}}"/>
+                          <input
+                            type="text"
+                            type="number"
+                            placeholder="请输入处罚金额"
+                            [(ngModel)]="p.punishPrice"
+                            disabled="{{!editable}}"
+                          />
                         </div>
                       </div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" *ngIf="[1,6,7].includes(p.punishType)">
                       <span class="item-label">处罚依据</span>
                       <div class="item-info">
                         <div class="item-txt">
-                          <input type="text" placeholder="请输入处罚依据" [(ngModel)]="p.punishBasis" disabled="{{!editable}}"/>
+                          <input
+                            type="text"
+                            placeholder="请输入处罚依据"
+                            [(ngModel)]="p.punishBasis"
+                            disabled="{{!editable}}"
+                          />
                         </div>
                       </div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" *ngIf="p.punishType===2">
                       <span class="item-label">整改标准</span>
                       <div class="item-info">
                         <div class="item-txt">
-                          <input type="text" placeholder="请输入整改标准" [(ngModel)]="p.rectifyStandard"
-                                 disabled="{{!editable}}"/>
+                          <input
+                            type="text"
+                            placeholder="请输入整改标准"
+                            [(ngModel)]="p.rectifyStandard"
+                            disabled="{{!editable}}"
+                          />
                         </div>
                       </div>
                     </div>
-                    <div class="list-item">
+                    <div class="list-item" *ngIf="p.punishType===2">
                       <span class="item-label">整改时限</span>
                       <div class="item-info">
                         <div class="item-txt">
-                          <ion-datetime displayFormat="YYYY-MM-DD"
-                                        [(ngModel)]="p.rectifyPlanFinishDate"
-                                        disabled="{{!editable}}"
-                                        [cancelText]="'取消'"
-                                        [doneText]="'确定'"></ion-datetime>
+                          <ion-datetime
+                            displayFormat="YYYY-MM-DD"
+                            [(ngModel)]="p.rectifyPlanFinishDate"
+                            disabled="{{!editable}}"
+                            [cancelText]="'取消'"
+                            [doneText]="'确定'"
+                          ></ion-datetime>
                         </div>
                       </div>
                     </div>

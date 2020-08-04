@@ -30,6 +30,9 @@ page-enterprise-search {
     font-weight: normal;
   }
   .c-group-count {
+    text-align: center;
+  }
+  .c-group-count {
     color: #666;
     flex-shrink: 0;
     margin-left: 1rem;
@@ -39,10 +42,10 @@ page-enterprise-search {
     height: 4.8rem;
     display: block;
     margin-right: 0.4rem;
-    background: url("../../assets/imgs/check.png") no-repeat center center;
+    background: url('../../assets/imgs/check.png') no-repeat center center;
     background-size: contain;
     &.checked {
-      background-image: url("../../assets/imgs/checked.png");
+      background-image: url('../../assets/imgs/checked.png');
     }
   }
   .task-select-bar {
@@ -66,6 +69,10 @@ page-enterprise-search {
       box-sizing: border-box;
     }
   }
+}
+
+.add {
+  text-align: center;
 }
 
 .link-text {

@@ -6,9 +6,14 @@
 
 <ion-content padding>
   <dd class="exam-list">
-    <dl *ngFor="let item of questions" class="exam-item" (click)="openExamDetail(item.id)">
+    <dl
+      *ngFor="let item of questions"
+      class="exam-item"
+      (click)="openExamDetail(item.id,item.name)"
+    >
       <div class="exam-title">{{item.name}}</div>
       <div class="exam-time">{{item.startDate}}</div>
     </dl>
+    <dl class="exam-item" *ngIf="questions?.length===0">暂无考试</dl>
   </dd>
 </ion-content>

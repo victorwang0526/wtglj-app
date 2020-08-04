@@ -1,18 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{inspectType == 2 ? '企业自查' : '检查任务'}}</ion-title>
+    <ion-title>{{inspectType === '2' ? '企业自查' : '检查任务'}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addTaskCheck()" *ngIf="inspectType != 2">
-        安全巡检
+      <button ion-button (click)="addTaskCheck()" *ngIf="inspectType != '2'">
+        日常检检
       </button>
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar class="task-select-bar">
     <ion-buttons class="select-btn" slot="start">
-      <ion-select placeholder="周期"
-                  (ionChange)="getTaskGroups()"
-                  [(ngModel)]="selectedDate"
-                  [cancelText]="'取消'" [okText]="'确定'">
+      <ion-select
+        placeholder="周期"
+        (ionChange)="getTaskGroups()"
+        [(ngModel)]="selectedDate"
+        [cancelText]="'取消'"
+        [okText]="'确定'"
+      >
         <ion-option *ngFor="let item of dateRanges" [value]="item.value">{{item.label}}</ion-option>
       </ion-select>
     </ion-buttons>
@@ -20,8 +23,8 @@
 </ion-header>
 
 <ion-content class="bg-grey">
-  <div style="text-align: center">
-    <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
+  <div style="text-align: center;">
+    <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
   </div>
 
   <dl class="check-group" *ngIf="!loading && groups && groups.length == 0">
@@ -31,8 +34,7 @@
   </dl>
 
   <dl class="check-group" *ngIf="!loading && groups && groups.length > 0">
-    <dd class="c-group-row" *ngFor="let group of groups"
-        (click)="openTaskChecks(group)">
+    <dd class="c-group-row" *ngFor="let group of groups" (click)="openTaskChecks(group)">
       <h4 class="c-group-tit">{{ group.taskTitle }}</h4>
       <div class="c-group-count">
         ({{group.finished}}/{{group.total}})

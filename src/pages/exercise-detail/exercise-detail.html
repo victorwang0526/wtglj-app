@@ -12,16 +12,18 @@
 
 <ion-content padding>
   <div class="exercise-container" *ngIf="questions.length>0">
-    <ng-container *ngIf="questions[questionNo] as qustion">
-      <div class="exercise-question">{{questionNo+1}}.{{qustion.topic}}</div>
+    <ng-container *ngIf="questions[questionNo] as question">
+      <div class="exercise-question">
+        {{questionNo+1}}.【{{examType[question.examType]}}】{{question.topic}}
+      </div>
       <dd>
-        <dl *ngFor="let answer of qustion.itemList" class="exercise-option">
+        <dl *ngFor="let answer of question.itemList" class="exercise-option">
           <label class="exam-answer-option">
             <input
-              [type]="qustion.examType===2?'checkbox':'radio'"
-              [name]="qustion.id"
+              [type]="question.examType===2?'checkbox':'radio'"
+              [name]="question.id"
               [value]="answer.options"
-              (click)="choose($event,qustion,answer.options)"
+              (click)="choose($event,question,answer.options)"
             />
 
             <ion-icon name="checkmark-outline"></ion-icon>
@@ -33,18 +35,19 @@
         </dl>
       </dd>
       <div class="answer" *ngIf="isShowAnswer">
-        {{qustion.allCorrectAnswer}}
+        {{question.allCorrectAnswer}}
       </div>
     </ng-container>
   </div>
 </ion-content>
 <ion-footer>
   <div class="btn-area">
-    <ng-container *ngIf="questionNo===questions.length; else elseTemplate">
-      <button type="submit" class="btn" (click)="onSubmit()">提交</button>
+    <button ion-button block (click)="showAnswer()">确定</button>
+
+    <ng-container *ngIf="questionNo===questions.length-1; else elseTemplate">
+      <button ion-button block outline (click)="onSubmit()">提交</button>
     </ng-container>
     <ng-template #elseTemplate>
-      <button ion-button block (click)="showAnswer()">确定</button>
       <button ion-button block outline (click)="next()">下一题</button>
     </ng-template>
   </div>

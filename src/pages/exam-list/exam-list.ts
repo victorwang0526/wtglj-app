@@ -33,8 +33,8 @@ export class ExamListPage {
     console.log('ionViewDidLoad ExamListPage');
   }
 
-  openExamDetail(examId) {
-    this.navCtrl.push(ExamDetailPage, { examId });
+  openExamDetail(examId: number, name: string) {
+    this.navCtrl.push(ExamDetailPage, { examId, title: name });
   }
 
   async getData(userid: number) {

@@ -20,6 +20,8 @@ import { DailyTaskPage } from '../daily-task/daily-task';
 import { NotificationPage } from '../notification/notification';
 import { ExerciseDetailPage } from '../exercise-detail/exercise-detail';
 import { ExamProvider } from '../../providers/exam-provider';
+import { Exam } from '../../models/exam-vo';
+import { ExamDetailPage } from '../exam-detail/exam-detail';
 
 @Component({
   selector: 'page-home',
@@ -35,6 +37,7 @@ export class HomePage {
 
   dangers: Array<DangerVo> = [];
   groups: Array<TaskGroupVo> = [];
+  exams: Array<Exam> = [];
   loading: boolean = false;
 
   tasks: Array<TaskCheckVo> = [];
@@ -60,6 +63,15 @@ export class HomePage {
   getXunChas() {
     this.taskProvider.getXunChaTaskCheck(this.user.id).subscribe((data: any) => {
       this.tasks = data;
+    });
+  }
+
+  getExam() {
+    if (!this.user) {
+      return;
+    }
+    this.examProvider.getExam(this.user.id).subscribe((res: any) => {
+      this.exams = res;
     });
   }
 
@@ -114,6 +126,7 @@ export class HomePage {
       this.getApproveDangers();
       this.getTaskGroups();
       this.getXunChas();
+      this.getExam();
     });
   }
 
@@ -174,6 +187,10 @@ export class HomePage {
 
   openExam() {
     this.navCtrl.push(ExamListPage, {});
+  }
+
+  openExamDetail(exam: Exam) {
+    this.navCtrl.push(ExamDetailPage, { examId: exam.id, title: exam.name });
   }
 
   openEnterprise() {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ExamProvider } from '../../providers/exam-provider';
+import { Storage } from '@ionic/storage';
 import { UserVo } from '../../models/user-vo';
 import { Question } from '../../models/exam-vo';
 import { ExamFinishPage } from '../exam-finish/exam-finish';
@@ -12,16 +13,26 @@ import { ExamFinishPage } from '../exam-finish/exam-finish';
 export class ExamDetailPage {
   user: UserVo;
   examId: string;
+  title: string;
   questions: Question[] = [];
   startTime: Date;
+  examType = {
+    0: '判断题',
+    1: '单选题',
+    2: '多选题',
+  };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public examService: ExamProvider,
+    private storage: Storage,
     public loadingController: LoadingController,
   ) {
     this.examId = navParams.get('examId');
-
+    this.title = navParams.get('title');
+    this.storage.get('user').then((u) => {
+      this.user = u;
+    });
     this.getData(this.examId);
   }
 
@@ -66,7 +77,11 @@ export class ExamDetailPage {
   }
 
   choose(event: any, item: Question, option) {
-    if (event.target.checked) {
+    const checked = item.itemList.find((i) => i.options === option).checked;
+    item.itemList.find((i) => i.options === option).checked =
+      checked && item.examType !== 2 ? checked : !checked;
+
+    if (checked === true) {
       if (item.examType === 2) {
         item.answer = Array.from(new Set([...item.answer, option]));
       } else {

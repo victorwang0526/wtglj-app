@@ -26,7 +26,9 @@ export class NotificationDetailPage {
   }
 
   getDetial() {
-    this.notificationProvider.getNoticeDetail(this.id).subscribe((data) => (this.detail = data));
+    this.notificationProvider
+      .getNoticeDetail(this.id)
+      .subscribe((data: any) => (this.detail = { ...data.noticeDTO, ...data }));
   }
 
   changeStatus() {

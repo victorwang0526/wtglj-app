@@ -9,7 +9,7 @@ page-exam-detail {
       display: block;
       margin: 0.5rem auto;
       width: 90%;
-      height: 2rem;
+      height: 3rem;
       border-radius: 15px;
       color: #fff;
       background-color: #137ffe;
@@ -29,10 +29,14 @@ page-exam-detail {
       margin-bottom: 1rem;
     }
     .exam-answer {
+      margin: 1rem 0;
+    }
+    .exam-answer-item {
       display: flex;
+      min-height: 2rem;
       line-height: 2rem;
       &:not(:last-child) {
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
       }
     }
     .exam-answer-option {

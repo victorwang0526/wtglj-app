@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>xxxxx考试</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -16,16 +16,20 @@
       <dd>
         <dl *ngFor="let item of questions; let i=index" class="exam-question">
           <div>
-            {{i+1}}．{{item.topic}}
+            {{i+1}}.【{{examType[item.examType]}}】{{item.topic}}
           </div>
-          <dd>
-            <dl *ngFor="let answer of item.itemList" class="exam-answer">
+          <dd class="exam-answer">
+            <dl
+              *ngFor="let answer of item.itemList"
+              class="exam-answer-item"
+              (click)="choose($event,item,answer.options)"
+            >
               <label class="exam-answer-option">
                 <input
                   [type]="item.examType===2?'checkbox':'radio'"
                   [name]="item.id"
                   [value]="answer.options"
-                  (click)="choose($event,item,answer.options)"
+                  [checked]="answer.checked"
                 />
                 <i></i>
                 <div class="label">

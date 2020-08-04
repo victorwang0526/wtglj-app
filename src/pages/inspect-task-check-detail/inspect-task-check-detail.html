@@ -10,8 +10,8 @@
 <ion-content class="bg-grey">
   <div class="g-flex-main">
     <div class="check-detail-hd">{{taskCheck.inspectTitle + ' ' + taskCheck.groupTitle}}</div>
-    <div style="text-align: center">
-      <ion-spinner *ngIf="loading" color="primary" ></ion-spinner>
+    <div style="text-align: center;">
+      <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
     </div>
     <div class="check-form g-flex-box" *ngIf="inspect">
       <div class="c-form-box">
@@ -24,37 +24,58 @@
               <dl class="c-form-choose">
                 <dd class="choose-desc" *ngFor="let c of subItem.items.split(',')">
                   <div class="c-desc-txt">{{c}}</div>
-                  <ion-checkbox mode="md" [checked]="subItem.checked == c"
-                                [disabled]="!editable"
-                                (click)="checkItem(subItem, c)"></ion-checkbox>
+                  <ion-checkbox
+                    mode="md"
+                    [checked]="subItem.checked == c"
+                    [disabled]="!editable"
+                    (click)="checkItem(subItem, c)"
+                  ></ion-checkbox>
                 </dd>
               </dl>
-              <div class="danger-enter" (click)="openDangerList(subItem)" *ngIf="subItem.checked === '有隐患'">
+              <div
+                class="danger-enter"
+                (click)="openDangerList(subItem)"
+                *ngIf="subItem.checked === '有隐患'"
+              >
                 <div class="link-txt">隐患列表</div>
-                <span class="danger-count-txt">({{!subItem.dangers || subItem.dangers.length === 0 ? 0 : subItem.dangers.length}})</span>
+                <span class="danger-count-txt"
+                  >({{!subItem.dangers || subItem.dangers.length === 0 ? 0 :
+                  subItem.dangers.length}})</span
+                >
               </div>
 
               <div class="c-form-remark" style="display: none;">
                 <div class="remark-info">
                   <span class="c-label">备注：</span>
                   <div class="remark-txt">
-                    <input type="text" placeholder="请输入备注" [(ngModel)]="subItem.remark"
-                           [disabled]="!editable"/>
+                    <input
+                      type="text"
+                      placeholder="请输入备注"
+                      [(ngModel)]="subItem.remark"
+                      [disabled]="!editable"
+                    />
                   </div>
                 </div>
-                <button class="photo-btn" ion-button color="primary" outline
-                        (click)="cameraChoose(subItem)"
-                        *ngIf="taskCheck.operateDate == null">
+                <button
+                  class="photo-btn"
+                  ion-button
+                  color="primary"
+                  outline
+                  (click)="cameraChoose(subItem)"
+                  *ngIf="taskCheck.operateDate == null"
+                >
                   <ion-icon slot="start" name="camera"></ion-icon>
                   拍照
                 </button>
               </div>
               <div class="upload-pic" *ngIf="subItem.imageUrls || subItem.imgLoading">
                 <ng-container *ngIf="subItem.imageUrls">
-                  <v-image *ngFor="let imgUrl of subItem.imageUrls.split(',')"
-                           [imgUrl]="imgUrl"
-                           (remove)="removeImg(subItem, imgUrl)"
-                           [showRemove]="taskCheck.operateDate == null"></v-image>
+                  <v-image
+                    *ngFor="let imgUrl of subItem.imageUrls.split(',')"
+                    [imgUrl]="imgUrl"
+                    (remove)="removeImg(subItem, imgUrl)"
+                    [showRemove]="taskCheck.operateDate == null"
+                  ></v-image>
                 </ng-container>
                 <v-image *ngIf="subItem.imgLoading" [loading]="true"></v-image>
               </div>
@@ -69,20 +90,45 @@
           <div class="c-form-list active">
             <div class="list-item-box fold-box">
               <div class="list-item item-hd">
-                <span class="item-label">负责人</span>
+                <span class="item-label">检查人员</span>
                 <div class="item-info">
                   <div class="item-txt">
-                    <input type="text" placeholder="负责人" [(ngModel)]="taskCheck.operator"
-                           [disabled]="!editable"/>
+                    <!-- <input
+                      type="text"
+                      placeholder="检查人员"
+                      [(ngModel)]="taskCheck.operator"
+                      [disabled]="!editable"
+                    /> -->
+                    <ion-buttons class="select-btn" slot="end">
+                      <ion-select
+                        class="ico-select-txt"
+                        placeholder="行业"
+                        [(ngModel)]="taskCheck.operator"
+                        [cancelText]="'取消'"
+                        [okText]="'确定'"
+                      >
+                        <ion-option *ngFor="let operator of operators" [value]="operator"
+                          >{{operator}}</ion-option
+                        >
+                      </ion-select>
+                    </ion-buttons>
                   </div>
                 </div>
               </div>
               <div class="list-item">
-                <span class="item-label">负责人签名</span>
+                <span class="item-label">检查人员签名</span>
                 <div class="item-info">
                   <div class="item-txt">
-                    <img class="sign-pic" *ngIf="taskCheck.auditImages" src="{{taskCheck.auditImages}}" (click)="openPreview(taskCheck.auditImages)" alt="" />
-                    <span class="sign-btn" *ngIf="editable" (click)="openSignature()">点击签名</span>
+                    <img
+                      class="sign-pic"
+                      *ngIf="taskCheck.auditImages"
+                      src="{{taskCheck.auditImages}}"
+                      (click)="openPreview(taskCheck.auditImages)"
+                      alt=""
+                    />
+                    <span class="sign-btn" *ngIf="editable" (click)="openSignature()"
+                      >点击签名</span
+                    >
                   </div>
                 </div>
               </div>
@@ -90,8 +136,12 @@
                 <span class="item-label">备注</span>
                 <div class="item-info">
                   <div class="item-txt">
-                    <input type="text" placeholder="暂无隐患，或输入其他备注"  [(ngModel)]="taskCheck.remark"
-                           [disabled]="!editable"/>
+                    <input
+                      type="text"
+                      placeholder="暂无隐患，或输入其他备注"
+                      [(ngModel)]="taskCheck.remark"
+                      [disabled]="!editable"
+                    />
                   </div>
                 </div>
               </div>
@@ -106,7 +156,10 @@
               <span class="item-label">联合检查</span>
               <div class="item-info" (click)="chooseIsUnion()">
                 <div class="item-txt c-grey-9">{{taskCheck.isUnion ? '是' : '否'}}</div>
-                <i [class.u-arrow-right]="!taskCheck.isUnion" [class.u-arrow-down]="taskCheck.isUnion"></i>
+                <i
+                  [class.u-arrow-right]="!taskCheck.isUnion"
+                  [class.u-arrow-down]="taskCheck.isUnion"
+                ></i>
               </div>
             </div>
             <ng-container *ngIf="taskCheck.isUnion">
@@ -115,17 +168,25 @@
                   <span class="item-label">联合部门</span>
                   <div class="item-info">
                     <div class="item-txt">
-                      <input type="text" placeholder="请输入联合部门"  [(ngModel)]="taskCheck.unionDepts"
-                             [disabled]="!editable"/>
+                      <input
+                        type="text"
+                        placeholder="请输入联合部门"
+                        [(ngModel)]="taskCheck.unionDepts"
+                        [disabled]="!editable"
+                      />
                     </div>
                   </div>
                 </div>
                 <div class="list-item">
-                  <span class="item-label">负责人</span>
+                  <span class="item-label">检查人员</span>
                   <div class="item-info">
                     <div class="item-txt">
-                      <input type="text" placeholder="请输入负责人"  [(ngModel)]="taskCheck.unionUser"
-                             [disabled]="!editable"/>
+                      <input
+                        type="text"
+                        placeholder="请输入检查人员"
+                        [(ngModel)]="taskCheck.unionUser"
+                        [disabled]="!editable"
+                      />
                     </div>
                   </div>
                 </div>
@@ -135,6 +196,8 @@
         </section>
       </div>
     </div>
-    <button class="submit-button" *ngIf="taskCheck.operateDate == null" (click)="submit()">提交</button>
+    <button class="submit-button" *ngIf="taskCheck.operateDate == null" (click)="submit()">
+      提交
+    </button>
   </div>
 </ion-content>

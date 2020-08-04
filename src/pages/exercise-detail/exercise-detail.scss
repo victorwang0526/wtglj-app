@@ -79,4 +79,21 @@ page-exercise-detail {
       margin-left: 0.5rem;
     }
   }
+
+  .btn-area {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff;
+    .btn {
+      display: block;
+      margin: 0.5rem auto;
+      width: 90%;
+      height: 3rem;
+      border-radius: 15px;
+      color: #fff;
+      background-color: #137ffe;
+    }
+  }
 }

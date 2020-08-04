@@ -24,6 +24,12 @@ export class ExerciseDetailPage {
   examId: string;
   isShowAnswer = false;
   startTime: Date = new Date();
+  examType = {
+    0: '判断题',
+    1: '单选题',
+    2: '多选题',
+  };
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,7 +38,9 @@ export class ExerciseDetailPage {
     public loadingController: LoadingController,
   ) {
     this.examId = navParams.get('examId');
-
+    this.storage.get('user').then((u) => {
+      this.user = u;
+    });
     this.getData(this.examId);
   }
 
