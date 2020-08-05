@@ -9,7 +9,7 @@ import { ExamListPage } from '../exam-list/exam-list';
 export class ExamFinishPage {
   data: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.data = navParams.get('examResult');
+    this.data = JSON.parse(navParams.get('examResult'));
   }
 
   ionViewDidLoad() {
@@ -17,6 +17,6 @@ export class ExamFinishPage {
   }
 
   goBack() {
-    this.navCtrl.popTo(ExamListPage, {});
+    this.navCtrl.popToRoot();
   }
 }
