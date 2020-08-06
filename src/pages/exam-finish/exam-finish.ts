@@ -9,7 +9,7 @@ import { ExamListPage } from '../exam-list/exam-list';
 export class ExamFinishPage {
   data: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.data = JSON.parse(navParams.get('examResult'));
+    this.data = navParams.get('examResult');
   }
 
   ionViewDidLoad() {

@@ -22,7 +22,7 @@ import { ExerciseDetailPage } from '../exercise-detail/exercise-detail';
 import { ExamProvider } from '../../providers/exam-provider';
 import { Exam } from '../../models/exam-vo';
 import { ExamDetailPage } from '../exam-detail/exam-detail';
-import { HiddenDangerPage } from '../hidden-danger/hidden-danger';
+import { PunishListPage } from '../punish-list/punish-list';
 
 @Component({
   selector: 'page-home',
@@ -157,7 +157,7 @@ export class HomePage {
   }
 
   openDanger() {
-    this.navCtrl.push(HiddenDangerPage);
+    this.navCtrl.push(PunishListPage);
   }
 
   openDangerApprove(danger) {

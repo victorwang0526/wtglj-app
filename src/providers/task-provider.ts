@@ -110,4 +110,10 @@ export class TaskProvider {
       .get(`/mobile/exampractice/getGroupUserByUserId/${deptId}`)
       .map((res: any) => res.data);
   }
+
+  getUserPunish(operatorId: number): Observable<any[]> {
+    return this.http
+      .get(`/sys/sysinspecttaskpunish/getUserPunishEntity?operatorId=${operatorId}`)
+      .map((res: any) => res.data);
+  }
 }

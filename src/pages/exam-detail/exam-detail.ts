@@ -45,7 +45,6 @@ export class ExamDetailPage {
       answer: item.answer + '',
       examMasterId: item.examMasterId,
     }));
-    debugger;
     const data = {
       endTime: new Date(), //结束时间
       examPracticeId: this.examId, //考试Id
@@ -53,11 +52,11 @@ export class ExamDetailPage {
       startTime: this.startTime, //开始时间
       itemList,
     };
-    // this.examService
-    //   .achievementSave(data)
-    //   .filter((data) => data && data.data)
-    //   .map((data) => JSON.stringify(data.data))
-    //   .subscribe((data) => this.navCtrl.push(ExamFinishPage, { examResult: data }));
+    this.examService
+      .achievementSave(data)
+      .filter((data) => data && data.data)
+      .map((data) => data.data)
+      .subscribe((examResult) => this.navCtrl.push(ExamFinishPage, examResult));
   }
 
   async getData(id: string) {
