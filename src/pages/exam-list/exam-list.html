@@ -14,6 +14,6 @@
       <div class="exam-title">{{item.name}}</div>
       <div class="exam-time">{{item.startDate}}</div>
     </dl>
-    <dl class="exam-item" *ngIf="questions?.length===0">暂无考试</dl>
+    <dl class="exam-item no-data" *ngIf="questions?.length===0">暂无考试</dl>
   </dd>
 </ion-content>

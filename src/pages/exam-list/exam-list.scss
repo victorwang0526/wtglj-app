@@ -32,4 +32,13 @@
       background: url('../../assets/imgs/unchecked.png') center / 100% no-repeat;
     }
   }
+  .exam-item .no-data {
+    position: relative;
+    min-height: 4.4rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1) inset, 0 0 1rem rgba(17, 17, 17, 0.08);
+  }
 }

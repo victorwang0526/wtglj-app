@@ -11,15 +11,17 @@
 </ion-header>
 
 <ion-content>
-  <div class="exam-result">
-    <div>本次考试得分： <span class="exam-scope">{{data.scope}}</span></div>
-  </div>
-  <div>
-    <div class="exam-result-list">
-      <div class="exam-result-item">用时共{{data.duration}}分钟</div>
-      <div class="exam-result-item">正确率：{{data.correctRate*100}}%</div>
-      <div class="exam-result-item">错题数：{{data.errorNum}}</div>
+  <ng-container *ngIf="data">
+    <div class="exam-result">
+      <div>本次考试得分： <span class="exam-scope">{{data.scope}}</span></div>
     </div>
-    <button ion-button block outline (click)="goBack()">返回</button>
-  </div>
+    <div>
+      <div class="exam-result-list">
+        <div class="exam-result-item">用时共{{data.duration}}分钟</div>
+        <div class="exam-result-item">正确率：{{data.correctRate*100}}%</div>
+        <div class="exam-result-item">错题数：{{data.errorNum}}</div>
+      </div>
+    </div>
+  </ng-container>
+  <button ion-button block outline (click)="goBack()">返回</button>
 </ion-content>
