@@ -56,6 +56,7 @@ import { ExamProvider } from '../providers/exam-provider';
 import { RegiterProvider } from '../providers/regiter-provider';
 import { RegiserPage } from '../pages/regiser/regiser';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { HiddenDangerPage } from '../pages/hidden-danger/hidden-danger';
 
 // @ts-ignore
 @NgModule({
@@ -90,6 +91,7 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     ExerciseDetailPage,
     RegiserPage,
     ForgotPasswordPage,
+    HiddenDangerPage,
   ],
   imports: [
     HttpClientModule,
@@ -138,6 +140,7 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     ExerciseDetailPage,
     RegiserPage,
     ForgotPasswordPage,
+    HiddenDangerPage,
   ],
   providers: [
     CallNumber,
