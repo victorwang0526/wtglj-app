@@ -45,6 +45,7 @@ export class ExamDetailPage {
       answer: item.answer + '',
       examMasterId: item.examMasterId,
     }));
+    debugger;
     const data = {
       endTime: new Date(), //结束时间
       examPracticeId: this.examId, //考试Id
@@ -52,9 +53,11 @@ export class ExamDetailPage {
       startTime: this.startTime, //开始时间
       itemList,
     };
-    this.examService
-      .achievementSave(data)
-      .subscribe((data) => this.navCtrl.push(ExamFinishPage, { examResult: data.data }));
+    // this.examService
+    //   .achievementSave(data)
+    //   .filter((data) => data && data.data)
+    //   .map((data) => JSON.stringify(data.data))
+    //   .subscribe((data) => this.navCtrl.push(ExamFinishPage, { examResult: data }));
   }
 
   async getData(id: string) {
@@ -76,12 +79,12 @@ export class ExamDetailPage {
     );
   }
 
-  choose(event: any, item: Question, option) {
+  choose(item: Question, option: string) {
     const checked = item.itemList.find((i) => i.options === option).checked;
     item.itemList.find((i) => i.options === option).checked =
       checked && item.examType !== 2 ? checked : !checked;
-
-    if (checked === true) {
+    const state = item.itemList.find((i) => i.options === option).checked;
+    if (state === true) {
       if (item.examType === 2) {
         item.answer = Array.from(new Set([...item.answer, option]));
       } else {

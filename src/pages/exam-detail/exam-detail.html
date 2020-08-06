@@ -22,7 +22,7 @@
             <dl
               *ngFor="let answer of item.itemList"
               class="exam-answer-item"
-              (click)="choose($event,item,answer.options)"
+              (click)="choose(item,answer.options)"
             >
               <label class="exam-answer-option">
                 <input
