@@ -12,15 +12,12 @@
 
 <ion-content padding>
   <dd class="danger-list">
-    <dl
-      *ngFor="let item of dangers"
-      class="danger-item"
-      (click)="openDangerDetail(item.id,item.name)"
-    >
-      <div class="danger-title"><!-- {{item.name}} -->十黑阿萨德</div>
+    <dl *ngFor="let item of dangers" class="danger-item" (click)="openDangerDetail(item)">
+      <div class="danger-title">{{item?.dangerDesc}}</div>
 
       <div class="danger-info">
-        <span>名扬企业</span> <span class="danger-time">2020年8月6日 17:31:05</span>
+        <span>{{item?.enterpriseName}}</span>
+        <span class="danger-time">{{item?.planFinishDate}}</span>
       </div>
     </dl>
     <dl class="danger-item no-data" *ngIf="dangers?.length===0">暂无隐患</dl>

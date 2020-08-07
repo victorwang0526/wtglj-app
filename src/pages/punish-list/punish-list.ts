@@ -11,7 +11,7 @@ import { DangerVo } from '../../models/danger-vo';
   templateUrl: 'punish-list.html',
 })
 export class PunishListPage {
-  dangers: any[] = [1, 2, 3];
+  dangers: any[] = [];
   user: UserVo;
   constructor(
     public navCtrl: NavController,
@@ -33,7 +33,7 @@ export class PunishListPage {
     this.taskProvider
       .getUserPunish(this.user.id)
       .take(1)
-      .subscribe((data) => (this.dangers = data));
+      .subscribe((data) => (this.dangers = data.records));
   }
 
   openDangerDetail(danger: DangerVo) {
