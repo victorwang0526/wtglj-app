@@ -19,6 +19,19 @@
           <!--          展开 +active-->
           <div class="c-form-list active">
             <div class="list-item item-hd">
+              <span class="item-label">企业名称</span>
+              <div class="item-info">
+                <div class="item-txt">
+                  <input
+                    type="text"
+                    placeholder="请输入企业名称"
+                    [(ngModel)]="danger.enterpriseName"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
               <span class="item-label">问题表现</span>
               <div class="item-info">
                 <div class="item-txt">
@@ -51,146 +64,163 @@
                 <i class="u-arrow-right"></i>
               </div>
             </div>
-            <div class="list-item upload-pic">
-              <ng-container *ngIf="danger.problemImageUrls">
+            <!-- <div class="list-item upload-pic">
+              <ng-container *ngIf="danger?.rectifyCompleteImagesUrls">
                 <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
                   <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
                 </div>
               </ng-container>
-            </div>
+            </div> -->
 
             <!-- 处罚清单 -->
             <ion-list>
               <!--              <ion-item-sliding>-->
               <!--                <ion-item>-->
-              <section
+              <!-- <section
                 class="c-form-inner has-fold danger-inner-box"
                 *ngFor="let p of danger.punishesList"
-              >
-                <!--          展开 +active-->
-                <div class="c-form-list active">
-                  <div class="list-item item-hd">
-                    <!--  (click)="choosePunishLevel(p)" -->
-                    <span class="item-label">处罚类型</span>
-                    <div class="item-info">
-                      <div class="item-txt c-grey-9">
-                        {{p.punishTypeLabel == '' ? '请选择处罚类型' : p.punishTypeLabel}}
-                      </div>
-                      <i class="u-arrow-right"></i>
+              > -->
+              <!--          展开 +active-->
+              <div class="c-form-list active">
+                <div class="list-item item-hd">
+                  <!--  (click)="choosePunishLevel(p)" -->
+                  <span class="item-label">处罚类型</span>
+                  <div class="item-info">
+                    <div class="item-txt c-grey-9">
+                      限期整改
+                    </div>
+                    <i class="u-arrow-right"></i>
+                  </div>
+                </div>
+                <!-- <div class="list-item" *ngIf="danger?.punishType===2">
+                  <span class="item-label">处罚金额</span>
+                  <div class="item-info">
+                    <div class="item-txt">
+                      <input
+                        type="text"
+                        placeholder="请输入处罚金额"
+                        [(ngModel)]="danger.punishPrice"
+                        disabled
+                      />
                     </div>
                   </div>
-                  <!-- <div class="list-item">
-                    <span class="item-label">处罚缘由</span>
-                    <div class="item-info">
-                      <div class="item-txt">
-                        <input type="text" placeholder="请输入处罚缘由" [(ngModel)]="p.punishReason" disabled/>
-                      </div>
+                </div>
+                <div class="list-item" *ngIf="[2,3,4,5,6].includes(danger?.punishType)">
+                  <span class="item-label">处罚依据</span>
+                  <div class="item-info">
+                    <div class="item-txt">
+                      <input
+                        type="text"
+                        placeholder="请输入处罚依据"
+                        [(ngModel)]="danger.punishBasis"
+                        disabled
+                      />
                     </div>
-                  </div> -->
-                  <div class="list-item" *ngIf="p.punishType===2">
-                    <span class="item-label">处罚金额</span>
+                  </div>
+                </div> -->
+                <!-- <ng-container *ngIf="danger?.punishType===1"> -->
+                <div class="list-item">
+                  <span class="item-label">整改标准</span>
+                  <div class="item-info">
+                    <div class="item-txt">
+                      <input
+                        type="text"
+                        placeholder="请输入整改标准"
+                        [(ngModel)]="danger.rectifyStandard"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <span class="item-label">整改时限</span>
+                  <div class="item-info">
+                    <div class="item-txt">
+                      <input
+                        type="text"
+                        placeholder="请输入整改时限"
+                        [(ngModel)]="danger.planFinishDate"
+                        disabled
+                      />
+                      <!-- <ion-datetime
+                        displayFormat="YYYY-MM-DD"
+                        [(ngModel)]="danger.planFinishDate"
+                        [cancelText]="'取消'"
+                        [doneText]="'确定'"
+                        disabled
+                      ></ion-datetime> -->
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="list-item">
+                    <span class="item-label">整改描述</span>
                     <div class="item-info">
                       <div class="item-txt">
                         <input
                           type="text"
-                          placeholder="请输入处罚金额"
-                          [(ngModel)]="p.punishPrice"
+                          placeholder="请输入整改描述"
+                          [(ngModel)]="danger.rectifyCompleteDesc"
                           disabled
                         />
                       </div>
-                    </div>
-                  </div>
-                  <div class="list-item" *ngIf="[2,3,4,5,6].includes(p.punishType)">
-                    <span class="item-label">处罚依据</span>
-                    <div class="item-info">
-                      <div class="item-txt">
-                        <input
-                          type="text"
-                          placeholder="请输入处罚依据"
-                          [(ngModel)]="p.punishBasis"
-                          disabled
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <ng-container *ngIf="p.punishType===1">
-                    <div class="list-item">
-                      <span class="item-label">整改标准</span>
-                      <div class="item-info">
-                        <div class="item-txt">
-                          <input
-                            type="text"
-                            placeholder="请输入整改标准"
-                            [(ngModel)]="p.rectifyStandard"
-                            disabled
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="list-item">
-                      <span class="item-label">整改时限</span>
-                      <div class="item-info">
-                        <div class="item-txt">
-                          <ion-datetime
-                            displayFormat="YYYY-MM-DD"
-                            [(ngModel)]="p.rectifyPlanFinishDate"
-                            [cancelText]="'取消'"
-                            [doneText]="'确定'"
-                            disabled
-                          ></ion-datetime>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="list-item">
-                      <span class="item-label">整改描述</span>
-                      <div class="item-info">
-                        <div class="item-txt">
-                          <input
-                            type="text"
-                            placeholder="请输入整改描述"
-                            [(ngModel)]="p.rectifyCompleteDesc"
-                            disabled
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="list-item">
-                      <span class="item-label">整改日期</span>
-                      <div class="item-info">
-                        <div class="item-txt">
-                          <input
-                            type="text"
-                            placeholder="请输入整改日期"
-                            [(ngModel)]="p.rectifyCompleteDate"
-                            disabled
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="list-item">
-                      <span class="item-label">整改日期</span>
-                      <div class="item-info">
-                        <div class="item-txt">
-                          <input type="text" placeholder="请输入整改日期" [(ngModel)]="p.remark" />
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                  <div class="list-item upload-pic" *ngIf="p.rectifyCompleteImagesUrls">
-                    <div
-                      class="pic-col"
-                      *ngFor="let imgUrl of p.rectifyCompleteImagesUrls.split(',')"
-                    >
-                      <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
                     </div>
                   </div>
                   <div class="list-item">
-                    <button class="del-full-btn" (click)="finshPunish(p)" *ngIf="!p.reviewDate">
-                      整改完成
-                    </button>
+                    <span class="item-label">整改日期</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input
+                          type="text"
+                          placeholder="请输入整改日期"
+                          [(ngModel)]="danger.rectifyCompleteDate"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-item">
+                    <span class="item-label">整改日期</span>
+                    <div class="item-info">
+                      <div class="item-txt">
+                        <input
+                          type="text"
+                          placeholder="请输入整改日期"
+                          [(ngModel)]="danger.remark"
+                        />
+                      </div>
+                    </div>
+                  </div> -->
+                <!-- </ng-container> -->
+                <div class="list-item upload-pic">
+                  <ng-container *ngIf="imgUrls">
+                    <div class="pic-col" *ngFor="let imgUrl of imgUrls;let i=index">
+                      <i class="del-icon" (click)="removeImg(i)"></i>
+                      <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
+                    </div>
+                  </ng-container>
+                  <div class="pic-col">
+                    <button class="add-pic-btn" (click)="cameraChoose()"></button>
                   </div>
                 </div>
-              </section>
+                <div class="list-item">
+                  <span class="item-label">整改结果</span>
+                  <div class="item-info">
+                    <div class="item-txt">
+                      <input
+                        type="text"
+                        placeholder="请输入整改结果"
+                        [(ngModel)]="rectifyCompleteDesc"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <button class="del-full-btn" (click)="finshPunish()">
+                    整改完成
+                  </button>
+                </div>
+              </div>
+              <!-- </section> -->
               <!--                </ion-item>-->
 
               <!--                <ion-item-options side="right">-->

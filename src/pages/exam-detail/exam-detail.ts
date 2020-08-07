@@ -56,7 +56,7 @@ export class ExamDetailPage {
       .achievementSave(data)
       .filter((data) => data && data.data)
       .map((data) => data.data)
-      .subscribe((examResult) => this.navCtrl.push(ExamFinishPage, examResult));
+      .subscribe((examResult) => this.navCtrl.push(ExamFinishPage, { examResult }));
   }
 
   async getData(id: string) {

@@ -17,27 +17,46 @@ page-punish-list {
       }
 
       .danger-info {
+        display: flex;
         font-size: 1.2rem;
         color: #999;
+        .danger-enterprise {
+          width: 50%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
 
         .danger-time {
           float: right;
         }
       }
-
-      &::after {
-        position: absolute;
-        top: 50%;
-        right: 2%;
-        transform: translateY(-50%);
-        display: block;
-        width: 6.5rem;
-        height: 6.5rem;
-        content: ' ';
-        background: url('../../assets/imgs/unchecked.png') center / 100% no-repeat;
-      }
     }
-    .danger-item .no-data {
+    .unrectified::after {
+      position: absolute;
+      top: 50%;
+      right: 2%;
+      transform: translateY(-50%);
+      display: block;
+      width: 5rem;
+      height: 5rem;
+      content: ' ';
+      background: url('../../assets/imgs/unrectified.jpg') center / 100% no-repeat;
+    }
+
+    .unfinished::after {
+      position: absolute;
+      top: 50%;
+      right: 2%;
+      transform: translateY(-50%);
+      display: block;
+      width: 5rem;
+      height: 5rem;
+      content: ' ';
+      background: url('../../assets/imgs/unfinished.jpg') center / 100% no-repeat;
+    }
+
+    .no-data {
       position: relative;
       min-height: 4.4rem;
       padding: 1rem;

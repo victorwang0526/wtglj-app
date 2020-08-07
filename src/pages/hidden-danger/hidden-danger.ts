@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController,
+  ActionSheetController,
+} from 'ionic-angular';
 import { TaskProvider } from '../../providers/task-provider';
 import { UserVo } from '../../models/user-vo';
-import { Storage } from '@ionic/storage';
-import { DangerVo } from '../../models/danger-vo';
+import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera';
 import { ImagePreviewPage } from '../image-preview/image-preview';
-
+import { UploadProvider } from '../../providers/upload-provider';
+import { DictDataVo } from '../../models/dict-data-vo';
 /**
  * Generated class for the HiddenDangerPage page.
  *
@@ -20,105 +26,129 @@ import { ImagePreviewPage } from '../image-preview/image-preview';
 export class HiddenDangerPage {
   danger: any;
   user: UserVo;
+  imgUrls: string[] = [];
+  imgLoading: boolean = false;
+  rectifyCompleteDesc = '';
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public taskProvider: TaskProvider,
-    private storage: Storage,
+    public uploadProvider: UploadProvider,
+    public loadingController: LoadingController,
+    private camera: Camera,
+    public actionSheetController: ActionSheetController,
   ) {
+    this.getPunishTypes();
+    this.getDangerTypes();
     this.danger = this.navParams.get('danger');
-    // this.danger = {
-    //   taskSubItemId: '',
-    //   problemDesc: '',
-    //   problemLevel: '',
-    //   problemLevelLabel: '',
-    //   problemImageUrls: '',
-    //   imgLoading: false,
-    //   remark: '',
-    //   punishesList: [
-    //     {
-    //       id: 0,
-
-    //       dangerId: 0,
-
-    //       /**
-    //        * 处罚类型,{0:关闭或取缔},{1,处罚金额,}{2:责令限期修改}{3:责令暂时停产}{4:立案处罚}{5:暂扣吊销证照}{6:追究刑事责任}
-    //        */
-    //       punishType: 1,
-    //       punishTypeLabel: '',
-
-    //       taskCheckId: 0,
-
-    //       taskCheckItemId: 0,
-
-    //       /**
-    //        * 处罚缘由
-    //        */
-    //       punishReason: '',
-
-    //       /**
-    //        * 处罚金额
-    //        */
-    //       punishPrice: 0,
-
-    //       /**
-    //        * 处罚依据
-    //        */
-    //       punishBasis: '',
-
-    //       /**
-    //        * 整改标准
-    //        */
-    //       rectifyStandard: '',
-
-    //       /**
-    //        * 整改计划完成时间
-    //        */
-    //       rectifyPlanFinishDate: new Date(),
-
-    //       /**
-    //        * 企业整改完成时间
-    //        */
-    //       rectifyCompleteDate: new Date(),
-
-    //       /**
-    //        * 企业整改后照片
-    //        */
-    //       rectifyCompleteImagesUrls: '',
-
-    //       /**
-    //        * 整改描述
-    //        */
-    //       rectifyCompleteDesc: '',
-
-    //       /** 整改结果 */
-    //       remark: '',
-
-    //       /**
-    //        * 审核人
-    //        */
-    //       reviewer: 0,
-
-    //       /**
-    //        * 审核时间
-    //        */
-    //       reviewDate: new Date(),
-    //     },
-    //   ],
-    // };
-    this.storage.get('user').then((u) => {
-      this.user = u;
-      // this.getData();
-    });
+    this.imgUrls =
+      this.danger.rectifyCompleteImagesUrls && this.danger.rectifyCompleteImagesUrls.split(',');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HiddenDangerPage');
   }
 
-  openPreview(imgUrl: '') {
+  async cameraChoose() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: '拍照',
+          icon: 'camera',
+          handler: () => {
+            this.cameraOpen(PictureSourceType.CAMERA);
+          },
+        },
+        {
+          text: '相册',
+          icon: 'folder',
+          handler: () => {
+            this.cameraOpen(PictureSourceType.SAVEDPHOTOALBUM);
+          },
+        },
+        {
+          text: '取消',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
+  uploadImg(imageData: any) {
+    fetch(`data:application/octet-stream;base64,${imageData}`)
+      .then((res) => res.blob())
+      .then((blob) => {
+        this.imgLoading = true;
+        this.uploadProvider.upload(blob).subscribe(
+          (src) => {
+            this.imgUrls.push(src);
+          },
+          () => {},
+          () => {
+            this.imgLoading = false;
+          },
+        );
+      });
+  }
+
+  openPreview(imgUrl: string) {
     this.navCtrl.push(ImagePreviewPage, { imgUrl });
   }
 
-  finshPunish() {}
+  removeImg(index: number) {
+    this.imgUrls.splice(index, 1);
+  }
+
+  cameraOpen(sourceType: number) {
+    const options: CameraOptions = {
+      quality: 80,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType,
+    };
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        this.uploadImg(imageData);
+      },
+      (err) => {
+        // Handle error
+      },
+    );
+  }
+
+  getPunishTypes() {
+    this.taskProvider.getPunishTypes().subscribe((datas: Array<DictDataVo>) => {
+      this.danger.punishTypeLabel = datas.find(
+        (data) => data.dictValue === this.danger.punishType + '',
+      ).dictLabel;
+    });
+  }
+
+  getDangerTypes() {
+    this.taskProvider.getDangerTypes().subscribe((datas: Array<DictDataVo>) => {
+      this.danger.problemLevelLabel = datas.find(
+        (data) => data.dictValue === this.danger.problemLevel + '',
+      ).dictLabel;
+    });
+  }
+
+  finshPunish() {
+    const params = [
+      {
+        id: this.danger.id,
+        rectifyCompleteDesc: this.rectifyCompleteDesc,
+        rectifyCompleteImagesUrls: this.imgUrls.join(','),
+      },
+    ];
+    this.taskProvider
+      .finishPunishes({ punishesList: params })
+      .subscribe(() => this.navCtrl.popToRoot());
+  }
 }

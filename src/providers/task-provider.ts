@@ -118,4 +118,10 @@ export class TaskProvider {
       )
       .map((res: any) => res.data);
   }
+
+  finishPunishes(parms: any): Observable<any> {
+    return this.http
+      .post(`/sys/sysinspecttaskcheck/finishPunishes`, parms)
+      .map((res: any) => res.data);
+  }
 }

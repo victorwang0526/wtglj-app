@@ -12,14 +12,19 @@
 
 <ion-content padding>
   <dd class="danger-list">
-    <dl *ngFor="let item of dangers" class="danger-item" (click)="openDangerDetail(item)">
+    <dl
+      *ngFor="let item of dangers"
+      class="danger-item"
+      [ngClass]="[!item?.rectifyCompleteDate?'unrectified':!item?.reviewer?'unfinished':'']"
+      (click)="openDangerDetail(item)"
+    >
       <div class="danger-title">{{item?.dangerDesc}}</div>
 
       <div class="danger-info">
-        <span>{{item?.enterpriseName}}</span>
-        <span class="danger-time">{{item?.planFinishDate}}</span>
+        <span class="danger-enterprise">{{item?.enterpriseName}}</span>
+        <span class="danger-time">{{item?.planFinishDate |date:'yyyy-MM-dd'}}</span>
       </div>
     </dl>
-    <dl class="danger-item no-data" *ngIf="dangers?.length===0">暂无隐患</dl>
+    <dl class="no-data" *ngIf="dangers?.length===0">暂无隐患</dl>
   </dd>
 </ion-content>

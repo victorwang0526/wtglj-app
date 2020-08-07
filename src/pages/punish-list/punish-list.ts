@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TaskProvider } from '../../providers/task-provider';
 import { UserVo } from '../../models/user-vo';
 import { Storage } from '@ionic/storage';
@@ -18,6 +18,7 @@ export class PunishListPage {
     public navParams: NavParams,
     public taskProvider: TaskProvider,
     private storage: Storage,
+    public loadingController: LoadingController,
   ) {
     this.storage.get('user').then((u) => {
       this.user = u;
@@ -29,14 +30,21 @@ export class PunishListPage {
     console.log('ionViewDidLoad PunishListPage');
   }
 
-  getData() {
+  async getData() {
+    const loading = this.loadingController.create({});
+    await loading.present();
     this.taskProvider
       .getUserPunish(this.user.id)
       .take(1)
-      .subscribe((data) => (this.dangers = data.records));
+      .subscribe(
+        (data) => (this.dangers = data.records),
+        null,
+        () => loading.dismiss(),
+      );
   }
 
   openDangerDetail(danger: DangerVo) {
-    this.navCtrl.push(HiddenDangerPage, danger);
+    console.log(danger);
+    this.navCtrl.push(HiddenDangerPage, { danger });
   }
 }
