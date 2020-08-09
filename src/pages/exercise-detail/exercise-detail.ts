@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { UserVo } from '../../models/user-vo';
 import { ExamProvider } from '../../providers/exam-provider';
 import { Question } from '../../models/exam-vo';
+import { ExamFinishPage } from '../exam-finish/exam-finish';
 
 /**
  * Generated class for the ExerciseDetailPage page.
@@ -68,7 +69,9 @@ export class ExerciseDetailPage {
       startTime: this.startTime, //开始时间
       itemList,
     };
-    this.examService.achievementSave(data).subscribe(() => this.navCtrl.popToRoot());
+    this.examService
+      .achievementSave(data)
+      .subscribe((examResult) => this.navCtrl.push(ExamFinishPage, { examResult }));
   }
 
   async getData(examId: string) {
@@ -91,24 +94,8 @@ export class ExerciseDetailPage {
       item.answer.splice(item.answer.indexOf(option), 1);
     }
   }
-  // choose(item: Question, option: string) {
-  //   const checked = item.itemList.find((i) => i.options === option).checked;
-  //   item.itemList.find((i) => i.options === option).checked =
-  //     checked && item.examType !== 2 ? checked : !checked;
-  //   const state = item.itemList.find((i) => i.options === option).checked;
-  //   if (state === true) {
-  //     if (item.examType === 2) {
-  //       item.answer = Array.from(new Set([...item.answer, option]));
-  //     } else {
-  //       item.answer = [option];
-  //     }
-  //   } else {
-  //     item.answer.splice(item.answer.indexOf(option), 1);
-  //   }
-  // }
 
   showAnswer(qusetion: Question) {
-    debugger;
     if (qusetion.answer && qusetion.answer.length > 0) {
       this.isShowAnswer = true;
       this.showNext = true;
