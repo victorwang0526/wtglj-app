@@ -42,13 +42,15 @@
 </ion-content>
 <ion-footer>
   <div class="btn-area">
-    <button ion-button block (click)="showAnswer()">确定</button>
+    <button ion-button block *ngIf="!showNext" (click)="showAnswer(questions[questionNo])">
+      确定
+    </button>
 
     <ng-container *ngIf="questionNo===questions.length-1; else elseTemplate">
       <button ion-button block outline (click)="onSubmit()">提交</button>
     </ng-container>
     <ng-template #elseTemplate>
-      <button ion-button block outline (click)="next()">下一题</button>
+      <button ion-button block outline *ngIf="showNext" (click)="next()">下一题</button>
     </ng-template>
   </div>
 </ion-footer>

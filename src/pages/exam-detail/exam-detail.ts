@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { UserVo } from '../../models/user-vo';
 import { Question } from '../../models/exam-vo';
 import { ExamFinishPage } from '../exam-finish/exam-finish';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'page-exam-detail',
@@ -54,8 +55,6 @@ export class ExamDetailPage {
     };
     this.examService
       .achievementSave(data)
-      .filter((data) => data && data.data)
-      .map((data) => data.data)
       .subscribe((examResult) => this.navCtrl.push(ExamFinishPage, { examResult }));
   }
 

@@ -43,6 +43,7 @@ export class DailyTaskPage {
 
   inspects: Array<InspectVo> = [];
   taskCheckItems: Array<TaskCheckItemVo> = [];
+  user: UserVo;
 
   constructor(
     public navCtrl: NavController,
@@ -59,7 +60,10 @@ export class DailyTaskPage {
     public navParams: NavParams,
   ) {
     let tc = this.navParams.get('taskCheck');
-    this.init(tc);
+    this.storage.get('user').then((u) => {
+      this.user = u;
+      this.init(tc);
+    });
   }
 
   async init(tc) {
@@ -178,9 +182,9 @@ export class DailyTaskPage {
       }
     }
     let currentDate: Date = new Date();
-    let user: UserVo = await this.storage.get('user');
-    this.taskCheck.operator = user.realName;
-    this.taskCheck.operatorId = user.id;
+    // let user: UserVo = await this.storage.get('user');
+    this.taskCheck.operator = this.user.realName;
+    this.taskCheck.operatorId = this.user.id;
     this.taskCheck.groupTitle = '日常检查 - ' + this.datepipe.transform(currentDate, 'yyyy-MM-dd');
     this.taskCheck.taskTitle = '日常检查 - ' + this.datepipe.transform(currentDate, 'yyyy-MM-dd');
 
@@ -198,6 +202,7 @@ export class DailyTaskPage {
 
     if (this.taskCheck.dangers && this.taskCheck.dangers.length > 0) {
       this.taskCheck.status = 0;
+      this.taskCheck.dangers.forEach((item) => (item.problemDesc = item.remark));
     } else {
       this.taskCheck.status = 3;
     }
@@ -392,7 +397,7 @@ export class DailyTaskPage {
   }
 
   getDict() {
-    this.dictProvider.getDicts('inspectType').subscribe((data) => {
+    this.dictProvider.getDicts('inspectType', this.user.dept).subscribe((data) => {
       for (let item of data.data) {
         if (item.dictType == 'inspectType') {
           let its = [];

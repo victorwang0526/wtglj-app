@@ -30,6 +30,8 @@ export class ExerciseDetailPage {
     2: '多选题',
   };
 
+  showNext = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -51,6 +53,7 @@ export class ExerciseDetailPage {
   next() {
     this.questionNo += 1;
     this.isShowAnswer = false;
+    this.showNext = false;
   }
 
   onSubmit() {
@@ -77,7 +80,6 @@ export class ExerciseDetailPage {
       () => loading.dismiss(),
     );
   }
-
   choose(event: any, item: Question, option) {
     if (event.target.checked) {
       if (item.examType === 2) {
@@ -89,8 +91,27 @@ export class ExerciseDetailPage {
       item.answer.splice(item.answer.indexOf(option), 1);
     }
   }
+  // choose(item: Question, option: string) {
+  //   const checked = item.itemList.find((i) => i.options === option).checked;
+  //   item.itemList.find((i) => i.options === option).checked =
+  //     checked && item.examType !== 2 ? checked : !checked;
+  //   const state = item.itemList.find((i) => i.options === option).checked;
+  //   if (state === true) {
+  //     if (item.examType === 2) {
+  //       item.answer = Array.from(new Set([...item.answer, option]));
+  //     } else {
+  //       item.answer = [option];
+  //     }
+  //   } else {
+  //     item.answer.splice(item.answer.indexOf(option), 1);
+  //   }
+  // }
 
-  showAnswer() {
-    this.isShowAnswer = true;
+  showAnswer(qusetion: Question) {
+    debugger;
+    if (qusetion.answer && qusetion.answer.length > 0) {
+      this.isShowAnswer = true;
+      this.showNext = true;
+    }
   }
 }
