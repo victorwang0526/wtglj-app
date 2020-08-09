@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar>
     <ion-title
-      >{{ (group.inspectTitle ? group.inspectTitle : '') + ' ' +
-      group.groupTitle }}({{group.finished}}/{{group.total}})</ion-title
+      >{{ (group.inspectTitle ? group.inspectTitle : '') + ' ' + group.groupTitle
+      }}({{group.finished}}/{{group.total}})</ion-title
     >
   </ion-navbar>
   <ion-toolbar class="task-select-bar">
@@ -22,7 +22,7 @@
         [cancelText]="'取消'"
         [okText]="'确定'"
       >
-        <ion-option *ngFor="let item of areas" [value]="item.dictValue"
+        <ion-option *ngFor="let item of groupAreas" [value]="item.dictValue"
           >{{item.dictLabel}}</ion-option
         >
       </ion-select>
@@ -36,7 +36,7 @@
         [cancelText]="'取消'"
         [okText]="'确定'"
       >
-        <ion-option *ngFor="let item of industries" [value]="item.dictValue"
+        <ion-option *ngFor="let item of groupindustries" [value]="item.dictValue"
           >{{item.dictLabel}}</ion-option
         >
       </ion-select>
@@ -53,11 +53,7 @@
   <!--  </div>-->
 
   <dl class="check-group" *ngIf="tasks && tasks.length > 0">
-    <dd
-      class="c-group-row"
-      *ngFor="let task of tasks"
-      (click)="openInspectDetail(task)"
-    >
+    <dd class="c-group-row" *ngFor="let task of tasks" (click)="openInspectDetail(task)">
       <div class="c-group-info">
         <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
         <div class="check-time" *ngIf="task.operateDate != null">
@@ -86,10 +82,7 @@
   </dl>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="getTaskChecks($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="加载更多..."
-    >
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

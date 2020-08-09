@@ -8,6 +8,7 @@ import { InspectTaskCheckDetailPage } from '../inspect-task-check-detail/inspect
 import { UserVo } from '../../models/user-vo';
 import { DictProvider } from '../../providers/dict-provider';
 import { DailyTaskPage } from '../daily-task/daily-task';
+import { DictDataVo } from '../../models/dict-data-vo';
 
 @Component({
   selector: 'page-inspect-task-check',
@@ -24,6 +25,8 @@ export class InspectTaskCheckPage {
   selectedIndustry: string;
   key: string = '';
   page: number = 1;
+  groupAreas: any[] = [{ dictLabel: '全部', dictValue: '' }];
+  groupindustries: any[] = [{ dictLabel: '全部', dictValue: '' }];
 
   constructor(
     public navCtrl: NavController,
@@ -47,7 +50,7 @@ export class InspectTaskCheckPage {
   }
 
   getDict() {
-    this.dictProvider.getDicts('area,industry', this.user.dept).subscribe((data) => {
+    this.dictProvider.getDicts('area,industry').subscribe((data) => {
       console.log(data);
       for (let item of data.data) {
         if (item.dictType == 'area') {
@@ -86,6 +89,7 @@ export class InspectTaskCheckPage {
           }
         }
       }
+      this.getGroupAreas(this.tasks, this.areas, this.industries);
     });
   }
 
@@ -135,7 +139,7 @@ export class InspectTaskCheckPage {
           } else {
             this.tasks.push(...res.data.list);
           }
-
+          this.getGroupAreas(this.tasks, this.areas, this.industries);
           this.page = this.page + 1;
         },
         () => {},
@@ -173,5 +177,28 @@ export class InspectTaskCheckPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InspectTaskCheckPage');
+  }
+
+  getGroupAreas(tasks: TaskCheckVo[], areas?: DictDataVo[], industries?: DictDataVo[]) {
+    if (areas && tasks) {
+      for (const dict of areas) {
+        for (const task of tasks) {
+          if (dict.dictValue === task.area) {
+            this.groupAreas.push(dict);
+            break;
+          }
+        }
+      }
+    }
+    if (tasks && industries) {
+      for (const dict of industries) {
+        for (const task of tasks) {
+          if (dict.dictValue === task.industry) {
+            this.groupindustries.push(dict);
+            break;
+          }
+        }
+      }
+    }
   }
 }

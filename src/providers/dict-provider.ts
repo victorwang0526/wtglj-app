@@ -9,7 +9,7 @@ export class DictProvider {
     console.log('Hello DictProvider Provider');
   }
 
-  getDicts(dictTypes: string, deptId?: string): Observable<any> {
-    return this.http.get(`/sys/dict/type/list?dictTypes=${dictTypes}&deptId=${deptId}`);
+  getDicts(dictTypes: string): Observable<any> {
+    return this.http.get(`/sys/dict/type/list?dictTypes=${dictTypes}`);
   }
 }

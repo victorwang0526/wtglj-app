@@ -397,7 +397,7 @@ export class DailyTaskPage {
   }
 
   getDict() {
-    this.dictProvider.getDicts('inspectType', this.user.dept).subscribe((data) => {
+    this.dictProvider.getDicts('inspectType').subscribe((data) => {
       for (let item of data.data) {
         if (item.dictType == 'inspectType') {
           let its = [];
