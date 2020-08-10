@@ -145,14 +145,14 @@ export class DailyTaskPage {
 
     if (this.taskCheck.dangers && this.taskCheck.dangers.length > 0) {
       for (let d of this.taskCheck.dangers) {
-        if (!d.problemDesc) {
-          this.alertCtrl
-            .create({
-              title: '请输入问题表现',
-            })
-            .present({});
-          return;
-        }
+        // if (!d.problemDesc) {
+        //   this.alertCtrl
+        //     .create({
+        //       title: '请输入问题表现',
+        //     })
+        //     .present({});
+        //   return;
+        // }
         if (!d.problemLevel) {
           this.alertCtrl
             .create({
