@@ -78,7 +78,14 @@ export class ExerciseDetailPage {
     const loading = this.loadingController.create({});
     await loading.present();
     this.examService.getQuestions(examId).subscribe(
-      (data) => (this.questions = data),
+      (data) => {
+        this.questions = data.map((item) => ({
+          ...item,
+          itemList: item.itemList.map((i) => ({ ...i, checked: false })),
+          answer: [],
+          examMasterId: item.id,
+        }));
+      },
       null,
       () => loading.dismiss(),
     );
@@ -86,6 +93,7 @@ export class ExerciseDetailPage {
   choose(event: any, item: Question, option) {
     if (event.target.checked) {
       if (item.examType === 2) {
+        debugger;
         item.answer = Array.from(new Set([...item.answer, option]));
       } else {
         item.answer = [option];

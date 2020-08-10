@@ -42,7 +42,12 @@
 </ion-content>
 <ion-footer>
   <div class="btn-area">
-    <button ion-button block *ngIf="!showNext" (click)="showAnswer(questions[questionNo])">
+    <button
+      ion-button
+      block
+      *ngIf="!showNext&&questionNo!==questions.length-1"
+      (click)="showAnswer(questions[questionNo])"
+    >
       确定
     </button>
 
