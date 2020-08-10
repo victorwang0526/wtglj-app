@@ -71,6 +71,7 @@ export class InspectTaskCheckDetailPage {
       this.user = u;
       this.init();
       this.principals.push(this.user.id);
+      console.log(this.principals);
     });
   }
 
@@ -79,8 +80,8 @@ export class InspectTaskCheckDetailPage {
 
     this.getDangerTypes();
     this.getPunishTypes();
-    this.editable && this.getGroupUsers();
-    this.getPrincipals();
+    this.getGroupUsers();
+    !this.editable && this.getPrincipals();
 
     this.loading = true;
     this.inspect = await this.taskProvider.getInspectDetail(this.taskCheck.inspectId);
@@ -506,8 +507,9 @@ export class InspectTaskCheckDetailPage {
   }
 
   getPrincipals() {
-    this.taskProvider
-      .getPrincipals(this.group.taskId)
-      .subscribe((principals) => (this.principals = principals));
+    this.taskProvider.getPrincipals(this.taskCheck.id).subscribe((data) => {
+      this.principals = Array.from(new Set([data.operatorId, ...data.principals]));
+      console.log(this.principals);
+    });
   }
 }
