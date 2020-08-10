@@ -51,14 +51,14 @@
                     [(ngModel)]="danger.remark"
                     disabled="{{!!taskCheck.operatorId}}"
                   />
-                  <button
-                    class="danger-del-btn"
-                    (click)="removeDanger(danger)"
-                    *ngIf="!taskCheck.operatorId"
-                  >
-                    删除
-                  </button>
                 </div>
+                <button
+                  class="danger-del-btn"
+                  (click)="removeDanger(danger)"
+                  *ngIf="!taskCheck.operatorId"
+                >
+                  删除
+                </button>
               </div>
             </div>
             <div class="list-item" (click)="chooseLevel(danger)">
