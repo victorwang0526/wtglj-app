@@ -96,7 +96,7 @@ export class TaskProvider {
       .map((res: any) => res.data.list);
   }
 
-  getIndustryEnterprise(areas: string): Observable<Array<IndustryEnterpriseVo>> {
+  c(areas: string): Observable<Array<IndustryEnterpriseVo>> {
     if (!areas || areas == 'null') {
       areas = '';
     }
@@ -119,9 +119,22 @@ export class TaskProvider {
       .map((res: any) => res.data);
   }
 
+  getIndustryEnterprise(areas: string): Observable<Array<IndustryEnterpriseVo>> {
+    if (!areas || areas == 'null') {
+      areas = '';
+    }
+    return this.http
+      .get(`/sys/sysenterprise/industries?areas=` + areas)
+      .map((res: any) => res.data);
+  }
+
   finishPunishes(parms: any): Observable<any> {
     return this.http
       .post(`/sys/sysinspecttaskcheck/finishPunishes`, parms)
       .map((res: any) => res.data);
+  }
+
+  getPrincipals(id: number): Observable<any> {
+    return this.http.get(`/sys/sysinspecttaskcheck/${id}`).map((res: any) => res.data);
   }
 }

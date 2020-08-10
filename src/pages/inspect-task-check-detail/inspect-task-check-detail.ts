@@ -80,6 +80,7 @@ export class InspectTaskCheckDetailPage {
     this.getDangerTypes();
     this.getPunishTypes();
     this.editable && this.getGroupUsers();
+    this.getPrincipals();
 
     this.loading = true;
     this.inspect = await this.taskProvider.getInspectDetail(this.taskCheck.inspectId);
@@ -502,5 +503,11 @@ export class InspectTaskCheckDetailPage {
       .getGroupUsers(this.user.dept)
       .take(1)
       .subscribe((users) => (this.operators = users));
+  }
+
+  getPrincipals() {
+    this.taskProvider
+      .getPrincipals(this.group.taskId)
+      .subscribe((principals) => (this.principals = principals));
   }
 }
