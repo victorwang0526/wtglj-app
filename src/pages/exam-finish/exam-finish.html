@@ -14,7 +14,7 @@
   </div>
   <div>
     <div class="exam-result-list">
-      <div class="exam-result-item">用时共{{data?.duration||0}}分钟</div>
+      <div class="exam-result-item">用时共{{data?.duration<1?1:data?.duration}}分钟</div>
       <div class="exam-result-item">正确率：{{(data?.correctRate||0)*100}}%</div>
       <div class="exam-result-item">错题数：{{data?.errorNum||0}}</div>
     </div>

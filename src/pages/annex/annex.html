@@ -6,17 +6,10 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>annex</ion-title>
+    <ion-title>{{file.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ng-container *ngFor="let item of items">
-    <ng-container *ngIf="isImage; else elseTemplate">
-      <ion-img [src]="item.src"></ion-img>
-    </ng-container>
-    <ng-template #elseTemplate>
-      <iframe src=""></iframe>
-    </ng-template>
-  </ng-container>
+<ion-content>
+  <iframe [src]="url" class="view-pdf"></iframe>
 </ion-content>

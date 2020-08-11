@@ -93,7 +93,6 @@ export class ExerciseDetailPage {
   choose(event: any, item: Question, option) {
     if (event.target.checked) {
       if (item.examType === 2) {
-        debugger;
         item.answer = Array.from(new Set([...item.answer, option]));
       } else {
         item.answer = [option];

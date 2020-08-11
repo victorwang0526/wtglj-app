@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AnnexPage } from '../annex/annex';
 import { NotificationProvider } from '../../providers/notification-provider';
-import { Notice } from '../../models/notification-vo';
+import { Notice, File } from '../../models/notification-vo';
+import { ImagePreviewPage } from '../image-preview/image-preview';
 
 @Component({
   selector: 'page-notification-detail',
@@ -35,7 +36,11 @@ export class NotificationDetailPage {
     this.notificationProvider.changeStatus(this.id).subscribe();
   }
 
-  async openAnnex(path: string) {
-    this.navCtrl.push(AnnexPage, { path });
+  async openAnnex(file: File) {
+    if (file.path.endsWith('.pdf')) {
+      this.navCtrl.push(AnnexPage, { file });
+    } else {
+      this.navCtrl.push(ImagePreviewPage, { imgUrl: file.path });
+    }
   }
 }

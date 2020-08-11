@@ -44,6 +44,8 @@ export class DailyTaskPage {
   inspects: Array<InspectVo> = [];
   taskCheckItems: Array<TaskCheckItemVo> = [];
   user: UserVo;
+  operators: any[] = [];
+  principals: any[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -62,6 +64,7 @@ export class DailyTaskPage {
     let tc = this.navParams.get('taskCheck');
     this.storage.get('user').then((u) => {
       this.user = u;
+      this.principals.push(this.user.id);
       this.init(tc);
     });
   }
@@ -72,6 +75,7 @@ export class DailyTaskPage {
       this.taskCheck = tc;
       this.editable = false;
       this.getTaskCheck();
+
       const inspectVo = await this.taskProvider.getInspectDetail(this.taskCheck.inspectId);
 
       this.taskCheckItems = await this.taskProvider.getTaskCheckItems(this.taskCheck.id);
@@ -96,6 +100,8 @@ export class DailyTaskPage {
       this.getDangerTypes();
       this.getPunishTypes();
     }
+    this.getGroupUsers();
+    !this.editable && this.getPrincipals();
     this.loading = false;
   }
 
@@ -138,6 +144,14 @@ export class DailyTaskPage {
       this.alertCtrl
         .create({
           title: '请选择检查类型',
+        })
+        .present({});
+      return;
+    }
+    if (this.principals.length === 0) {
+      this.alertCtrl
+        .create({
+          title: '选择检查人员',
         })
         .present({});
       return;
@@ -206,6 +220,7 @@ export class DailyTaskPage {
     } else {
       this.taskCheck.status = 3;
     }
+    this.taskCheck.principals = this.principals.join(',');
 
     const loading = this.loadingController.create({
       spinner: 'circles',
@@ -597,13 +612,13 @@ export class DailyTaskPage {
       return;
     }
     let buttons = [];
-    buttons.push({
-      text: '无',
-      handler: () => {
-        p.punishType = null;
-        p.punishTypeLabel = '';
-      },
-    });
+    // buttons.push({
+    //   text: '无',
+    //   handler: () => {
+    //     p.punishType = null;
+    //     p.punishTypeLabel = '';
+    //   },
+    // });
     this.punishTypes.forEach((punishType) => {
       buttons.push({
         text: punishType.dictLabel,
@@ -623,5 +638,18 @@ export class DailyTaskPage {
     });
     const actionSheet = await this.actionSheetController.create({ buttons });
     await actionSheet.present();
+  }
+
+  getGroupUsers() {
+    this.taskProvider.getGroupUsers(this.user.dept).subscribe((users) => {
+      this.operators = users;
+    });
+  }
+
+  getPrincipals() {
+    this.taskProvider.getPrincipals(this.taskCheck.id).subscribe((data) => {
+      this.principals = Array.from(new Set([data.operatorId, ...data.principals]));
+      console.log(this.principals);
+    });
   }
 }

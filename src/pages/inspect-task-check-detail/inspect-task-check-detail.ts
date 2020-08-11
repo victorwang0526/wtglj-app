@@ -229,14 +229,14 @@ export class InspectTaskCheckDetailPage {
       return;
     }
     let buttons = [];
-    buttons.push({
-      text: '无',
-      handler: () => {
-        this.taskCheck.punishType = '';
-        this.taskCheck.punishTypeLabel = '';
-        console.log(this.taskCheck.punishType + ', ' + this.taskCheck.punishTypeLabel);
-      },
-    });
+    // buttons.push({
+    //   text: '无',
+    //   handler: () => {
+    //     this.taskCheck.punishType = '';
+    //     this.taskCheck.punishTypeLabel = '';
+    //     console.log(this.taskCheck.punishType + ', ' + this.taskCheck.punishTypeLabel);
+    //   },
+    // });
     this.punishTypes.forEach((punishType) => {
       buttons.push({
         text: punishType.dictLabel,

@@ -246,13 +246,13 @@ export class DangerListPage {
       return;
     }
     let buttons = [];
-    buttons.push({
-      text: '无',
-      handler: () => {
-        p.punishType = null;
-        p.punishTypeLabel = '';
-      },
-    });
+    // buttons.push({
+    //   text: '无',
+    //   handler: () => {
+    //     p.punishType = null;
+    //     p.punishTypeLabel = '';
+    //   },
+    // });
     this.punishTypes.forEach((punishType) => {
       buttons.push({
         text: punishType.dictLabel,

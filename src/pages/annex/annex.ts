@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { File } from '../../models/notification-vo';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 /**
  * Generated class for the AnnexPage page.
@@ -9,15 +11,22 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
  */
 
 @Component({
-  selector: "page-annex",
-  templateUrl: "annex.html",
+  selector: 'page-annex',
+  templateUrl: 'annex.html',
 })
 export class AnnexPage {
-  items: any[] = [];
-  isImage: boolean = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  file: File;
+  url: SafeResourceUrl;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public sanitizer: DomSanitizer,
+  ) {
+    this.file = this.navParams.get('file');
+    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.file.path);
+  }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad AnnexPage");
+    console.log('ionViewDidLoad AnnexPage');
   }
 }

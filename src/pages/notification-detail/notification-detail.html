@@ -23,7 +23,7 @@
     <div class="notice-context">
       {{detail.context}}
     </div>
-    <div class="notice-annex" *ngFor="let item of detail.fileDto" (click)="openAnnex(item.path)">
+    <div class="notice-annex" *ngFor="let item of detail.fileDto" (click)="openAnnex(item)">
       {{item.name}}
     </div>
   </ng-container>
