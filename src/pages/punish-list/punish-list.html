@@ -15,7 +15,7 @@
     <dl
       *ngFor="let item of dangers"
       class="danger-item"
-      [ngClass]="[!item?.rectifyCompleteDate?'unrectified':!item?.reviewer?'unfinished':'']"
+      [ngClass]="[(!item?.rectifyCompleteDate)?'unrectified':((!item?.reviewer)?'unfinished':'')]"
       (click)="openDangerDetail(item)"
     >
       <div class="danger-title">{{item?.dangerDesc}}</div>

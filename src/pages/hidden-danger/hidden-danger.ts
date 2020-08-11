@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  LoadingController,
-  ActionSheetController,
-} from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
 import { TaskProvider } from '../../providers/task-provider';
 import { UserVo } from '../../models/user-vo';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera';
@@ -43,7 +37,8 @@ export class HiddenDangerPage {
     this.getDangerTypes();
     this.danger = this.navParams.get('danger');
     this.imgUrls =
-      this.danger.rectifyCompleteImagesUrls && this.danger.rectifyCompleteImagesUrls.split(',');
+      (this.danger.rectifyCompleteImagesUrls && this.danger.rectifyCompleteImagesUrls.split(',')) ||
+      [];
   }
 
   ionViewDidLoad() {
@@ -140,6 +135,7 @@ export class HiddenDangerPage {
   }
 
   finshPunish() {
+    debugger;
     const params = [
       {
         id: this.danger.id,
