@@ -648,7 +648,7 @@ export class DailyTaskPage {
 
   getPrincipals() {
     this.taskProvider.getPrincipals(this.taskCheck.id).subscribe((data) => {
-      this.principals = Array.from(new Set([data.operatorId, ...data.principals]));
+      this.principals = Array.from(new Set([data.operatorId, ...data.principalIds]));
       console.log(this.principals);
     });
   }
