@@ -18,7 +18,10 @@ import { DictDataVo } from '../../models/dict-data-vo';
   templateUrl: 'hidden-danger.html',
 })
 export class HiddenDangerPage {
-  danger: any;
+  danger: any = {
+    problemLevel: '1',
+    problemLevelLabel: '一般隐患',
+  };
   user: UserVo;
   imgUrls: string[] = [];
   imgLoading: boolean = false;
@@ -135,7 +138,6 @@ export class HiddenDangerPage {
   }
 
   finshPunish() {
-    debugger;
     const params = [
       {
         id: this.danger.id,

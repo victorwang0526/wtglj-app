@@ -11,8 +11,8 @@ export class DangerVo {
   /**
    * 隐患等级
    */
-  problemLevel: string;
-  problemLevelLabel: string;
+  problemLevel: string = '1';
+  problemLevelLabel: string = '一般隐患';
 
   /**
    * 问题图片

@@ -198,14 +198,14 @@ export class DangerListPage {
   submit() {
     if (this.dangers && this.dangers.length > 0) {
       for (let d of this.dangers) {
-        if (!d.problemDesc) {
-          this.alertCtrl
-            .create({
-              title: '请输入',
-            })
-            .present({});
-          return;
-        }
+        // if (!d.problemDesc) {
+        //   this.alertCtrl
+        //     .create({
+        //       title: '请输入',
+        //     })
+        //     .present({});
+        //   return;
+        // }
         if (!d.problemLevel) {
           this.alertCtrl
             .create({
