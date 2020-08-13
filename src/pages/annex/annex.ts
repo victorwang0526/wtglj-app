@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { File } from '../../models/notification-vo';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
+import { DocumentViewer } from '@ionic-native/document-viewer';
 /**
  * Generated class for the AnnexPage page.
  *
