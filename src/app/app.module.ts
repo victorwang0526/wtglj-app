@@ -57,6 +57,7 @@ import { RegiterProvider } from '../providers/regiter-provider';
 import { RegiserPage } from '../pages/regiser/regiser';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { HiddenDangerPage } from '../pages/hidden-danger/hidden-danger';
+import {DocumentViewer} from "@ionic-native/document-viewer";
 
 // @ts-ignore
 @NgModule({
@@ -152,6 +153,7 @@ import { HiddenDangerPage } from '../pages/hidden-danger/hidden-danger';
     SplashScreen,
     BarcodeScanner,
     ScreenOrientation,
+    DocumentViewer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserProvider,
     TaskProvider,
