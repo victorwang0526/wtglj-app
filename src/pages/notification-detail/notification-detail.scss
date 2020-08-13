@@ -1,7 +1,10 @@
 page-notification-detail {
   .notice-header {
+    padding: 1rem;
     font-size: 1.2rem;
     color: #999;
+    box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1) inset, 0 0 1rem rgba(17, 17, 17, 0.08);
+
     .notice-time {
       float: right;
     }
@@ -17,13 +20,16 @@ page-notification-detail {
 
   .notice-context {
     margin: 1.5rem 0;
+    padding: 1rem;
     min-height: 20rem;
-    text-indent: 2em;
     font-size: 1.5rem;
+    box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1) inset, 0 0 1rem rgba(17, 17, 17, 0.08);
   }
 
   .notice-annex {
+    padding: 1rem;
     color: #137ffe;
     text-decoration: underline;
+    box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1) inset, 0 0 1rem rgba(17, 17, 17, 0.08);
   }
 }
