@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/victorwang0526/wtglj-app.svg?branch=master)](https://travis-ci.org/victorwang0526/wtglj-app)
+[![Build Status](https://travis-ci.org/victorwang0526/wtglj-app.svg?token=Zy921zmnyZnBZ3zqFRNi&branch=master)](https://travis-ci.org/victorwang0526/wtglj-app)
 
 
 ```shell script
