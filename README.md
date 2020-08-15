@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/victorwang0526/wtglj-app.svg?branch=master)](https://travis-ci.org/victorwang0526/wtglj-app)
+
+
 ```shell script
 $ ionic start ionic-cordova-blank-template blank --cordova --type=ionic-angular
 
