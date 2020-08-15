@@ -21,9 +21,9 @@ matrix:
       - android-sdk-preview-license-.+
       - android-sdk-license-.+
       - google-gdk-license-.+
-    - os: osx
-      language: objective-c
-      osx_image: xcode10.3
+#    - os: osx
+#      language: objective-c
+#      osx_image: xcode10.3
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -f  $HOME/.gradle/caches/transforms-1/transforms-1.lock
