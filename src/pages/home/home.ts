@@ -23,6 +23,7 @@ import { ExamProvider } from '../../providers/exam-provider';
 import { Exam } from '../../models/exam-vo';
 import { ExamDetailPage } from '../exam-detail/exam-detail';
 import { PunishListPage } from '../punish-list/punish-list';
+import { take } from 'rxjs/operator/take';
 
 @Component({
   selector: 'page-home',
@@ -33,6 +34,7 @@ export class HomePage {
 
   taskUnfinishedCnt1: number = 0; // 检查
   taskUnfinishedCnt2: number = 0; // 自检
+  dangerCnt: number = 0; // 隐患
 
   p = 100;
 
@@ -128,6 +130,7 @@ export class HomePage {
       this.getTaskGroups();
       this.getXunChas();
       this.getExam();
+      this.getDanger();
     });
   }
 
@@ -156,6 +159,13 @@ export class HomePage {
     });
   }
 
+  getDanger() {
+    this.taskProvider
+      .getUserPunish(this.user.id)
+      .take(1)
+      .subscribe((data) => (this.dangerCnt = data.total));
+  }
+
   openDanger() {
     this.navCtrl.push(PunishListPage);
   }
@@ -177,7 +187,7 @@ export class HomePage {
       .getPracticeStatus(this.user.id)
       .take(1)
       .subscribe(async (data) => {
-        if (data) {
+        if (data && data.length) {
           this.navCtrl.push(ExerciseDetailPage, { examId: data[0].id });
         } else {
           const alert = await this.alertController.create({

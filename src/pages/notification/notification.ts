@@ -33,9 +33,10 @@ export class NotificationPage {
     console.log('ionViewDidLoad NotificationPage');
   }
 
-  openNoticeDetail(id) {
-    console.log(id);
-    this.navCtrl.push(NotificationDetailPage, { id });
+  openNoticeDetail(item: Notification) {
+    console.log(item);
+    this.changeStatus(item);
+    this.navCtrl.push(NotificationDetailPage, { id: item.id });
   }
 
   async getData() {
@@ -49,8 +50,7 @@ export class NotificationPage {
     this.list$.subscribe(null, null, () => loading.dismiss());
   }
 
-  // ngOnDestroy(): void {
-  //   this.destroy$.next(false);
-  //   this.destroy$.complete();
-  // }
+  changeStatus(item: Notification) {
+    this.notificationProvider.changeStatus(item.id).subscribe(() => (item.status = 1));
+  }
 }

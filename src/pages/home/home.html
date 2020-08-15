@@ -28,6 +28,48 @@
                   <div class="enter-tit">日常检查</div>
                 </button>
               </dd>
+
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openDanger()">
+                  <i class="enter-icon advice-icon">
+                    <ion-badge color="danger">{{dangerCnt}}</ion-badge>
+                  </i>
+                  <div class="enter-tit">隐患检查</div>
+                </button>
+              </dd>
+
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openExercise()">
+                  <i class="enter-icon practice-icon">
+                    <!--                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>-->
+                  </i>
+                  <div class="enter-tit">每日练习</div>
+                </button>
+              </dd>
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openNotification()">
+                  <i class="enter-icon notice-icon"> </i>
+                  <div class="enter-tit">消息通知</div>
+                </button>
+              </dd>
+            </dl>
+          </ion-slide>
+          <ion-slide>
+            <dl class="enter-warp">
+              <!-- <dd class="enter-col">
+                <button class="enter-btn" (click)="openExercise()">
+                  <i class="enter-icon practice-icon">
+                                   <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>
+                  </i>
+                  <div class="enter-tit">每日练习</div>
+                </button>
+              </dd> -->
+              <dd class="enter-col">
+                <button class="enter-btn" (click)="openExam()">
+                  <i class="enter-icon exam-icon"> </i>
+                  <div class="enter-tit">安全考试</div>
+                </button>
+              </dd>
               <dd class="enter-col">
                 <button class="enter-btn" (click)="openSelfCheckGroup()">
                   <i class="enter-icon self-icon">
@@ -46,39 +88,7 @@
                   <div class="enter-tit">企业信息</div>
                 </button>
               </dd>
-              <dd class="enter-col">
-                <button class="enter-btn" (click)="openDanger()">
-                  <i class="enter-icon advice-icon">
-                    <!--              <ion-badge color="danger">6</ion-badge>-->
-                  </i>
-                  <div class="enter-tit">隐患检查</div>
-                </button>
-              </dd>
-            </dl>
-          </ion-slide>
-          <ion-slide>
-            <dl class="enter-warp">
-              <dd class="enter-col">
-                <button class="enter-btn" (click)="openExercise()">
-                  <i class="enter-icon practice-icon">
-                    <!--                <ion-badge color="danger" *ngIf="taskUnfinishedCnt1 > 0">{{taskUnfinishedCnt1}}</ion-badge>-->
-                  </i>
-                  <div class="enter-tit">每日练习</div>
-                </button>
-              </dd>
-              <dd class="enter-col">
-                <button class="enter-btn" (click)="openExam()">
-                  <i class="enter-icon exam-icon"> </i>
-                  <div class="enter-tit">安全考试</div>
-                </button>
-              </dd>
 
-              <dd class="enter-col">
-                <button class="enter-btn" (click)="openNotification()">
-                  <i class="enter-icon notice-icon"> </i>
-                  <div class="enter-tit">消息通知</div>
-                </button>
-              </dd>
               <dd class="enter-col">
                 <button class="enter-btn" (click)="openAdvice()">
                   <i class="enter-icon feedback-icon">
@@ -93,7 +103,7 @@
       </div>
     </div>
 
-    <div class="h-finished-task" *ngIf="dangers && dangers.length > 0">
+    <!-- <div class="h-finished-task" *ngIf="dangers && dangers.length > 0">
       <div class="d-finished-tit">待审批整改</div>
       <dl class="h-task-list">
         <dd class="h-task-item" *ngFor="let d of dangers" (click)="openDangerApprove(d)">
@@ -111,7 +121,7 @@
           </div>
         </dd>
       </dl>
-    </div>
+    </div> -->
 
     <div class="h-finished-task" *ngIf="user && user.deptDTO && user.deptDTO.areas">
       <div class="d-finished-tit">专题督查</div>
@@ -200,9 +210,9 @@
       </dl>
     </div> -->
 
-    <div class="h-finished-task">
+    <div class="h-finished-task" *ngIf="exams?.length > 0">
       <div class="d-finished-tit">安全考试</div>
-      <dl class="h-task-list" *ngIf="exams?.length === 0">
+      <dl class="h-task-list">
         <dd class="h-task-item">
           <div class="h-task-status">
             <i class="task-status-ok"></i>

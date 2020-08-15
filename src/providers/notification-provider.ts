@@ -25,7 +25,7 @@ export class NotificationProvider {
     return this.http.get<Notice>(`/sys/noticerecord/${id}`).map((res: any) => res.data);
   }
 
-  changeStatus(id: string): Observable<Notice> {
+  changeStatus(id: number): Observable<Notice> {
     return this.http.get<Notice>(`/sys/noticerecord/changeType/${id}`).map((res: any) => res.data);
   }
 }
