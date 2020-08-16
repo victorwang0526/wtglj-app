@@ -13,10 +13,5 @@
 
 <ion-content>
   <!-- <iframe [src]="url" class="view-pdf"></iframe> -->
-  <pdf-viewer
-    [src]="'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf'"
-    [render-text]="true"
-    style="display: block;"
-  >
-  </pdf-viewer>
+  <pdf-viewer [src]="file.path" [render-text]="true" style="display: block;"> </pdf-viewer>
 </ion-content>
