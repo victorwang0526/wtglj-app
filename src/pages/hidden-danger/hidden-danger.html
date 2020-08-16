@@ -64,13 +64,16 @@
                 <i class="u-arrow-right"></i>
               </div>
             </div>
-            <!-- <div class="list-item upload-pic">
-              <ng-container *ngIf="danger?.rectifyCompleteImagesUrls">
-                <div class="pic-col" *ngFor="let imgUrl of danger.problemImageUrls.split(',')">
-                  <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
-                </div>
-              </ng-container>
-            </div> -->
+            <div class="list-item">
+              <span class="item-label">隐患照片</span>
+              <div class="item-info upload-pic">
+                <ng-container *ngIf="danger?.dangerImageUrls">
+                  <div class="pic-col" *ngFor="let imgUrl of danger.dangerImageUrls.split(',')">
+                    <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
+                  </div>
+                </ng-container>
+              </div>
+            </div>
 
             <!-- 处罚清单 -->
             <ion-list>
@@ -82,7 +85,7 @@
               > -->
               <!--          展开 +active-->
               <div class="c-form-list active">
-                <div class="list-item item-hd">
+                <div class="list-item">
                   <!--  (click)="choosePunishLevel(p)" -->
                   <span class="item-label">处罚类型</span>
                   <div class="item-info">
@@ -191,15 +194,18 @@
                     </div>
                   </div> -->
                 <!-- </ng-container> -->
-                <div class="list-item upload-pic">
-                  <ng-container *ngIf="imgUrls">
-                    <div class="pic-col" *ngFor="let imgUrl of imgUrls;let i=index">
-                      <i class="del-icon" (click)="removeImg(i)"></i>
-                      <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
+                <div class="list-item">
+                  <span class="item-label">整改照片</span>
+                  <div class="item-info upload-pic">
+                    <ng-container *ngIf="imgUrls">
+                      <div class="pic-col" *ngFor="let imgUrl of imgUrls;let i=index">
+                        <i class="del-icon" (click)="removeImg(i)"></i>
+                        <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
+                      </div>
+                    </ng-container>
+                    <div class="pic-col">
+                      <button class="add-pic-btn" (click)="cameraChoose()"></button>
                     </div>
-                  </ng-container>
-                  <div class="pic-col">
-                    <button class="add-pic-btn" (click)="cameraChoose()"></button>
                   </div>
                 </div>
                 <div class="list-item">

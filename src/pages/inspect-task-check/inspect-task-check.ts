@@ -181,6 +181,7 @@ export class InspectTaskCheckPage {
 
   getGroupAreas(tasks: TaskCheckVo[], areas?: DictDataVo[], industries?: DictDataVo[]) {
     if (areas && tasks) {
+      this.groupAreas = [{ dictLabel: '全部', dictValue: '' }];
       for (const dict of areas) {
         for (const task of tasks) {
           if (dict.dictValue === task.area) {
@@ -191,6 +192,7 @@ export class InspectTaskCheckPage {
       }
     }
     if (tasks && industries) {
+      this.groupindustries = [{ dictLabel: '全部', dictValue: '' }];
       for (const dict of industries) {
         for (const task of tasks) {
           if (dict.dictValue === task.industry) {

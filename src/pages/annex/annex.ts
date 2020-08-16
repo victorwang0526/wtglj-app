@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { File } from '../../models/notification-vo';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { DocumentViewer } from '@ionic-native/document-viewer';
+
 /**
  * Generated class for the AnnexPage page.
  *
@@ -16,19 +16,20 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
 })
 export class AnnexPage {
   file: File;
-  url: SafeResourceUrl;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public sanitizer: DomSanitizer,
-    private document: DocumentViewer,
   ) {
     this.file = this.navParams.get('file');
+    console.log(this.file);
     // this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.file.path);
-    const options = {
-      title: this.file.name,
-    };
-    this.document.viewDocument(this.file.path, 'application/pdf', options);
+    // const options = {
+    //   title: this.file.name,
+    // };
+    // this.document.canViewDocument(this.file.path, 'application/pdf', options);
+    // this.document.viewDocument(this.file.path, 'application/pdf', options);
   }
 
   ionViewDidLoad() {

@@ -4,6 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 <ion-header>
   <ion-navbar>
     <ion-title>{{file.name}}</ion-title>
@@ -12,4 +13,10 @@
 
 <ion-content>
   <!-- <iframe [src]="url" class="view-pdf"></iframe> -->
+  <pdf-viewer
+    [src]="'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf'"
+    [render-text]="true"
+    style="display: block;"
+  >
+  </pdf-viewer>
 </ion-content>

@@ -32,7 +32,7 @@
               <dd class="enter-col">
                 <button class="enter-btn" (click)="openDanger()">
                   <i class="enter-icon advice-icon">
-                    <ion-badge color="danger">{{dangerCnt}}</ion-badge>
+                    <ion-badge color="danger" *ngIf="dangerCnt>0">{{dangerCnt}}</ion-badge>
                   </i>
                   <div class="enter-tit">隐患检查</div>
                 </button>
@@ -48,7 +48,11 @@
               </dd>
               <dd class="enter-col">
                 <button class="enter-btn" (click)="openNotification()">
-                  <i class="enter-icon notice-icon"> </i>
+                  <i class="enter-icon notice-icon"></i>
+                  <ion-badge color="danger" *ngIf="noticeCnt > 0">
+                    {{noticeCnt}}
+                  </ion-badge>
+
                   <div class="enter-tit">消息通知</div>
                 </button>
               </dd>
@@ -125,7 +129,7 @@
 
     <div class="h-finished-task" *ngIf="user && user.deptDTO && user.deptDTO.areas">
       <div class="d-finished-tit">专题督查</div>
-      <dl class="h-task-list" *ngIf="!groups || groups.length == 0">
+      <dl class="h-task-list" *ngIf="groups?.length === 0">
         <dd class="h-task-item">
           <div class="h-task-status">
             <i class="task-status-ok"></i>

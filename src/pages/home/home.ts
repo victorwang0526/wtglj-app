@@ -24,6 +24,7 @@ import { Exam } from '../../models/exam-vo';
 import { ExamDetailPage } from '../exam-detail/exam-detail';
 import { PunishListPage } from '../punish-list/punish-list';
 import { take } from 'rxjs/operator/take';
+import { NotificationProvider } from '../../providers/notification-provider';
 
 @Component({
   selector: 'page-home',
@@ -34,7 +35,8 @@ export class HomePage {
 
   taskUnfinishedCnt1: number = 0; // 检查
   taskUnfinishedCnt2: number = 0; // 自检
-  dangerCnt: number = 0; // 隐患
+  dangerCnt = 0; // 隐患
+  noticeCnt = 0; // 消息
 
   p = 100;
 
@@ -53,6 +55,7 @@ export class HomePage {
     public jpush: JPush,
     public taskProvider: TaskProvider,
     public examProvider: ExamProvider,
+    public notificationProvider: NotificationProvider,
   ) {}
 
   ionViewDidLoad() {
@@ -104,6 +107,17 @@ export class HomePage {
         this.loading = false;
       },
     );
+  }
+
+  getNotice() {
+    this.notificationProvider
+      .getNotice({
+        userId: this.user.id,
+        page: 1,
+        limit: 30,
+      })
+      .take(1)
+      .subscribe((data) => (this.noticeCnt = data.filter((item) => item.status === 0).length));
   }
 
   addTaskCheck() {

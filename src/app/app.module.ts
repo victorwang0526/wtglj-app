@@ -57,7 +57,7 @@ import { RegiterProvider } from '../providers/regiter-provider';
 import { RegiserPage } from '../pages/regiser/regiser';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { HiddenDangerPage } from '../pages/hidden-danger/hidden-danger';
-import {DocumentViewer} from "@ionic-native/document-viewer";
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 // @ts-ignore
 @NgModule({
@@ -101,6 +101,7 @@ import {DocumentViewer} from "@ionic-native/document-viewer";
     ComponentsModule,
     PipesModule,
     SignaturePadModule,
+    PdfViewerModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       iconMode: 'ios',
@@ -153,7 +154,6 @@ import {DocumentViewer} from "@ionic-native/document-viewer";
     SplashScreen,
     BarcodeScanner,
     ScreenOrientation,
-    DocumentViewer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserProvider,
     TaskProvider,
