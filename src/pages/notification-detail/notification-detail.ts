@@ -41,7 +41,7 @@ export class NotificationDetailPage {
   async openAnnex(file: File) {
     if (file.path.endsWith('.pdf')) {
       // this.navCtrl.push(AnnexPage, { file });
-      this.iab.create(file.path);
+      this.iab.create(file.path, '_self');
     } else {
       this.navCtrl.push(ImagePreviewPage, { imgUrl: file.path });
     }

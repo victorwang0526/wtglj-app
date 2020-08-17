@@ -3,7 +3,7 @@
     <name>文体广旅安全</name>
     <description>安全平台.</description>
     <author email="fengxuanwang@qq.com" href="http://victorwang.cn/">Victor Wang</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -122,4 +122,9 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-sqlite-storage" spec="^5.0.0" />
     <plugin name="phonegap-plugin-barcodescanner" spec="^8.1.0" />
+    <plugin name="cordova-plugin-document-viewer" spec="0.9.13" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.2.0" />
+    <allow-navigation href="http://localhost:8100" sessionid="0a0d86db" />
+    <engine name="ios" spec="^5.1.1" />
+    <engine name="android" spec="8.1.0" />
 </widget>

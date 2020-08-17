@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NotificationDetailPage } from '../notification-detail/notification-detail';
 import { Notification } from '../../models/notification-vo';

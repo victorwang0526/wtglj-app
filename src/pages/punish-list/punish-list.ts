@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TaskProvider } from '../../providers/task-provider';
 import { UserVo } from '../../models/user-vo';
 import { Storage } from '@ionic/storage';
