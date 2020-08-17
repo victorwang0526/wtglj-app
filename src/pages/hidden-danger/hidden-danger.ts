@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
+import {
+  NavController,
+  NavParams,
+  LoadingController,
+  ActionSheetController,
+  ToastController,
+} from 'ionic-angular';
 import { TaskProvider } from '../../providers/task-provider';
 import { UserVo } from '../../models/user-vo';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera';
 import { ImagePreviewPage } from '../image-preview/image-preview';
 import { UploadProvider } from '../../providers/upload-provider';
 import { DictDataVo } from '../../models/dict-data-vo';
+import { Storage } from '@ionic/storage';
+
 /**
  * Generated class for the HiddenDangerPage page.
  *
@@ -35,6 +43,8 @@ export class HiddenDangerPage {
     public loadingController: LoadingController,
     private camera: Camera,
     public actionSheetController: ActionSheetController,
+    private storage: Storage,
+    public toastController: ToastController,
   ) {
     this.getPunishTypes();
     this.getDangerTypes();
@@ -42,6 +52,9 @@ export class HiddenDangerPage {
     this.imgUrls =
       (this.danger.rectifyCompleteImagesUrls && this.danger.rectifyCompleteImagesUrls.split(',')) ||
       [];
+    this.storage.get('user').then((u) => {
+      this.user = u;
+    });
   }
 
   ionViewDidLoad() {
@@ -141,12 +154,30 @@ export class HiddenDangerPage {
     const params = [
       {
         id: this.danger.id,
-        rectifyCompleteDesc: this.rectifyCompleteDesc,
+        remark: this.danger.remark,
         rectifyCompleteImagesUrls: this.imgUrls.join(','),
       },
     ];
-    this.taskProvider
-      .finishPunishes({ punishesList: params })
-      .subscribe(() => this.navCtrl.popToRoot());
+    this.taskProvider.finishPunishes({ punishesList: params }).subscribe(() => {
+      if (!this.danger.reviewer) {
+        this.taskProvider
+          .approveDanger(this.danger.id, this.user.id, this.danger.remark)
+          .subscribe(() => {
+            this.presentToast('整改完成');
+            this.navCtrl.popToRoot();
+          });
+      } else {
+        this.presentToast('整改完成');
+        this.navCtrl.popToRoot();
+      }
+    });
+  }
+
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 3000,
+    });
+    toast.present();
   }
 }
