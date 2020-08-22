@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AnnexPage } from '../annex/annex';
 import { NotificationProvider } from '../../providers/notification-provider';
 import { Notice, File } from '../../models/notification-vo';
 import { ImagePreviewPage } from '../image-preview/image-preview';
@@ -41,7 +40,7 @@ export class NotificationDetailPage {
   async openAnnex(file: File) {
     if (file.path.endsWith('.pdf')) {
       // this.navCtrl.push(AnnexPage, { file });
-      this.iab.create(file.path, '_self');
+      this.iab.create(file.path, '_system', {});
     } else {
       this.navCtrl.push(ImagePreviewPage, { imgUrl: file.path });
     }
