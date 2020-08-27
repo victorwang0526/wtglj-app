@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ExamListPage } from '../exam-list/exam-list';
+import { Storage } from '@ionic/storage';
+import { ExerciseDetailPage } from '../exercise-detail/exercise-detail';
 
 @Component({
   selector: 'page-exam-finish',
@@ -8,8 +9,16 @@ import { ExamListPage } from '../exam-list/exam-list';
 })
 export class ExamFinishPage {
   data: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  isTourist: boolean;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private storage: Storage,
+  ) {
     this.data = navParams.get('examResult');
+    this.storage.get('user').then((u) => {
+      this.isTourist = u.dept === '1287033692479021057';
+    });
   }
 
   ionViewDidLoad() {
@@ -17,6 +26,10 @@ export class ExamFinishPage {
   }
 
   goBack() {
-    this.navCtrl.popToRoot();
+    if (this.isTourist) {
+      this.navCtrl.setRoot(ExerciseDetailPage);
+    } else {
+      this.navCtrl.popToRoot();
+    }
   }
 }

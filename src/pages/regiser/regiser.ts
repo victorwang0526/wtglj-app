@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Register } from '../../models/register-vo';
 import { RegiterProvider } from '../../providers/regiter-provider';
 import { LoginPage } from '../login/login';
+import { ExerciseDetailPage } from '../exercise-detail/exercise-detail';
 
 /**
  * Generated class for the RegiserPage page.
@@ -64,7 +65,7 @@ export class RegiserPage {
     };
     this.registerProvider.register(params).subscribe(async (data: any) => {
       if (data.code === 0) {
-        this.navCtrl.setRoot(LoginPage);
+        this.navCtrl.setRoot(ExerciseDetailPage);
       } else {
         const alert = this.alertCtrl.create({
           message: data.message,

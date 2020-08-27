@@ -14,6 +14,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { PgyProvider } from '../providers/pgy-provider';
 import { UserProvider } from '../providers/user-provider';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { ExerciseDetailPage } from '../pages/exercise-detail/exercise-detail';
 @Component({
   templateUrl: 'app.html',
 })
@@ -91,7 +92,13 @@ export class MyApp {
         this.rootPage = LoginPage;
       } else {
         this.getUserInfo();
-        this.rootPage = HomePage;
+        this.storage.get('user').then((u) => {
+          if (u.dept === '1287033692479021057') {
+            this.rootPage = ExerciseDetailPage;
+          } else {
+            this.rootPage = HomePage;
+          }
+        });
       }
     });
   }

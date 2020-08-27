@@ -652,4 +652,39 @@ export class DailyTaskPage {
       console.log(this.principals);
     });
   }
+
+  async chooseIsUnion() {
+    if (!this.editable) {
+      return;
+    }
+    let buttons = [];
+    buttons.push(
+      {
+        text: '是',
+        handler: () => {
+          this.taskCheck.isUnion = true;
+          this.taskCheck.unionDepts = '';
+          this.taskCheck.unionUser = '';
+        },
+      },
+      {
+        text: '否',
+        handler: () => {
+          this.taskCheck.isUnion = false;
+          this.taskCheck.unionDepts = '';
+          this.taskCheck.unionUser = '';
+        },
+      },
+    );
+    buttons.push({
+      text: '取消',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      },
+    });
+    const actionSheet = await this.actionSheetController.create({ buttons });
+    await actionSheet.present();
+  }
 }
