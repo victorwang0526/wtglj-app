@@ -49,9 +49,7 @@
               <dd class="enter-col">
                 <button class="enter-btn" (click)="openNotification()">
                   <i class="enter-icon notice-icon"></i>
-                  <ion-badge color="danger" *ngIf="noticeCnt > 0">
-                    {{noticeCnt}}
-                  </ion-badge>
+                  <ion-badge color="danger" *ngIf="noticeCnt > 0"> {{noticeCnt}} </ion-badge>
 
                   <div class="enter-tit">消息通知</div>
                 </button>
@@ -214,9 +212,9 @@
       </dl>
     </div> -->
 
-    <div class="h-finished-task" *ngIf="exams?.length > 0">
+    <div class="h-finished-task">
       <div class="d-finished-tit">安全考试</div>
-      <dl class="h-task-list">
+      <dl class="h-task-list" *ngIf="exams?.length === 0">
         <dd class="h-task-item">
           <div class="h-task-status">
             <i class="task-status-ok"></i>

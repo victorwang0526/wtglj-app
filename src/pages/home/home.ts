@@ -222,8 +222,14 @@ export class HomePage {
     this.navCtrl.push(ExamDetailPage, { examId: exam.id, title: exam.name });
   }
 
-  openEnterprise() {
-    this.navCtrl.push(EnterpriseListPage, {});
+  async openEnterprise() {
+    const alert = await this.alertController.create({
+      message: '功能开发中...',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+    // this.navCtrl.push(EnterpriseListPage, {});
   }
 
   openAdvice() {
