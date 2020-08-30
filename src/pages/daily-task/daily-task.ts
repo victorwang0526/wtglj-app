@@ -67,6 +67,7 @@ export class DailyTaskPage {
       this.principals.push(this.user.id);
       this.init(tc);
     });
+    this.taskCheck.isUnion = this.taskCheck.unionDepts != null;
   }
 
   async init(tc) {
