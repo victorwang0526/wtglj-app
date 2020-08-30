@@ -145,6 +145,7 @@ export class HomePage {
       this.getXunChas();
       this.getExam();
       this.getDanger();
+      this.getNotice();
     });
   }
 
@@ -192,8 +193,14 @@ export class HomePage {
     this.navCtrl.push(InspectTaskCheckGroupPage, { inspectType: '1,3,4' });
   }
 
-  openSelfCheckGroup() {
-    this.navCtrl.push(InspectTaskCheckGroupPage, { inspectType: '2' });
+  async openSelfCheckGroup() {
+    const alert = await this.alertController.create({
+      message: '功能开发中...',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+    // this.navCtrl.push(InspectTaskCheckGroupPage, { inspectType: '2' });
   }
 
   openExercise() {
@@ -222,14 +229,8 @@ export class HomePage {
     this.navCtrl.push(ExamDetailPage, { examId: exam.id, title: exam.name });
   }
 
-  async openEnterprise() {
-    const alert = await this.alertController.create({
-      message: '功能开发中...',
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-    // this.navCtrl.push(EnterpriseListPage, {});
+  openEnterprise() {
+    this.navCtrl.push(EnterpriseListPage, {});
   }
 
   openAdvice() {
