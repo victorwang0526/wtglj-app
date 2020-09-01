@@ -43,8 +43,19 @@ export class ExerciseDetailPage {
     this.examId = navParams.get('examId');
     this.storage.get('user').then((u) => {
       this.user = u;
+      if (this.examId) {
+        this.getData(this.examId);
+      } else {
+        this.examService
+          .getPracticeStatus(this.user.id)
+          .take(1)
+          .subscribe(async (data) => {
+            if (data && data.length) {
+              this.getData(data[0].id);
+            }
+          });
+      }
     });
-    this.getData(this.examId);
   }
 
   ionViewDidLoad() {
@@ -69,9 +80,13 @@ export class ExerciseDetailPage {
       startTime: this.startTime, //开始时间
       itemList,
     };
-    this.examService
-      .achievementSave(data)
-      .subscribe((examResult) => this.navCtrl.push(ExamFinishPage, { examResult }));
+    if (this.user.dept === '1287033692479021057') {
+      this.navCtrl.push(ExamFinishPage);
+    } else {
+      this.examService
+        .achievementSave(data)
+        .subscribe((examResult) => this.navCtrl.push(ExamFinishPage, { examResult }));
+    }
   }
 
   async getData(examId: string) {

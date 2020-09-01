@@ -96,15 +96,6 @@ export class TaskProvider {
       .map((res: any) => res.data.list);
   }
 
-  c(areas: string): Observable<Array<IndustryEnterpriseVo>> {
-    if (!areas || areas == 'null') {
-      areas = '';
-    }
-    return this.http
-      .get(`/sys/sysenterprise/industries?areas=` + areas)
-      .map((res: any) => res.data);
-  }
-
   getGroupUsers(deptId: string): Observable<any[]> {
     return this.http
       .get(`/mobile/exampractice/getGroupUserByUserId/${deptId}`)
@@ -119,12 +110,12 @@ export class TaskProvider {
       .map((res: any) => res.data);
   }
 
-  getIndustryEnterprise(areas: string): Observable<Array<IndustryEnterpriseVo>> {
+  getIndustryEnterprise(areas: string, userId: number): Observable<Array<IndustryEnterpriseVo>> {
     if (!areas || areas == 'null') {
       areas = '';
     }
     return this.http
-      .get(`/sys/sysenterprise/industries?areas=` + areas)
+      .get(`/sys/sysenterprise/industries?areas=${areas}&userId=${userId}`)
       .map((res: any) => res.data);
   }
 

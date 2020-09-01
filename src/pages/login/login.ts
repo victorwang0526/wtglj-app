@@ -7,6 +7,7 @@ import { HomePage } from '../home/home';
 import { JPush } from '@jiguang-ionic/jpush';
 import { RegiserPage } from '../regiser/regiser';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import { ExerciseDetailPage } from '../exercise-detail/exercise-detail';
 
 @Component({
   selector: 'page-login',
@@ -61,7 +62,11 @@ export class LoginPage {
   getUserInfo() {
     this.userService.getUserInfo().subscribe((res: any) => {
       this.storage.set('user', res.data);
-      this.navCtrl.setRoot(HomePage);
+      if (res.data.dept === '1287033692479021057') {
+        this.navCtrl.setRoot(ExerciseDetailPage);
+      } else {
+        this.navCtrl.setRoot(HomePage);
+      }
     });
   }
 

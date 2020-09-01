@@ -5,7 +5,6 @@ import { Storage } from '@ionic/storage';
 import { UserVo } from '../../models/user-vo';
 import { Question } from '../../models/exam-vo';
 import { ExamFinishPage } from '../exam-finish/exam-finish';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'page-exam-detail',

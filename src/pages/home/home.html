@@ -48,11 +48,9 @@
               </dd>
               <dd class="enter-col">
                 <button class="enter-btn" (click)="openNotification()">
-                  <i class="enter-icon notice-icon"></i>
-                  <ion-badge color="danger" *ngIf="noticeCnt > 0">
-                    {{noticeCnt}}
-                  </ion-badge>
-
+                  <i class="enter-icon notice-icon">
+                    <ion-badge color="danger" *ngIf="noticeCnt > 0"> {{noticeCnt}} </ion-badge>
+                  </i>
                   <div class="enter-tit">消息通知</div>
                 </button>
               </dd>
@@ -77,9 +75,9 @@
               <dd class="enter-col">
                 <button class="enter-btn" (click)="openSelfCheckGroup()">
                   <i class="enter-icon self-icon">
-                    <ion-badge color="danger" *ngIf="taskUnfinishedCnt2 > 0"
+                    <!-- <ion-badge color="danger" *ngIf="taskUnfinishedCnt2 > 0"
                       >{{taskUnfinishedCnt2}}</ion-badge
-                    >
+                    > -->
                   </i>
                   <div class="enter-tit">企业自检</div>
                 </button>
@@ -127,7 +125,7 @@
       </dl>
     </div> -->
 
-    <div class="h-finished-task" *ngIf="user && user.deptDTO && user.deptDTO.areas">
+    <div class="h-finished-task">
       <div class="d-finished-tit">专题督查</div>
       <dl class="h-task-list" *ngIf="groups?.length === 0">
         <dd class="h-task-item">
@@ -149,7 +147,7 @@
           </div>
         </dd>
       </dl>
-      <dl class="h-task-list">
+      <dl class="h-task-list" *ngIf="groups?.length > 0">
         <dd class="h-task-item" *ngFor="let g of groups" (click)="openTaskChecks(g)">
           <div class="h-task-status">
             <i
@@ -214,9 +212,9 @@
       </dl>
     </div> -->
 
-    <div class="h-finished-task" *ngIf="exams?.length > 0">
+    <div class="h-finished-task">
       <div class="d-finished-tit">安全考试</div>
-      <dl class="h-task-list">
+      <dl class="h-task-list" *ngIf="exams?.length === 0">
         <dd class="h-task-item">
           <div class="h-task-status">
             <i class="task-status-ok"></i>

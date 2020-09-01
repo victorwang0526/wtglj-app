@@ -19,5 +19,5 @@
       <div class="exam-result-item">错题数：{{data?.errorNum||0}}</div>
     </div>
   </div>
-  <button ion-button block outline (click)="goBack()">返回</button>
+  <button ion-button block outline (click)="goBack()">{{isTourist?'重新练习':'返回'}}</button>
 </ion-content>
