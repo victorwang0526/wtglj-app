@@ -46,6 +46,7 @@ export class MyApp {
         statusBar.styleLightContent();
         // this.getVersion('android');
       } else if (this.platform.is('ios')) {
+        statusBar.overlaysWebView(true);
         statusBar.styleDefault();
         // this.getVersion('ios');
       }
