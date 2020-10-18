@@ -2,15 +2,13 @@
   <ion-navbar>
     <ion-title>日常检查</ion-title>
     <ion-buttons end *ngIf="!taskCheck.operator">
-      <button ion-button (click)="addDanger()">
-        新增隐患
-      </button>
+      <button ion-button (click)="addDanger()">新增隐患</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div style="text-align: center;">
+  <div style="text-align: center">
     <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
   </div>
 
@@ -56,7 +54,7 @@
               <div class="item-info">
                 <div class="item-txt">
                   <ion-select
-                    style="max-width: 100%;"
+                    style="max-width: 100%"
                     placeholder="检查人员"
                     multiple="true"
                     [(ngModel)]="principals"
@@ -72,6 +70,19 @@
                       {{operator.realName}}
                     </ion-option>
                   </ion-select>
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <span class="item-label">备注</span>
+              <div class="item-info">
+                <div class="item-txt">
+                  <input
+                    type="text"
+                    placeholder="请输入备注"
+                    [(ngModel)]="taskCheck.remark"
+                    [disabled]="!editable"
+                  />
                 </div>
               </div>
             </div>
@@ -157,7 +168,7 @@
                   >
                 </div>
 
-                <div class="c-form-remark" style="display: none;">
+                <div class="c-form-remark" style="display: none">
                   <div class="remark-info">
                     <span class="c-label">备注：</span>
                     <div class="remark-txt">

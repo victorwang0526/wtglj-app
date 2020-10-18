@@ -45,7 +45,7 @@ export class EnterpriseSearchPage {
       .subscribe((key) =>
         this.userProvider.getEnterprise(key, this.user.id).subscribe((data) => {
           this.enterprises = data.data.list;
-          this.isShowAdd = this.enterprises.length === 0;
+          this.isShowAdd = this.enterprises.length === 0 && this.user.dept === '1067246875808';
         }),
       );
   }
