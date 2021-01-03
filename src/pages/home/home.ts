@@ -23,8 +23,8 @@ import { ExamProvider } from '../../providers/exam-provider';
 import { Exam } from '../../models/exam-vo';
 import { ExamDetailPage } from '../exam-detail/exam-detail';
 import { PunishListPage } from '../punish-list/punish-list';
-import { take } from 'rxjs/operator/take';
 import { NotificationProvider } from '../../providers/notification-provider';
+import {LawPage} from "../law/law";
 
 @Component({
   selector: 'page-home',
@@ -194,13 +194,7 @@ export class HomePage {
   }
 
   async openSelfCheckGroup() {
-    const alert = await this.alertController.create({
-      message: '功能开发中...',
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-    // this.navCtrl.push(InspectTaskCheckGroupPage, { inspectType: '2' });
+    this.navCtrl.push(LawPage);
   }
 
   openExercise() {

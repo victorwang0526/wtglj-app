@@ -58,6 +58,8 @@ import { RegiserPage } from '../pages/regiser/regiser';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { HiddenDangerPage } from '../pages/hidden-danger/hidden-danger';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {LawPage} from "../pages/law/law";
+import {LawDetailPage} from "../pages/law-detail/law-detail";
 
 // @ts-ignore
 @NgModule({
@@ -93,6 +95,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     RegiserPage,
     ForgotPasswordPage,
     HiddenDangerPage,
+    LawPage,
+    LawDetailPage
   ],
   imports: [
     HttpClientModule,
@@ -143,6 +147,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     RegiserPage,
     ForgotPasswordPage,
     HiddenDangerPage,
+    LawPage,
+    LawDetailPage
   ],
   providers: [
     CallNumber,
