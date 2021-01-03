@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>法律法规</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="page home js_show">
+    <div class="page__bd page__bd_spacing">
+      <ion-card *ngFor="let law of laws" (click)="currentLaw = currentLaw ? '' : law.name">
+        <ion-card-header>
+          <ion-card-title>{{law.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content *ngIf="currentLaw == law.name">
+          <ion-item detail *ngFor="let item of law.items" (click)="openDetail(item)">
+            <ion-label>{{item.name}}</ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
