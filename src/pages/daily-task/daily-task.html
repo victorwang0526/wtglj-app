@@ -345,6 +345,41 @@
                         </div>
                       </div>
                     </ng-container>
+
+                    <!-- 现场整改 -->
+                    <ng-container *ngIf="p.punishType===7">
+                      <div class="list-item">
+                        <span class="item-label">整改情况</span>
+                        <div class="item-info">
+                          <div class="item-txt">
+                            <input
+                              type="text"
+                              placeholder="请输入整改描述"
+                              [(ngModel)]="p.rectifyCompleteDesc"
+                              disabled="{{!editable}}"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="list-item upload-pic">
+                        <span class="item-label">整改图片</span>
+                        <div class="item-info">
+                          <ng-container *ngIf="p.rectifyCompleteImagesUrls">
+                            <div class="pic-col" *ngFor="let imgUrl of p.rectifyCompleteImagesUrls.split(',')">
+                              <i
+                                class="del-icon"
+                                (click)="removeImgP(p, imgUrl)"
+                                *ngIf="!taskCheck.operatorId"
+                              ></i>
+                              <img src="{{imgUrl}}" alt="" (click)="openPreview(imgUrl)" />
+                            </div>
+                          </ng-container>
+                          <div class="pic-col" *ngIf="!taskCheck.operatorId">
+                            <button class="add-pic-btn" (click)="cameraChooseP(p)"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
                     <div class="list-item" *ngIf="editable">
                       <button class="del-full-btn" (click)="removePunish(danger, p)">删除</button>
                     </div>

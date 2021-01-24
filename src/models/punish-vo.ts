@@ -13,6 +13,8 @@ export class PunishVo {
 
   taskCheckItemId: number;
 
+  imgLoading: boolean = false;
+
   /**
    * 处罚缘由
    */

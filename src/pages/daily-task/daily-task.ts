@@ -479,6 +479,10 @@ export class DailyTaskPage {
     danger.problemImageUrls = danger.problemImageUrls.replace(imgUrl + ',', '');
     danger.problemImageUrls = danger.problemImageUrls.replace(imgUrl, '');
   }
+  removeImgP(p: PunishVo, imgUrl: string) {
+    p.rectifyCompleteImagesUrls = p.rectifyCompleteImagesUrls.replace(imgUrl + ',', '');
+    p.rectifyCompleteImagesUrls = p.rectifyCompleteImagesUrls.replace(imgUrl, '');
+  }
 
   addDanger() {
     let d = new DangerVo();
@@ -569,6 +573,42 @@ export class DailyTaskPage {
     await actionSheet.present();
   }
 
+  async cameraChooseP(p: PunishVo) {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: '拍照',
+          icon: 'camera',
+          handler: () => {
+            this.cameraOpenP(PictureSourceType.CAMERA, p);
+          },
+        },
+        {
+          text: '相册',
+          icon: 'folder',
+          handler: () => {
+            this.cameraOpenP(PictureSourceType.SAVEDPHOTOALBUM, p);
+          },
+          // }, {
+          //   text: 'test',
+          //   handler: () => {
+          //     const imageData = 'iVBORw0KGgoAAAANSUhEUgAAADUAAAA0CAYAAAAqunDVAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAzCDPIMRgycCRmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsgsEY19jWyvZ9bp5ZtP558v8QBTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwCETV0AEc4kCwAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAANaADAAQAAAABAAAANAAAAAD50QR6AAABA0lEQVRoBe2YMQ6EQAhFR2Np9gaWWtjZ7f0PsY23MPa7cRMbowkDOCD5NsYMDMN/CMaqG8ZvCnbVwfL5p4OknkIVpEDKUAGUn6H4WaFBKksuQ+Pmrtivtk1j319uv6xr+szz5bpkAeUnUa+kbyX5Sj8rsdyy0tjjKFjI8lNvFJvy72k6ilf0OSQpJFW0hgTBQEogXlFX1e6XO6P2TM9m1b7GuYcsP1VSHmbURjYkKSTFeWktfEDKQnVOTNXuhznFQUD0USWFOUVUnWOG7sdRzcInJCnRLzILCpSYIUkhKQp6DzYg5YEC5QwgRVHJgw1IeaBAOQNIUVTyYANSHihQzhCS1A9sAiT2ApsH7wAAAABJRU5ErkJggg==';
+          //     this.uploadImg(imageData, subItem);
+          //   }
+        },
+        {
+          text: '取消',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
   uploadImg(imageData: any, danger: DangerVo) {
     fetch(`data:application/octet-stream;base64,${imageData}`)
       .then((res) => res.blob())
@@ -588,6 +628,44 @@ export class DailyTaskPage {
           },
         );
       });
+  }
+  uploadImgP(imageData: any, p: PunishVo) {
+    fetch(`data:application/octet-stream;base64,${imageData}`)
+      .then((res) => res.blob())
+      .then((blob) => {
+        p.imgLoading = true;
+        this.uploadProvider.upload(blob).subscribe(
+          (src) => {
+            if (!p.rectifyCompleteImagesUrls) {
+              p.rectifyCompleteImagesUrls = src;
+            } else {
+              p.rectifyCompleteImagesUrls = p.rectifyCompleteImagesUrls + ',' + src;
+            }
+          },
+          () => {},
+          () => {
+            p.imgLoading = false;
+          },
+        );
+      });
+  }
+
+  cameraOpenP(sourceType: number, p: PunishVo) {
+    const options: CameraOptions = {
+      quality: 80,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType,
+    };
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        this.uploadImgP(imageData, p);
+      },
+      (err) => {
+        // Handle error
+      },
+    );
   }
 
   cameraOpen(sourceType: number, danger: DangerVo) {
