@@ -94,7 +94,7 @@ export class DailyTaskPage {
       }
       this.taskCheck.inspect = inspectVo;
     } else {
-      this.taskCheck.operateDate = new Date();
+      this.taskCheck.operateDate = new Date().toISOString();
       this.getDict();
       this.getInspects();
       this.getDangerTypes();
@@ -137,6 +137,14 @@ export class DailyTaskPage {
       this.alertCtrl
         .create({
           title: '请填写企业名称',
+        })
+        .present({});
+      return;
+    }
+    if (!this.taskCheck.operateDate) {
+      this.alertCtrl
+        .create({
+          title: '请选择检查日期',
         })
         .present({});
       return;

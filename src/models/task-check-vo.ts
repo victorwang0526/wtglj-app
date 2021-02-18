@@ -72,7 +72,7 @@ export class TaskCheckVo {
   /**
    * 更新时间
    */
-  operateDate: Date;
+  operateDate: string;
 
   /** 负责人名称列表 */
   principals: string;

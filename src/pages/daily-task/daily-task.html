@@ -45,7 +45,15 @@
             <div class="list-item">
               <span class="item-label">检查日期</span>
               <div class="item-info">
-                <div class="item-txt c-grey-9">{{taskCheck.operateDate | date : 'yyyy-MM-dd'}}</div>
+                <div class="item-txt c-grey-9">
+                  <ion-datetime
+                    displayFormat="YYYY-MM-DD"
+                    [(ngModel)]="taskCheck.operateDate"
+                    [cancelText]="'取消'"
+                    [doneText]="'确定'"
+                    [disabled]="!editable"
+                  ></ion-datetime>
+                </div>
                 <i class="u-arrow-right" *ngIf="!taskCheck.operator"></i>
               </div>
             </div>

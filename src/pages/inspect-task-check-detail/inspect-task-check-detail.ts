@@ -344,7 +344,7 @@ export class InspectTaskCheckDetailPage {
     let user: UserVo = await this.storage.get('user');
     this.taskCheck.operator = user.realName;
     this.taskCheck.operatorId = user.id;
-    this.taskCheck.operateDate = new Date();
+    this.taskCheck.operateDate = new Date().toISOString();
     this.taskCheck.inspect = this.inspect;
     this.taskCheck.principals = this.principals.join(',');
     this.taskCheck.dangers = [];
