@@ -28,6 +28,9 @@ export class InspectTaskCheckPage {
   groupAreas: any[] = [{ dictLabel: '全部', dictValue: '' }];
   groupindustries: any[] = [{ dictLabel: '全部', dictValue: '' }];
 
+  highestLevel: Array<DictDataVo> = new Array<DictDataVo>();
+  levelColor: Object = {'0': '#fefefe'};
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -40,14 +43,33 @@ export class InspectTaskCheckPage {
     this.storage.get('user').then((u) => {
       this.user = u;
       this.getDict();
+      this.getDict2();
     });
   }
+
 
   keyChange(e: any) {
     this.key = e.target.value;
     this.page = 1;
     this.getTaskChecks();
   }
+
+
+  getDict2() {
+    this.dictProvider.getDicts('highestLevel').subscribe((data) => {
+      if(data && data.data && data.data.length > 0 && data.data[0].dataList && data.data[0].dataList.length > 0) {
+        this.highestLevel = data.data[0].dataList;
+        for(let i = 0; i < data.data[0].dataList.length; i++) {
+          this.levelColor[data.data[0].dataList[i].dictValue] = data.data[0].dataList[i].remark;
+        }
+      }
+    });
+  }
+
+  getEnterpriceColor(task) {
+    return this.levelColor[task.enterpriseLevel];
+  }
+
 
   getDict() {
     this.dictProvider.getDicts('area,industry').subscribe((data) => {

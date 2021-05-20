@@ -16,6 +16,11 @@ page-inspect-task-check {
     margin-bottom: 1rem;
     background: #fff;
     border-radius: .5rem;
+    &.g-level{
+      border-left-width:.5rem;
+      border-left-style: solid;
+      box-sizing: border-box;
+    }
   }
   .c-group-info{
     min-width: 0;

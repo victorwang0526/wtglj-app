@@ -53,7 +53,8 @@
   <!--  </div>-->
 
   <dl class="check-group" *ngIf="tasks && tasks.length > 0">
-    <dd class="c-group-row" *ngFor="let task of tasks" (click)="openInspectDetail(task)">
+    <dd class="c-group-row g-level" *ngFor="let task of tasks" (click)="openInspectDetail(task)"
+        [ngStyle]="{'border-left-color': getEnterpriceColor(task)}">
       <div class="c-group-info">
         <h4 class="c-group-tit">{{task.enterpriseName}}</h4>
         <div class="check-time" *ngIf="task.operateDate != null">

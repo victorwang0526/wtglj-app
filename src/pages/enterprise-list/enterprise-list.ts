@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { IndustryEnterpriseVo } from '../../models/industry-enterprise-vo';
 import { CallNumber } from '@ionic-native/call-number';
 import { EnterpriseVo } from '../../models/enterprise-vo';
+import {DictProvider} from "../../providers/dict-provider";
+import {DictDataVo} from "../../models/dict-data-vo";
 
 @Component({
   selector: 'page-enterprise-list',
@@ -19,11 +21,14 @@ export class EnterpriseListPage {
 
   industries: Array<string> = new Array<string>();
   selectedIndustry: string = '';
+  highestLevel: Array<DictDataVo> = new Array<DictDataVo>();
+  levelColor: Object = {'0': '#fefefe'};
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public taskProvider: TaskProvider,
+    private dictProvider: DictProvider,
     private callNumber: CallNumber,
     public alertController: AlertController,
     public actionSheetCtrl: ActionSheetController,
@@ -59,6 +64,23 @@ export class EnterpriseListPage {
         },
       );
     });
+    this.getDict();
+  }
+
+
+  getDict() {
+    this.dictProvider.getDicts('highestLevel').subscribe((data) => {
+      if(data && data.data && data.data.length > 0 && data.data[0].dataList && data.data[0].dataList.length > 0) {
+        this.highestLevel = data.data[0].dataList;
+        for(let i = 0; i < data.data[0].dataList.length; i++) {
+          this.levelColor[data.data[0].dataList[i].dictValue] = data.data[0].dataList[i].remark;
+        }
+      }
+    });
+  }
+
+  getEnterpriceColor(enterprise) {
+    return this.levelColor[enterprise.level];
   }
 
   openEnterprise(enterprise: EnterpriseVo) {

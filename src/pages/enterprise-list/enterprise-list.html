@@ -35,7 +35,7 @@
         <ion-label>{{industryEnterprise.industryName}}</ion-label>
       </ion-item-divider>
       <dl class="check-group">
-        <dd class="c-group-row"
+        <dd class="c-group-row g-level"  [ngStyle]="{'border-left-color': getEnterpriceColor(enterprise)}"
             *ngFor="let enterprise of industryEnterprise.enterprises | enterpriseFilter: key">
           <div class="c-group-info" (click)="openEnterprise(enterprise)">
             <h4 class="c-group-tit">{{enterprise.name}}</h4>
