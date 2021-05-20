@@ -36,6 +36,8 @@ export class TaskCheckVo {
    * 企业名称
    */
   enterpriseName: string;
+
+  enterpriseLevel: string;
   /**
    * 行业
    */

@@ -22,7 +22,7 @@
             <div class="list-item item-hd" (click)="openSearch()">
               <span class="item-label">企业名称</span>
               <div class="item-info">
-                <div class="item-txt c-grey-9">{{taskCheck.enterpriseName}}</div>
+                <div class="item-txt c-grey-9" [ngStyle]="{'color': getEnterpriceColor(taskCheck)}">{{taskCheck.enterpriseName}}</div>
                 <i class="u-arrow-right" *ngIf="!taskCheck.operator"></i>
               </div>
             </div>

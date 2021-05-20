@@ -57,6 +57,7 @@ export class EnterpriseSearchPage {
   choose(enterprise) {
     this.taskCheck.enterpriseName = enterprise.name;
     this.taskCheck.enterpriseId = enterprise.id;
+    this.taskCheck.enterpriseLevel = enterprise.level;
     this.navCtrl.pop({});
   }
 

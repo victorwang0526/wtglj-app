@@ -46,6 +46,8 @@ export class DailyTaskPage {
   user: UserVo;
   operators: any[] = [];
   principals: any[] = [];
+  highestLevel: Array<DictDataVo> = new Array<DictDataVo>();
+  levelColor: Object = {'0': '#fefefe'};
 
   constructor(
     public navCtrl: NavController,
@@ -66,7 +68,24 @@ export class DailyTaskPage {
       this.user = u;
       this.principals.push(this.user.id);
       this.init(tc);
+      this.getDict2();
     });
+  }
+
+
+  getDict2() {
+    this.dictProvider.getDicts('highestLevel').subscribe((data) => {
+      if(data && data.data && data.data.length > 0 && data.data[0].dataList && data.data[0].dataList.length > 0) {
+        this.highestLevel = data.data[0].dataList;
+        for(let i = 0; i < data.data[0].dataList.length; i++) {
+          this.levelColor[data.data[0].dataList[i].dictValue] = data.data[0].dataList[i].remark;
+        }
+      }
+    });
+  }
+
+  getEnterpriceColor(item) {
+    return this.levelColor[item.enterpriseLevel];
   }
 
   async init(tc) {
